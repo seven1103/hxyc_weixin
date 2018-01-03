@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html ng-app = "my">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+		<meta http-equiv="Pragma" content="no-cache" />
+		<meta http-equiv="Expires" content="0" />
+		<title>我的收藏</title>
+		<script src="../../js/userAgent.js" type="text/javascript" charset="utf-8"></script>
+		<link rel="stylesheet" type="text/css" href="../../css/mui.min.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/all.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/my.css"/>
+		<style type="text/css">
+			.my-collect p:nth-child(1){
+				color: #000000;
+				font-weight:500;
+			}
+			.mui-content{margin-bottom: 0;}
+		</style>
+	</head>
+	<body>
+		<div class="mui-content" ng-controller = "my_collect">
+			<div id="pullrefresh" class="mui-content mui-scroll-wrapper">
+			<div class="mui-scroll" id="scroll">
+				<div class="my-collect-box">
+					
+				</div>
+			</div>
+			</div>
+		</div>
+		<script src="../../js/jquery-1.8.3.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/angular.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/all.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/public_templete.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/my.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			//	下拉刷新
+				mui.init({
+			        pullRefresh: {
+			            container: '#pullrefresh',
+			            up: {
+			            	auto:true,
+			                contentrefresh: '正在加载...',
+			                callback: pullupRefresh
+			            }
+			        }
+			    });
+			    
+//			    记录下一页数据
+				var num = '';
+                var userid = JSON.parse(window.localStorage.getItem('userinfo')).user._id;
+			    function pullupRefresh(){
+			    	if(num==null){
+			    		mui('#pullrefresh').pullRefresh().endPullupToRefresh(true);
+			    	}else{
+			    		HuaXia.Ajax({
+				    		type:'get',
+				    		url:API.MALL.favorites,
+				    		data:{user_id:userid,next_start:num}
+				    	},function(data){
+				    	if(data.goods==undefined){
+				    		//授权跳转
+				    		$("html").css("height",'100%');
+				    		$("body").html(notdata(data.msg)).css("height","100%");
+				    		//window.location.replace(auth());
+				    		return ;
+				    	}
+				    	
+			    		if(data.goods.length==0){
+			    			mui('#pullrefresh').pullRefresh().endPullupToRefresh(true);
+			    			$("#scroll").html(notdata('这里空空的,快去商城看看吧!')).css("height",'100%');
+			    		}else{
+			    		for(var i=0;i<data.goods.length;i++){
+//			    			判断收藏类型
+							if(data.goods[i].type==0){
+								if(data.goods[i].family){
+									var goodsname ='贫困户:'+ data.goods[i].family.name;
+									var helpname = '帮扶干部:'+data.goods[i].family.help_name;
+								}else{
+									var goodsname ='贫困户:未知';
+									var helpname = '帮扶干部:未知';
+								}
+								
+							}else{
+								var goodsname = '认销单位:'+data.goods[i].enterprise.name;
+								var helpname = '';
+							}
+							var timed = HuaXia.format(data.goods[i].delivery.start,1)+'至'+HuaXia.format(data.goods[i].delivery.end,1);
+			    			var ev = document.getElementsByClassName('my-collect-box')[0];
+			    			var dom = 'ul';
+			    			var obj = ['class','mui-table-view my-collect'];
+			    			var html = '<li class="mui-table-view-cell" id="'+data.goods[i]._id+'">'+
+			    					   '<img src="'+IMG_web+data.goods[i].cover+'" />'+
+									   '<div class="my-collect">'+
+									   '<p class="Text_ellipsis">'+data.goods[i].name+'</p>'+
+									   '<p class="flex_between"><span><span></span><span class="item-price">&yen;'+
+			    					   '<span style="font-size: 15px;">'+data.goods[i].price.toFixed(2)+'</span>/'+data.goods[i].unit+'</span>'+
+			    					   '</span><span class="item-store" style="color: #8f8f94;">库存：'+(data.goods[i].amount-data.goods[i].sales)+'</span>'+
+									   '</p>'+
+			    					   '<p class="flex_between"><span>'+goodsname+'</span><span>'+helpname+'</span></p>'+
+									   '<p class="Ontime">收获时间：'+(data.goods[i].delivery.ready==1?'现货':timed)+'</p></div></li>'+
+			    					   '<li class="mui-table-view-cell"><button type="button" onclick ="cancel(this)" style="background:#7CDA7B;color:#fff">取消收藏</button></li>';
+							HuaXia.Addhtml(ev,dom,html,obj);
+							
+			    		}
+				    		mui('#pullrefresh').pullRefresh().endPullupToRefresh();
+							num = data.goods.next_start;
+			    		}
+				    	});
+			    	}
+			    }
+//				操作
+				function cancel(ev){
+					var btnArray = ['是', '否'];
+					var text = ev.parentNode.parentNode.firstChild.querySelector('.Text_ellipsis');
+					var text1 = $(text).html();
+					mui.confirm('是否删除当前收藏', text1, btnArray, function(e) {
+						if (e.index == 0) {
+							var id = ev.parentNode.parentNode.firstChild.getAttribute("id",id);
+							var apiUrl = API.MALL.unfavorite.replace(/<goods_id>/,id);
+							HuaXia.Ajax({
+						    		type:'delete',
+						    		url:apiUrl,
+						    		data:{user_id:userid}
+						    },function(data){
+							    if(data){
+									ev.parentNode.parentNode.remove();
+									mui.toast('删除成功!');
+								}
+						    });
+						}
+					});
+				}
+
+				mui('.my-collect-box').on('tap','.mui-table-view-cell:nth-child(1)',function(){
+					//获取参数
+					var id = this.getAttribute("id");
+					var aipUrl = API.MALL.shopDetail.replace(/<goods_id>/,id);
+					HuaXia.Ajax({
+                        type:'get',
+                        url:aipUrl,
+                    },function(data){
+		                window.sessionStorage.setItem("pay_goods",JSON.stringify(data.goods));
+		                location.href=serverPath.helpStore() + "pay_detail.html?id="+id;
+                    })
+				});
+		</script>
+	</body>
+</html>

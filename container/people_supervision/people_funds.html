@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html ng-app = "people_supervision">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+		<meta http-equiv="Pragma" content="no-cache" />
+		<meta http-equiv="Expires" content="0" />
+		<title>民生资金</title>
+		<link rel="stylesheet" type="text/css" href="../../css/mui.min.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/all.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/people_supervision.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/wx_icon.css"/>
+		<script src="../../js/userAgent.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/angular.min.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<header class="header"></header>
+		<div class="mui-content" ng-controller = "people_funds">
+			<div id="pullrefresh" class="mui-content mui-scroll-wrapper" style="top:35px">
+			<div class="mui-scroll" id="people_funds">
+			<ul class="mui-table-view people_founds">
+				<!--<li class="mui-table-view-cell">
+					<a href="people_funds_detail.html">
+						<h4>毕节市金海湖新区新双大道项目</h4>
+						<p>发布单位:<span>金海湖新区管委会</span></p>
+						<p class="look">发布时间:<span>2012.03.21</span><span>300<i class="icon wx-guankan-"></i></span></p>
+					</a>
+				</li>
+				<li class="mui-table-view-cell">
+					<a href="#">
+						<h4>毕节市金海湖新区新双大道项目</h4>
+						<p>发布单位:<span>金海湖新区管委会</span></p>
+						<p class="look">发布时间:<span>2012.03.21</span><span>300<i class="icon wx-guankan-"></i></span></p>
+					</a>
+				</li>
+				<li class="mui-table-view-cell">
+					<a href="#">
+						<h4>毕节市金海湖新区新双大道项目</h4>
+						<p>发布单位:<span>金海湖新区管委会</span></p>
+						<p class="look">发布时间:<span>2012.03.21</span><span>300<i class="icon wx-guankan-"></i></span></p>
+					</a>
+				</li>
+				<li class="mui-table-view-cell">
+					<a href="#">
+						<h4>毕节市金海湖新区新双大道项目</h4>
+						<p>发布单位:<span>金海湖新区管委会</span></p>
+						<p class="look">发布时间:<span>2012.03.21</span><span>300<i class="icon wx-guankan-"></i></span></p>
+					</a>
+				</li>-->
+			</ul>
+			</div></div>
+		</div>
+		<script src="../../js/jquery-1.8.3.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/angular-route.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/public_templete.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/people_supervision.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/all.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			//  下拉刷新
+			    mui.init({
+			        pullRefresh: {
+			            container: '#pullrefresh',
+			            up: {
+			                contentrefresh: '正在加载...',
+			                callback: pullupRefresh
+			            }
+			        }
+			    });
+			    var num = '';
+			    function pullupRefresh(){
+			    	/*mui.alert('下拉加载');
+			       mui('#pullrefresh').pullRefresh().endPullupToRefresh();*/
+			      if(num==null){
+			      	mui('#pullrefresh').pullRefresh().endPullupToRefresh(true);
+			      }else{
+			      		HuaXia.Ajax({
+				    		type:'get',
+				    		url:API.PROJECTS.FundsList,
+				    		data : {next_start:num}
+				    	},function(data){
+				    		console.log(data)
+					    	if(data.projects.length==0){
+				    			mui('#pullrefresh').pullRefresh().endPullupToRefresh(true);
+				    			$("#people_funds").html(notdata("暂无任何数据")).css("height","100%");
+				    		}else{
+				    			for(var i=0;i<data.projects.length;i++){
+				    				var ev = document.getElementsByClassName('mui-table-view')[0];
+				    				var dom = 'li';
+				    				var obj = ['class','mui-table-view-cell','id',data.projects[i]._id];
+				    				//var time = parseInt(data.projects[i].timed/100);
+				    				var Date = HuaXia.format(data.projects[i].timed,1);
+									
+				    				console.log(Date);
+				    				var html = '<h4 class="Text_ellipsis">'+data.projects[i].title+'</h4>'+
+				    						   '<p>发布单位:<span>'+data.projects[i].gov.name+'</span></p>'+
+				    						   '<p class="look">发布时间:<span>'+Date+'</span><span>'+data.projects[i].views+'<i class="icon wx-guankan-"></i></span></p>';
+				    				HuaXia.Addhtml(ev,dom,html,obj);
+				    			}
+				    			mui('#pullrefresh').pullRefresh().endPullupToRefresh();
+								num = data.next_start;
+				    		}
+				    	});
+			      	}
+			    }
+			    
+			    if (mui.os.plus) {
+					mui.plusReady(function() {
+						setTimeout(function() {
+							mui('#pullrefresh').pullRefresh().pullupLoading();
+						}, 1000);
+	
+					});
+				} else {
+					mui.ready(function() {
+							mui('#pullrefresh').pullRefresh().pullupLoading();
+						
+					});
+				}
+		</script>
+	</body>
+</html>

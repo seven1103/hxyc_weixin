@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html ng-app = 'app'>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>数据遍历</title>
+		<link rel="stylesheet" type="text/css" href="../../css/mui.min.css"/>
+		<script src="../../js/angular.min.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body ng-controller="myApp">
+		<button ng-click="add();">加载</button>
+		<ul class="mui-table-view">
+			<li class="mui-table-view-cell" ng-repeat="x in names">
+				{{x.Name}}
+			</li>
+		</ul>
+		<script type="text/javascript">
+			var app = angular.module('app', []); 
+			app.controller('myApp', function($scope) {
+				var data = {
+				    "sites": [
+				        {
+				            "Name": "菜鸟教程",
+				            "Url": "www.runoob.com",
+				            "Country": "CN"
+				        },
+				        {
+				            "Name": "Google",
+				            "Url": "www.google.com",
+				            "Country": "USA"
+				        },
+				        {
+				            "Name": "Facebook",
+				            "Url": "www.facebook.com",
+				            "Country": "USA"
+				        },
+				        {
+				            "Name": "微博",
+				            "Url": "www.weibo.com",
+				            "Country": "CN"
+				        }
+				    ]
+				};
+				var data1 = {
+				    "sites": [
+				        {
+				            "Name": "菜鸟教程1",
+				            "Url": "www.runoob.com",
+				            "Country": "CN"
+				        },
+				        {
+				            "Name": "Google1",
+				            "Url": "www.google.com",
+				            "Country": "USA"
+				        },
+				        {
+				            "Name": "Facebook1",
+				            "Url": "www.facebook.com",
+				            "Country": "USA"
+				        },
+				        {
+				            "Name": "微博1",
+				            "Url": "www.weibo.com",
+				            "Country": "CN"
+				        }
+				    ]
+				};
+		$scope.names = data.sites;
+		$scope.add = function(){
+			/*console.log(data1.sites.length);*/
+			for(var i=0;i<data1.sites.length;i++){
+				$scope.names.push(data1.sites[i]);
+			}
+		}
+			});
+		</script>
+	</body>
+</html>

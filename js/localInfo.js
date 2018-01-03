@@ -1,0 +1,1 @@
+var my = angular.module('localInfo',['public']);

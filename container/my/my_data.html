@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html ng-app = "my" ng-controller = 'my_data'>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+		<meta http-equiv="Pragma" content="no-cache" />
+		<meta http-equiv="Expires" content="0" />
+		<title>个人资料</title>
+		<link rel="stylesheet" type="text/css" href="../../css/mui.min.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/all.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/my.css"/>
+		<script src="../../js/angular.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/userAgent.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<style type="text/css">
+		.my-data .mui-table-view-cell span{
+			font-size: 16px;
+		}
+		.getGoodsinfo{
+			font-size: 14px;
+		}
+		@media only screen and (max-width:320px ){
+			.my-data .mui-table-view-cell span{
+			font-size: 14px;
+		}
+		.getGoodsinfo{
+			font-size: 12px;
+		}
+		}
+		input[type=date], input[type=datetime-local], input[type=datetime], input[type=email], input[type=month], input[type=number], input[type=password], input[type=search], input[type=tel], input[type=text], input[type=time], input[type=url], input[type=week], select, textarea{
+			height: 25px;
+			border: none;
+			background: transparent;
+			text-align: right;
+			padding: 0;
+			margin: 0;
+		}
+		select{width: 60px;
+			appearance: none;
+			-webkit-appearance: none;
+			-moz-appearance: none;
+			border: none;
+			direction: rtl;/*改变文字的对齐方向*/
+		}
+		span#avator{position: relative;}
+		span#avator input{opacity:0;z-index:1;position: absolute; height: 50px; width: 50px;border-radius: 100%;left: 0;top: 0;}
+	</style>
+	<body ng-cloak>
+		<div class="mui-content">
+			<div class="mui-table-view my-data">
+				<div class="mui-table-view-cell">
+					<span>头像</span>
+					<span id="avator">
+						<img src= {{data.avatar}} onerror="javscript:this.src='../../img/icon/avator_default.png'" />
+						<!--<input onchange="angular.element(this).scope().getFile(this)" type="file" name="file" id="file" value="" />-->
+					</span>
+				</div>
+				<div class="mui-table-view-cell">
+					<span>昵称</span>
+                    <span><input type="text" name="nick" readonly="readonly" ng-model = "name" /></span>
+					<!--<span><input type="text" name="nick"  ng-blur = "cancel(name,'nick')" ng-model = "name" /></span>-->
+				</div>
+				<div class="mui-table-view-cell">
+					<span>性别</span>
+					<!--<span>
+						<select name="" ng-model="selectValue" readonly="readonly"  ng-change="changeSelect(selectValue)">
+							<option value="0">女</option>
+							<option value="1">男</option>
+							<option value="2"}">未设定</option>
+						</select>
+					</span>-->
+                    <span ng-if="selectValue==0">女</span>
+                    <span ng-if="selectValue==1">男</span>
+                    <span ng-if="selectValue==2">未设定</span>
+				</div>
+			</div>
+			<div class="mui-table-view my-data" style="margin-top: 10px;">
+				<div class="mui-table-view-cell" style="padding-top: 5px;padding-bottom: 5px;">
+					<span style="color: #999999;" class="getGoodsinfo">收货人信息</span>
+				</div>
+				<div class="mui-table-view-cell">
+					<span>收货人</span>
+					<span><input type="text" name="rec_name"  ng-blur = "cancel(Receive,'rec_name')" ng-model = "Receive" /></span>
+				</div>
+				<div class="mui-table-view-cell">
+					<span>联系地址</span>
+					<span style="text-align: right;">
+						<!--<span id="addressspan"></span>-->
+						<input id="addressinput" type="text" name="rec_address"  ng-model = "userAddress" ng-blur = "cancel(userAddress,'rec_address')" placeholder="暂无" />
+					</span>
+				</div>
+				<div class="mui-table-view-cell">
+					<span>联系电话</span>
+					<span><input type="tel" name="rec_tel"  ng-blur = "cancel(tel,'rec_tel')" ng-model = "tel" placeholder="暂无" /></span>
+				</div>
+                <div class="mui-table-view-cell">
+					<span>所属单位</span>
+					<span><input type="text" name="gov_name"  ng-blur = "cancel(gov_name,'gov_name')" ng-model = "gov_name" placeholder="暂无" /></span>
+				</div>
+			</div>
+		</div>
+		<script src="../../js/jquery-1.8.3.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/public_templete.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/all.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/my.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+</html>

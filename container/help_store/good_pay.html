@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html ng-app = "help_store" ng-controller="goodPayCtrl">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+		<meta http-equiv="Pragma" content="no-cache" />
+		<meta http-equiv="Expires" content="0" />
+		<title>扶贫商城</title>
+		<link rel="stylesheet" type="text/css" href="../../css/mui.min.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/wx_icon.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/wx_talent.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/wx_response.css"/>
+		<script src="../../js/userAgent.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<style type="text/css">
+		.mui-content{
+			background: white;
+		}
+		.mui-table-view-cell.active{
+			background-color: #FFFFFF!important;
+		}
+	</style>
+	<body ng-cloak>
+		<div class="wx_tip" style="display: none;" id="wx_tip">2222</div>
+		<wx-header ></wx-header >
+		<div class="mui-content mui-content mui-scroll-wrapper"  style="padding-bottom: 70px;">
+			<div class="mui-scroll">
+				<div class="good_pay_detail" style="margin-top:0" value="{{data._id}}" ng-click="go_detail($event,index)">
+					<img onerror="javascript:this.src='../../img/icon/banner.png'" ng-src="{{data.cover|getUrl}}" />
+					<div class="good_pay_introduce">
+						<h2>{{data.name}}</h2>
+						<p class="pay_good_num" ng-if="data.type==0">
+							<span>贫困户 : <span>{{data.family.name}}</span></span></span>
+							<span>帮扶干部 : <span>{{data.family.help_name}}</span></span>
+						</p>
+						<p class="pay_good_num" ng-if="data.type==1">
+							<span>认销单位: <span>{{data.enterprise.name}}</span></span>
+						</p>
+						<p class="pay_good_num">
+							<span class="pay_good_getTime">单价 : <span><span>&yen;</span><span ng-bind="good_price||getPriceDec"></span><span>/{{data.unit}}</span></span></span>
+							<span>剩余库存 : <span>{{allNum}}{{data.unit}}</span></span>
+						</p>
+						<p class="pay_good_getTime" style="justify-content: flex-start;">收货时间 : <span style="color: #000;">{{delivery_time}}</span></p>
+					</div>
+				</div>
+				<!--用户信息-->
+				<ul class="mui-table-view good_pay_info">
+			        <li class="mui-table-view-cell">
+			            <span>购买数量</span>
+			            <div class="good_pay_addNum">
+			            	<div id="good_num_reduce" ng-click="reduceNum()">-</div>
+			            	<span ng-bind="good_num">1</span>
+			            	<div id="good_num_add" ng-click="addNum()">+</div>
+			            </div>
+			        </li>
+			        <li class="mui-table-view-cell Prompt">
+				          <span>收货人</span>  
+				          <span>{{data.goods_person}}</span>  
+				    </li>
+			        <li class="mui-table-view-cell Prompt">
+			          <span>联系电话</span>  
+			          <span>{{data.goods_phone}}</span>  
+			        </li>
+			        <li class="mui-table-view-cell Prompt">
+			        	<span>联系地址</span>
+			        	<div class="good_pay_location"><span>{{data.goods_address}}</span><i class="mui-icon mui-icon-arrowright"></i></div>
+			        </li>
+				</ul>
+				<div class="pay_attention">
+					<p>
+						<span>温馨提示: </span>商品购买后，到提货时间时，认销单位会联系您提货， 如届时不能前往提货的请联系认销单位为您发货，物流运费由你们 自行协商。
+					</p>	
+				</div>
+			</div>
+		</div>	
+		<div class="good_pay_footer">
+			<div class="good_pay_money">
+				<span>合计 : <span>&yen;<span ng-bind="good_total_price"></span></span></span>
+			</div>
+			<div class="good_pay_submit" ng-click="pay()" style="background: #78c63a;">提交订单</div>
+		</div>	
+		<script src="../../js/jquery-1.8.3.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/angular.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/public_templete.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/all.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/help_store.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/wx_directive.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			mui(".mui-scroll-wrapper").scroll();
+			mui(".mui-table-view").on('tap','.Prompt',function(){
+				//mui.toast('请到个人中心修改信息！');
+                 mui.confirm('是否修改收货信息','提示','',function(e){
+                        if(e.index==1){
+                            window.location.href = serverPath.my()+'my_data.html';
+                        }
+                 })
+			})
+		</script>
+	</body>
+</html>

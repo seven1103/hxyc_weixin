@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html ng-app="talents" ng-controller="talentSearchCtrl">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+		<meta http-equiv="Pragma" content="no-cache" />
+		<meta http-equiv="Expires" content="0" />
+		<title>搜索结果</title>
+		<link rel="stylesheet" type="text/css" href="../../css/mui.min.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/wx_list.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/wx_icon.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/wx_talent.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/wx_response.css"/>
+		<script src="../../js/userAgent.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<!--下拉刷新容器-->
+		<div id="refreshContainer" class="mui-content mui-scroll-wrapper">
+		  <div class="mui-scroll" id="scroll">
+		    <!--数据列表-->
+		    <ul class="mui-table-view wx_list" id="list">
+		      
+		    </ul>
+		  </div>
+		</div>
+	<script src="../../js/jquery-1.8.3.min.js" type="text/javascript" charset="utf-8"></script>	
+	<script src="../../js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/all.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/template" id="apply_template">
+		<li class="mui-table-view-cell" value="%id%">
+	        <img onerror="javascript:this.src='img/icon/avator_default.png'" src="%src%" />
+	      	<div class="wx_text_content">
+				<h2>%title%</h2>
+				<div class="wx_list_text">
+					<p class="talent_people_info"><span>务工人:%worker%</span><span>帮扶干部:%helper%</span></p>
+					<p>发布时间 : %time%</p>
+					<p class="talent_condition" id="apply_%index%">
+						{{html}}
+					</p>
+				</div>
+			</div>
+       </li>
+	</script>
+	<script type="text/javascript">
+		(function($){
+		   	var searchKey = HuaXia.GetQueryString("value");
+		   	var apiUrl = API.JOBS.search.replace(/<type>/,0).replace(/<keyword>/,searchKey);	
+		    mui.init({
+		      pullRefresh : {
+		        container:'#refreshContainer',
+		        up : {
+		          auto:true,	
+		          callback :function(){
+		          	var num = "";
+		          	var self = this;
+		          	if(num==null){
+		          		self.endPullupToRefresh(true);
+		          	}else{
+	          			HuaXia.Ajax({
+					    		type:'get',
+					    		url:apiUrl,
+					    		data:{"next_start":num}
+					    },function(data){
+					    	//判断类型 进行html填充
+							if(data.labors.lenght==0){
+								self.endPullupToRefresh(true);
+								jQuery("#scroll").html(notdata("搜索内容为空!!")).css("height","100%");
+							}else{
+								 var apply_template = document.getElementById("apply_template").innerHTML;
+						        jQuery.each(data.labors, function(index,item) {
+									var html=apply_template
+											.replace(/%id%/,item._id)
+											.replace(/%src%/,IMG_web + item.photo)
+											.replace(/%title%/,item.title)
+											.replace(/%worker%/,item.worker)
+											.replace(/%helper%/,item.helper)
+											.replace(/%index%/,index)
+											.replace(/%time%/,HuaXia.format(item.timed,1))
+											.replace(/{{html}}/,fileHtml(item.tags));
+									jQuery("#list").append(html);
+								});
+								self.endPullupToRefresh(true);
+								num = data.next_start;
+							}
+					    });
+		          	}
+		          }
+		        }
+		      }
+		    });
+		    $("#list").on("tap",".mui-table-view-cell",function(){
+		    	var id = this.getAttribute("value");
+		    	window.location.href = serverPath.talents_market() + "apply_detail.html?id="+id;
+		    });
+		})(mui)
+		//填充html
+	    var fileHtml = function(data){
+	    	var result="";
+	    	var _htmlActive = function(index){
+	    		var _index = ""
+	    		switch(index){
+	    		case 0:_index="包吃";break;
+	    		case 1:_index="包住";break;
+		    	case 2:_index="五险";break;
+	   			case 3:_index="一金";break;
+	   			}
+	    		return "<span class='active'>"+_index+"</span>";
+	    	} 
+	    	for(var i=0;i<data.length;i++){
+	    		result = result + _htmlActive(data[i]);
+	    	}
+	    	return result;
+	    }
+	</script>
+	</body>
+</html>
+

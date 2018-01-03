@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html ng-app="talents" ng-controller="applyDetailCtrl">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>人才市场</title>
+		<link rel="stylesheet" type="text/css" href="../../css/mui.min.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/wx_list.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/wx_icon.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/wx_talent.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/wx_response.css"/>
+		<script src="../../js/userAgent.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<style type="text/css">
+	</style>
+	<body>
+	<header class="header"></header>	
+		<div class="mui-content mui-scroll-wrapper" style="margin-bottom: 40px;" id="supplyDetial">
+			<div class="mui-scroll">
+				<section class="supplyHeader">
+					<div class="supply_title">
+						<h2>供应西红柿</h2>
+					</div>
+					<div class="supply_firm_des">
+						<p class="talent_people_info"><span>库存 : <span>1000斤</span></span><span>联系人: <span>张先生</span></span></p>
+						<p><span>供应单位 : <span>中国移动</span></span></p>
+						<p class="talent_people_info"><span>发布时间 : <span>2012-01-07</span></span><span>浏览次数: <span>20</span></span></p>
+					</div>
+					<div class="supply_firm">
+						<img onerror="javascript:this.src='../../img/icon/avator_default.png'" src="{{src}}" />
+						<p>中国移动有限公司</p>
+					</div>
+					<div class="supply_instruction">
+						<h2>详细说明</h2>
+						<div class="detail_instruction">
+							<p>中国移动有限公司中国移动有限公司中国移动有限公司中国移动有限公司中国移动有限公司中国移动有限公司中国移动有限公司中国移动有限公司中国移动有限公司中国移动有限公司中国移动有限公司中国移动有限公司中国移动有限公司</p>
+							<img src="../../img/icon/banner.png" />
+						</div>
+					</div>
+					<div class="supply_instruction">
+						<h2>包装要求 </h2>
+						<div class="detail_instruction">
+							<p>中国移动有限公司中国移动有限公司中国移动有限公司中国移动有限公司中国移动有限公司中国移动有限公司中国移动有限公司中国移动有限公司中国移动有限公司中国移动有限公司中国移动有限公司中国移动有限公司中国移动有限公司</p>
+						</div>
+					</div>
+				</section>
+			</div>
+		</div>
+		<div class="apply_call_leader">
+			<div>(联系人) : {{data}}</div>
+			<div style="background: #0ACE62;"><i class="icon wx-dianhua"></i><a href="tel:{{data.family.help_phone}}" style="color: #fff;">{{data}}</a></div>
+		</div>
+
+	<script src="../../js/angular.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/public_templete.js" type="text/javascript" charset="utf-8"></script>
+	<!--<script src="../../js/talents.js" type="text/javascript" charset="utf-8"></script>-->
+	<script src="../../js/all.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		mui(".mui-scroll-wrapper").scroll();
+	</script>
+</body>
+</html>

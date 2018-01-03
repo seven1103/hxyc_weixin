@@ -1,0 +1,135 @@
+/*个人中心样式*/
+.mui-table-view-cell:after{left: 0;}
+.my-box{height: 200px;width: 100%;background: #fc8004;position: relative;}
+.my-head-background{height: 40px;position: absolute;bottom: 0;width: 100%;background: #fff;opacity: 0.2;}
+.my-box .my-head{z-index: 100;height: 40px;color: #fff;position: absolute;bottom: 0;width: 100%;}
+.my-box .my-head span{display: block;width: 50%;float: left;line-height: 40px;text-align: center;z-index: 2;}
+.my-box .my-head span:nth-child(1):after{
+	background-color: #fff;  
+    content: "";    
+    left: 50%;
+    height: 20px;
+    top: 10px;
+    position: absolute;   
+    width: 1px;
+}
+.mui-content{margin-bottom: 50px;}
+.my-box .my-head-content{width: 100%;height: 160px;padding-top: 20px;}
+.my-box .my-head-content #my-img{width: 30%;height: 100%;margin: 0 auto;text-align: center;color: #fff;}
+.my-box .my-head-content #my-img img{height: 82px;width: 82px;object-fit: cover;border-radius: 50%;margin-bottom: 10px;padding: 5px;background: #f38128;}
+ul.my li a i{display: inline-block;padding:4px 9px;line-height: 30px;border-radius: 50%;margin-right: 10px;color: #fff;}
+ul.my li:nth-child(1) a i{background: #85A4FF;}
+ul.my li:nth-child(2) a i{background: #F37DE1;}
+ul.my li:nth-child(3) a i{background: #FF797A;}
+ul.my li:nth-child(4) a i{background: #FE9E62;}
+ul.my li:nth-child(5) a i{background: #ff9a79;}
+ul.my li:nth-child(6) a i{background: #85A4FF;}
+/*个人资料样式*/
+.my-publish.mui-table-view,.my-order.mui-table-view,.my-collect.mui-table-view,.company_roder.mui-table-view{padding-top: 10px;}
+.my-publish.mui-table-view p,.my-order.mui-table-view p,.my-collect.mui-table-view p{line-height: 20px;}
+/*我的发布样式*/
+.my-publish.mui-table-view{margin: 10px 0;}
+.my-publish .mui-table-view-cell:nth-child(1){padding: 10px 10px;}
+.my-publish .mui-table-view-cell:nth-child(2){text-align: right;box-sizing: border-box;padding: 5px 10px;}
+.my-publish .mui-table-view-cell:nth-child(1) p{line-height: 30px;}
+.my-publish .mui-table-view-cell:nth-child(1) p:nth-child(1){font-size: 15px;font-weight: 900;}
+
+.my-publish .mui-table-view-cell:nth-child(1) img{
+	width: 30%;
+	height: 80px;
+	object-fit: cover;
+	float: left;
+	padding-right: 10px;
+}
+.my-publish .mui-table-view-cell:nth-child(1) div{
+	width: 70%;
+	float: left;
+}
+/*我的订单*/
+.my-order.mui-table-view{margin-bottom: 10px;}
+.my-order .mui-table-view-cell{padding: 10px 10px;}
+.my-order .mui-table-view-cell:nth-child(2){text-align: right;box-sizing: border-box;padding: 5px 10px;}
+.my-order .mui-table-view-cell:nth-child(1) img{
+	width: 30%;
+	height: 80px;
+	object-fit: cover;
+	float: left;
+	padding-right: 10px;
+}
+.my-order .mui-table-view-cell:nth-child(1) div{
+	width: 70%;
+	float: left;
+}
+.my-order .item-price{text-align: left;color: red;}
+.my-order .item-count{float: right;}
+.my-order .item-totall{float: right;font-size: 14px;font-weight: bold;}
+/*我的收藏*/
+
+.my-collect.mui-table-view{margin-bottom: 10px}
+.my-collect .mui-table-view-cell:nth-child(1){padding: 10px 10px;}
+.my-collect .mui-table-view-cell:nth-child(2){text-align: right;box-sizing: border-box;padding: 5px 10px;}
+.my-collect .mui-table-view-cell:nth-child(1) img{
+	width: 30%;
+	height: 80px;
+	object-fit: cover;
+	float: left;
+	padding-right: 10px;
+}
+.my-collect .mui-table-view-cell:nth-child(1) div{
+	width: 70%;
+	float: left;
+}
+.my-collect .item-price{text-align: left;color: red;}
+/*我的排行样式*/
+.my-rank .mui-table-view-cell p,.my-rank .mui-table-view-cell span{line-height: 50px;}
+.my-rank .mui-table-view-cell{line-height: 50px;}
+.mui-table-view-cell .item-rank,.item-img{display: inline-block;float: left;}
+.my-rank .mui-table-view-cell:nth-child(1) .item-rank,.my-rank .mui-table-view-cell:nth-child(2) .item-rank,.my-rank .mui-table-view-cell:nth-child(3) .item-rank{color: red;}
+.my-rank .mui-table-view-cell .item-img{height: 50px;width: 50px;border-radius: 50%;object-fit: cover;margin:0 20px;}
+.mui-table-view-cell .item-gong{display: inline-block;float: right;}
+/*我的荣誉*/
+.my-honnr{text-align: center;margin-top: 30px;}
+.my-honnr p{color: #fff;line-height: 25px;font-size: 13px;}
+.my-honnr-distance{font-size: 2.2em;color: #fff;/*letter-spacing: 2px;*/}
+.my-progress{padding: 0 5%;}
+.my-progress p{color: #fff;}
+.my-progress p span{font-size: 14px;}
+.my-honner-list .left{display: inline-block;float: left;color: #9a9a9a;}
+.my-honner-list .right{display: inline-block;float: right;color: #fc8002;}
+.my-honner-list .right.title,.my-honner-list .left.title{color: #333;font-weight: bold;}
+/*个人资料样式*/
+.my-data .mui-table-view-cell span:nth-child(2){float: right;display: block;width:auto;text-align: right;color:#999999;}
+.my-data .mui-table-view-cell span:nth-child(2) img{height: 50px;width: 50px;border-radius: 50%;object-fit:cover;}
+.my-data:nth-child(1) .mui-table-view-cell:nth-child(1) span:nth-child(1){line-height: 50px;}
+.my-data.mui-table-view:first-child{margin-top: 0;}
+p.Text_ellipsis{font-weight: 900;font-size: 16px;padding-bottom: 6px;}
+
+/*企业销售订单*/
+.company_roder.mui-table-view{margin: 10px 0;}
+.company_roder .mui-table-view-cell{padding: 10px 10px;}
+.company_roder.mui-table-view .mui-table-view-cell:nth-child(3){padding: 5px 10px;}
+.company_roder.mui-table-view .mui-table-view-cell:nth-child(3) p{line-height: 30px;}
+.company_roder.mui-table-view .mui-table-view-cell:nth-child(3) p button{float: right;}
+.company_roder .mui-table-view-cell:nth-child(1) img{
+	width: 30%;
+	height: 80px;
+	object-fit: cover;
+	float: left;
+	padding-right: 10px;
+}
+.company_roder .item-price{text-align: left;color: red;}
+.company_roder span.total{font-size: 16px;}
+.company_roder.mui-table-view p{line-height: 20px;}
+/*.company_roder span{text-align: justify;
+text-align-last: justify;}*/
+.company_roder.mui-table-view .mui-table-view-cell:nth-child(2) p span:nth-child(2){float: right;}
+button{height: 30px;}
+
+/*我的收藏,我的订单,企业销售订单公共样式*/
+
+/*弹性盒子两段对齐*/
+.flex_between{display: flex;justify-content: space-between;}
+p.Ontime{position: absolute;bottom: 5px;}
+button{width: 80px;margin-right: 5px;}
+button.Spendbtn,button.finishbtn{color: #999999;background: #F6F6F6;}
+button.Spendbtn:active,button.finishbtn:active{background-color: #F6F6F6;color: #999999;}

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html ng-app = "people_supervision">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+		<meta http-equiv="Pragma" content="no-cache" />
+		<meta http-equiv="Expires" content="0" />
+		<title>诉求人查询</title>
+		<link rel="stylesheet" type="text/css" href="../../css/mui.min.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/all.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/people_supervision.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/wx_icon.css"/>
+		<script src="../../js/userAgent.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/angular.min.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<header class="header"></header>
+		<div class="mui-content" ng-controller = "fundsList" style="margin-top: 35px;">
+			<div id="sliderSegmentedControl-5" class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+				<div class="mui-scroll">
+					<a ng-click="nav($event,0)" class="active" href="#/search1">诉求人信息查询</a>
+					<a ng-click="nav($event,1)" href="#/search2">网上举报查询</a>
+				</div>
+			</div>
+			<div ng-view>
+				
+			</div>
+		</div>
+		<script src="../../js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/angular-route.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/public_templete.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/people_supervision.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/all.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+</html>

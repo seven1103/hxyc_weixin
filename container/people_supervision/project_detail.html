@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+		<meta http-equiv="Pragma" content="no-cache" />
+		<meta http-equiv="Expires" content="0" />
+		<title>项目详情</title>
+		<link rel="stylesheet" type="text/css" href="../../css/mui.min.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/all.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/wx_icon.css"/>
+		<script src="../../js/userAgent.js" type="text/javascript" charset="utf-8"></script>
+		<style type="text/css">
+			/*文章浏览样式*/
+			.look span:nth-child(2){display: inline-block;float: right;line-height: 16px;}
+			.look span:nth-child(2) i{font-size: 14px;margin-left: 5px;}
+			a{color: #007aff;}
+		</style>
+	</head>
+	<body>
+		<div class="Article">
+			<!--文章头部-->
+			<div class="Article-header">
+				<h4 id="title">毕节金海湖新区新双大道啊是的咯哈上的困境阿三阿斯顿你</h4>
+				<p class="look">发布时间:<span id="time">2012-03-21</span><span id="views">300<i class="icon wx-guankan-"></i></span></p>
+				<p>证明附件:&nbsp;&nbsp;&nbsp;&nbsp;<a href="">毕业金海湖新区新双大道招标计划书</a></p>
+			</div>
+			<!--文章内容-->
+			<div class="Article-body" id="content">
+				<p>这个路面如此坑坑洼洼的有将近一年多，根本没人管。
+				这个路面如此坑坑洼洼的有将近一年多，根本没人管。
+				这个路面如此坑坑洼洼的有将近一年多，根本没人管。
+				这个路面如此坑坑洼洼的有将近一年多，根本没人管。
+				</p>
+				
+			</div>
+		</div>
+	</body>
+	<script src="../../js/jquery-1.8.3.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/all.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		var itemId = HuaXia.GetQueryString("itemId");
+		var progressId = HuaXia.GetQueryString("progressId");
+		var apiUrl = API.PROJECTS.project_detail.replace(/<project_id>/,itemId)
+											  .replace(/<progress_id>/,progressId);
+		HuaXia.Ajax({
+			type : "get",
+			url : apiUrl,
+		},function(data){
+			if(data.length==undefined){
+				$("body").html(notdata('此页面可能被删除或移至其他页面!!')).css("height","100vh");
+			}else{
+				
+			}
+		});
+	</script>
+</html>

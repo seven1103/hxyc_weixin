@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html ng-app = "my">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+		<meta http-equiv="Pragma" content="no-cache" />
+		<meta http-equiv="Expires" content="0" />
+		<title>我的发布</title>
+		<link rel="stylesheet" type="text/css" href="../../css/mui.min.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/all.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/my.css"/>
+		<script src="../../js/userAgent.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/angular.min.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<style type="text/css">
+		.my-publish>p:nth-child(1){
+			color: #000000;
+			font-weight:500;
+		}
+		.my-publish .mui-table-view-cell:nth-child(1) {
+			padding:10px 10px 6px 10px;
+		}
+	</style>
+	<body>
+		<header class="header"></header>
+		<div class="mui-content" ng-controller="my_publish">
+			<ul class="mui-table-view my-publish">
+			    <li class="mui-table-view-cell">
+			    	<img src="../../img/slider1.jpg"/>
+			    	<div class="my-publish">
+			    		<p>招水力工</p>
+			    		<p>招聘人数:50</p>
+			    		<p>发布时间:2017-2-12 16:00</p>
+			    	</div>
+			    </li>
+			    <li class="mui-table-view-cell">
+			    	<button type="button" ng-click="change(1)">编辑</button>
+			    	<button type="button" ng-click = "delete($event)">删除</button>
+			    </li>
+			</ul>
+			<ul class="mui-table-view my-publish">
+			    <li class="mui-table-view-cell">
+			    	<img src="../../img/slider1.jpg"/>
+			    	<div class="my-publish">
+			    		<p>招水力工</p>
+			    		<p>招聘人数:51</p>
+			    		<p>发布时间:2017-2-12 09:00</p>
+			    	</div>
+			    </li>
+			    <li class="mui-table-view-cell">
+			    	<button type="button" ng-click="change(1)">编辑</button>
+			    	<button type="button" ng-click = "delete($event)">删除</button>
+			    </li>
+			</ul>
+		</div>
+	<script src="../../js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/public_templete.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/my.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+</html>

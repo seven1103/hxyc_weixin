@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+		<meta http-equiv="Pragma" content="no-cache" />
+		<meta http-equiv="Expires" content="0" />
+		<link rel="stylesheet" type="text/css" href="../css/mui.min.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/all.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/people_supervision.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/wx_icon.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/view.css"/>
+		<script src="../../js/userAgent.js" type="text/javascript" charset="utf-8"></script>
+		<title>详情</title>
+	</head>
+	<style type="text/css">
+		.Article-body p{
+			color:#000000;
+			text-align: justify;
+		}
+		h4{ text-align: center;}
+		#views{
+			color:#7CDA7B;
+		}
+	</style>
+	<body>
+		<header class="header" id="noMicromessenger"></header>
+		<div class="Article">
+			<!--文章头部-->
+			<div class="Article-header">
+				<h4 id="title"><!--贵州省烟草公司毕节市公司卷烟物流配送中心物流--></h4>
+				<p>发布单位：<span id="unite"><!--金海湖新区管委会--></span></p>
+				<!--<p><span>51次浏览</span><span>2017-02-12</span></p>-->
+				<p class="look">发布时间：<span id="time"><!--2012.03.21--></span><span id="views"><!--300--><!--<i class="icon wx-guankan-"></i>--></span></p>
+			</div>
+			<!--文章内容-->
+			<div class="Article-body" id="content">
+				<!--<p>这个路面如此坑坑洼洼的有将近一年多，根本没人管。加深对接口按实际看的吧实木地板即可报名，
+					把对面把什么牛逼舅妈说不定静安寺马上办大美女</p>
+				<p>这个路面如此坑坑洼洼的有将近一年多，根本没人管。加深对接口按实际看的吧实木地板即可报名，
+					把对面把什么牛逼舅妈说不定静安寺马上办大美女</p>
+					<p>这个路面如此坑坑洼洼的有将近一年多，根本没人管。加深对接口按实际看的吧实木地板即可报名，
+					把对面把什么牛逼舅妈说不定静安寺马上办大美女</p>
+					<p>这个路面如此坑坑洼洼的有将近一年多，根本没人管。加深对接口按实际看的吧实木地板即可报名，
+					把对面把什么牛逼舅妈说不定静安寺马上办大美女</p>
+					<img src="../../img/demo.png"/>
+					<p>这个路面如此坑坑洼洼的有将近一年多，根本没人管。加深对接口按实际看的吧实木地板即可报名，
+					把对面把什么牛逼舅妈说不定静安寺马上办大美女</p>-->
+			</div>
+		</div>
+	</body>
+	<script src="../js/jquery-1.8.3.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/all.js"></script>
+	<script src="../js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/mui.zoom.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/mui.previewimage.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		var Id = HuaXia.GetQueryString("id");
+		var apiUrl = API.NEWS.article.replace(/<art_id>/,Id);
+		HuaXia.CreatReading();
+		HuaXia.Ajax({
+			type : "get",
+			url : apiUrl,
+		},function(data){
+			 HuaXia.CloseReading();
+			if(!data.article){
+				$("body").html(notdata('此页面可能被删除或移至其他页面!!')).css("height","100vh");
+			}else{
+				$("#title").text(data.article.title);
+				$("#unite").text(data.article.gov.name?data.article.gov.name:"无");
+				console.log(data.article.timed);
+				$("#time").text(HuaXia.format2(data.article.timed));
+				$("#views").html('<img src="img/see.png" style="height:15px;vertical-align: sub;margin-right:5px">'+(data.article.views?data.article.views:"0"));
+				//var des = data.step.result.des?data.step.result.des:"";
+				//var content = data.step.result.content;
+				var html = data.article.content;
+				html=html.replace(/src=['"]([^'"]+)[^>]*>/gi, function (match, capture) {
+					//match=match.replace("src","src2");
+					match= match.replace("/>","data-preview-src='' data-preview-group='1'/>");
+					return match;
+				});
+				// console.log(html)
+				var img="";
+				// for(var i=0; i<data.article.images.length;i++){
+				// 	img = img +"<img src="+IMG_web+data.article.images[i]+" />"	
+				// }
+				html = html + img;// +'<p>'+des+'</p>'
+				$("#content").html(html);
+			}	
+		});
+
+	</script>
+	<script type="text/javascript">
+		mui.init();
+		mui.previewImage();
+    </script>
+</html>

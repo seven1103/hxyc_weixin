@@ -1,0 +1,27 @@
+{
+    "employs": [                             
+        {
+            "_id": "1",              
+            "title": "招聘员工",              
+            "image": "http://192.168.6.163:8020/json/jc.jpg",         
+            "ent_name": "众隆集团",           
+            "nums": 20,                      
+            "address": "金海湖新区",            
+            "tags": [0,1,2,3],                
+            "timed": 20170205             
+        },
+        {
+            "_id": "2",              
+            "title": "招聘员工",              
+            "image": "http://192.168.6.163:8020/json/jc.jpg",         
+            "ent_name": "移动公司",           
+            "nums": 20,                      
+            "address": "金海湖新区",            
+            "tags": [0,1,2,3],                
+            "timed": 20170205             
+        }
+        
+    ],
+    "has_more": true,                      
+    "next_start": null                    
+}

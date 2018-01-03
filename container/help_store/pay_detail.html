@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html ng-app = "help_store" ng-controller="storePayCtrl">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+		<meta http-equiv="Pragma" content="no-cache" />
+		<meta http-equiv="Expires" content="0" />
+		<title>扶贫商城</title>
+		<link rel="stylesheet" type="text/css" href="../../css/mui.min.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/wx_icon.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/wx_talent.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/wx_response.css"/>
+		<script src="../../js/userAgent.js" type="text/javascript" charset="utf-8"></script>
+		<style>
+			.footer_love img{
+				height: 22px;
+			}
+		</style>
+	</head>
+	<body ng-cloak>
+	<opention></opention>
+	<div class="mui-content mui-content mui-scroll-wrapper" id="" style="padding-bottom: 50px;">
+		<div class="mui-scroll">
+			<!--商品详情-->
+				<div class="store_good_detail">
+					<div class="store_pay_detailImg">
+						<div id="slider" class="mui-slider" >
+						  <div class="mui-slider-group">
+						    <!-- 第一张 -->
+						    <!--<div class="mui-slider-item"  ng-repeat="img in data.images">
+						      <a href="#">
+						       <img onerror="javascript:this.src='../../img/icon/banner.png'" ng-src="{{img.url | getUrl}}" ng-style="setImgHeight" >
+						      </a>
+						    </div>-->
+						    <div class="mui-slider-item">
+						      <a href="#">
+						       <img onerror="javascript:this.src='../../img/icon/banner.png'" ng-src="{{data.cover | getUrl}}" ng-style="setImgHeight" >
+						      </a>
+						    </div>
+						  </div>
+						 <!--<div class="mui-slider-indicator">
+						    <div class="mui-indicator" ng-repeat="img in data.images"></div>
+						  </div>-->
+						</div>
+					</div>
+					<div class="store_pay_text">
+						<h2>{{data.name}}</h2>
+						<p class="good_detail_price">
+							<span>&yen;</span><span>{{data.price|getPrice}}</span><span>.{{data.price|getPriceDec}}/{{data.unit}}</span>
+						</p>
+						<div class="good_detail_info">
+							<span>库存 : <span>{{data.amount - data.sales}}</span></span><span>已帮扶 : <span>{{data.sales}}</span></span><span>运费 : <span>{{data.express_type}}</span></span>
+						</div>
+						<div class="good_detail_info">
+							 <span>提货时间 : <span>{{delivery_time}}</span></span> 
+							<!-- <span>提货时间 : <span style="color:#7CDA7B">{{timed}}</span></span> -->
+						</div>
+					</div>
+				</div>
+				<!--非产业帮扶*************商品发布者信息-->
+				<div class="store_people_help" ng-if="data.type==0">
+					<div class="good_publish_detail">
+						<div class="publish_info">
+							<img onerror="javascript:this.src='../../img/icon/banner.png'"  ng-src="{{data.family.avatar|getUrl}}" />
+							<p><span style="margin-right: 10px;">贫困户 :<span>{{data.family.name}}</span></span><span>帮扶干部 :<span>{{data.family.help_name}}</span></span></p>
+						</div>
+					</div>
+					<div class="good_publish_detail_text">
+						<div class="publish_info_detail">
+							<span>家庭人数 : <span>{{data.family.member_count}}人</span></span>
+							<span>贫困户属性 :  <span>{{data.family.property}}</span></span>
+						</div>
+						<div class="publish_info_detail" style="display:block">
+							<p style="margin-bottom:10px">主要致贫原因 : <span style="color:#313131">{{data.family.causes | causes}}</span></p>
+							<p style="color:#959595 !important">{{data.family.avg_income.year}}年人均收入 : <span style="color:#313131">{{data.family.avg_income.rmb}}元</span></p>
+						</div>
+						
+						<p id="location" onclick="address(this)"><span>家庭住址 : <span>{{data.family.address}}</span></span><span class="location_point" style="display: none">{{data.family.location.lat}},{{data.family.location.lng}}</span></p>
+					</div>
+				</div>
+				<!--产业帮扶*************发布者信息-->
+				<div class="store_industry_help" ng-if="data.type==1">
+					<div class="good_publish_detail">
+						<div class="publish_info">
+							<img onerror="javascript:this.src='../../img/icon/avator_default.png'" ng-src="{{data.enterprise.icon | getUrl}}" />
+							<span>认销单位 : <span>{{data.enterprise.name}}</span></span>
+						</div>
+					</div>
+				</div>
+				<!--商品详情-->
+				<div class="goog_intoduce">
+					<div class="goog_intoduce_titel">
+						商品详情
+					</div>
+					<div class="goog_intoduce_content">
+						<p>{{data.detail}}</p>
+						<img ng-repeat="item in data.images" onerror="javascript:this.src='../../img/icon/banner.png'" src={{item.url|getUrl}}  />
+					</div>
+				</div>
+		</div>
+	</div>
+	<div class="footer_nav">
+			<a class="footer_phone" href="tel:{{data.contact}}"><i class="icon wx-dianhua" style="color: cornflowerblue;"></i><span>客服</span></a>
+			<a class="footer_love">
+				<!-- <i class="icon wx-wujiaoxing2" style="color: orange;" ng-if="data.has_fav"></i>
+				<i class="icon wx-sc1" style="color: orange;" ng-if="!data.has_fav"></i> -->
+				<img src="../../img/store/love.png" ng-if="!data.has_fav" alt="">
+				<img class="wx-wujiaoxing2" src="../../img/store/love-active.png" ng-if="data.has_fav" alt="">
+				<span ng-if="data.has_fav">已收藏</span>
+				<span ng-if="!data.has_fav">收藏</span>
+			</a>
+			<a class="footer_car" href="tel:{{data.family.help_phone}}"><i class="icon wx-dianhua1"></i>联系帮扶干部</a>
+			<a class="footer_pay" ng-click="pay()">立即购买</a>
+	</div>
+		<script src="../../js/jquery-1.8.3.min.js" type="text/javascript" charset="utf-8"></script>
+ 		<script src="../../js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+ 		<script src="../../js/angular.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/public_templete.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/help_store.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/public_templete.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/all.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			mui(".mui-scroll-wrapper").scroll();
+            window.onload = function(){
+                mui('.mui-slider').slider({
+                  interval:5000//自动轮播周期，若为0则不自动播放，默认为0；
+                });
+            }
+            // 唤起地图
+            function address(ev){
+                var address =  $(ev).find('.location_point ').html()
+                window.location.href = 'http://api.map.baidu.com/geocoder?location='+address+'&output=html';
+            }
+
+			var region_id = localStorage.getItem("x_region_id");
+			if(region_id != 520599000000){
+				document.querySelector('.footer_pay').classList.add('hide');
+			}
+		</script>
+	</body>
+</html>

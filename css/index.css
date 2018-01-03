@@ -1,0 +1,57 @@
+#sliderSegmentedControl{width:100%;margin:0 auto;text-align: center;background: #fff;height: 50px;}
+#sliderSegmentedControl div{width:100%;}
+#sliderSegmentedControl a{height: 50px;line-height: 50px;border-bottom:2px solid #F1EFF4;display: block;float: left;width:25%;}
+#sliderSegmentedControl a:nth-of-type(1){/*margin-left:25%;*/}
+#sliderSegmentedControl a.active{color:#FE6215;border-bottom: 2px solid #FE6012;}
+/*本地热点样式*/
+.list1 .list1-slider.mui-slider{height: 200px;}
+.list1 .list1-slider.mui-slider img{height: 200px;width: 100%;object-fit: cover;}
+.list1 .list1-slider.mui-slider .mui-slider-item{position: relative;}
+.list1 .list1-slider.mui-slider .inline_bg{position: absolute;bottom: 0;left: 0;background: #000;height: 30px;width: 100%;opacity: 0.2;}
+.list1 .list1-slider.mui-slider .mui-slider-item p{position: absolute;bottom: 0;left: 0;height: 30px;width: 100%;color: #fff;margin-bottom: 0;line-height: 30px;}
+
+ul.list2-nav li{float: left;width: 25%;height: 35px;line-height: 35px;background: #fff;text-align: center;}
+.list2 table,.list3 ul{width: 100%;}
+.list2 table tr td{width: 33.33%;height: 125px;text-align: center;border: 1px solid #ccc;background: #fff;}
+.list2 table tr td img{height: 60px;width: 60px;display: block;margin: 0 auto;}
+.list2 ul{width: 100%;margin-top: 10px;}
+.list2 ul li{padding-top: 20px;width: 33.33%;height: 125px;text-align: center;border-bottom: 1px solid #ccc;border-right: 1px solid #ccc;background: #fff;float: left;}
+.list2 ul li img{height: 60px;width: 60px;display: block;margin: 0 auto;}
+/*便民服务样式*/
+ul.apps li:nth-child(5n+1){content: '';display: block;clear: both;}
+.list3 ul:nth-child(1) li{width: 20%;text-align: center;float: left;}
+.list3 ul:nth-child(1) li a{display: block;}
+.list3 ul:nth-child(1) li a:nth-child(1){color: #fff;display: inline-block;background: red;width: 80%;height: 60px;overflow: hidden;border-radius: 5px;text-align: center;}
+.list3 ul:nth-child(1) li a:nth-child(1) img{width: 100%;height: 60px;object-fit: cover;}
+.list3 ul:nth-child(1) li a:nth-child(1) i{font-size: 30px;line-height: 60px;}
+
+.list3 ul:nth-child(1) li span{display: block;}
+.list3 ul:nth-child(1) li span:nth-child(1){color: #fff;display: inline-block;background: red;width: 80%;height: 60px;overflow: hidden;border-radius: 5px;text-align: center;}
+.list3 ul:nth-child(1) li span:nth-child(1) img{width: 100%;height: 60px;object-fit: cover;}
+.list3 ul:nth-child(1) li span:nth-child(1) i{font-size: 30px;line-height: 60px;}
+/*待删除*/
+ul.list4-nav li{float: left;width: 33.33%;height: 35px;line-height: 35px;background: #fff;text-align: center;}
+ul.list4-nav li.active a{color:#FE6215}
+
+/*二级栏目样式*/
+#sliderSegmentedControl2{width:100%;margin:0 auto;text-align: center;background: #fafafc;height: 40px;}
+#sliderSegmentedControl2 div{width:100%;box-sizing: border-box;}
+#sliderSegmentedControl2 a{position: relative;height: 40px;line-height: 40px;display: block;float: left;width:33.33%;}
+#sliderSegmentedControl2 a:nth-of-type(1){/*margin-left:25%;*/}
+#sliderSegmentedControl2 a.active{color:#FE6215;}
+#sliderSegmentedControl2 a:nth-child(1):after,#sliderSegmentedControl2 a:nth-child(2):after{
+	content: '';
+	position: absolute;
+	right: 0;
+	top:10px;
+	height: 20px;
+	width: 1px;
+	background: #dddddd;
+}
+
+/*某某局样式*/
+/*部门介绍*/
+.office_introduce{padding: 0 20px;}
+.office_introduce ul.office_leader{width: 100%;box-sizing: border-box;}
+.office_introduce ul.office_leader li{width:33.333%;float:left;text-align: center;padding-top: 10px;}
+.office_introduce ul.office_leader li img{width: 65%;object-fit: cover;}

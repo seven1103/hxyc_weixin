@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html ng-app = "help_store" ng-controller="storeIndexCtrl">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+		<meta http-equiv="Pragma" content="no-cache" />
+		<meta http-equiv="Expires" content="0" />
+	
+	    <meta name="keywords" content="精准云帮扶，帮扶商城">
+	    <meta name="description" content="华夏云城，全国第一家精准云帮扶平台。">
+	
+	    <meta name="apple-mobile-web-app-capable" content="yes">
+	    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+	    <meta content="telephone=no" name="format-detection">
+		<title></title>
+		<!--扶贫商城-->
+		<link rel="stylesheet" type="text/css" href="css/mui.min.css"/>
+		<link rel="stylesheet" type="text/css" href="css/wx_icon.css"/>
+		<link rel="stylesheet" type="text/css" href="css/wx_talent.css"/>
+		<link rel="stylesheet" type="text/css" href="css/wx_response.css"/>
+		<link rel="stylesheet" type="text/css" href="css/timer.css"/>
+		<script src="js/userAgent.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/angular.min.js" type="text/javascript" charset="utf-8"></script>
+		<style>
+			.mui-bar{
+				z-index: 500 !important;
+			} 
+			.display_block{
+				position: fixed !important;
+				width: 100%;
+				border-top: 0px solid #ddd !important;
+    			border-bottom: 0px solid #ddd !important;
+    			box-shadow: 0 0 0px 0px #EEEEEE !important;
+				z-index: 999;
+				top: 38px;
+				left: 0px;
+				transform: scale(0);
+				-webkit-transform: scale(0);
+				-moz-transform: scale(0);
+				-ms-transform: scale(0);
+			}
+			.scale{
+				transform: scale(0);
+				-webkit-transform: scale(0);
+				-moz-transform: scale(0) ;
+				-ms-transform: scale(0) ;
+			}
+			.scale-block{
+				transform: scale(1) ;
+				-webkit-transform: scale(1) ;
+				-moz-transform: scale(1) ;
+				-ms-transform: scale(1);
+			}
+            .store_case_box.active span{
+                color:#7CDA7B !important;
+            }
+            .mui-slider-item img{
+                height: 200px;
+                width: 100%;
+                object-fit: cover;
+			}
+			p.isLoveGoods{
+				background: url('img/store/love.png') no-repeat;
+				background-size: 100%;
+			}
+			p.isLoveGoods.active{
+				background: url('img/store/love-active.png') no-repeat;
+				background-size: 100%;
+			}
+            .Text_ellipsis{
+                overflow:hidden;
+                text-overflow:ellipsis;
+                display:-webkit-box;
+                -webkit-box-orient:vertical;
+                -webkit-line-clamp:1; /*具体字数需要自行控制*/
+                white-space: initial;
+                /*word-break: break-all;
+                display: -webkit-box;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+                text-overflow:ellipsis;*/
+                padding-right: 30px;
+            }
+		</style>
+	</head>
+	<body>
+	<div id="scrollToTop" class="backTop hide"> 
+		<span class="mui-icon mui-icon-arrowup"></span> 
+	</div>
+		<getregion class="getRegion"></getregion>
+	<!-- <div id="popover" class="mui-popover">
+				<ul class="mui-table-view">
+					<li class="mui-table-view-cell" data_id="0"><a href="javascript:;">搜索商品</a></li>
+					<li class="mui-table-view-cell" data_id="1"><a href="javascript:;">搜索帮扶干部</a></li>
+				</ul>
+			</div> -->
+	<!--商品列表导航-->
+			<nav id="nav_top" class="store_case_nav display_block" style="top:0;z-index:1000">
+				<div class="store_case_box" type="1">
+					<!-- <div class="store_case_bg lighterRed" ng-style="setheight">
+						<span class="icon wx-jiaqin"></span>
+					</div> -->
+					<img src="../img/store/nav1.png" alt="" ng-style="setheight">
+					<span>家禽</span>
+				</div>
+				<div class="store_case_box" type="2">
+					<!-- <div class="store_case_bg darkRed" ng-style="setheight">
+						<span class="icon wx-shengxu"></span>
+					</div> -->
+					<img src="../img/store/nav2.png" alt="" ng-style="setheight">
+					<span>牲畜</span>
+				</div>
+				<div class="store_case_box" type="3">
+					<!-- <div class="store_case_bg lighterPurple" ng-style="setheight">
+						<span class="icon wx-tutechan"></span>
+					</div> -->
+					<img src="../img/store/nav3.png" alt="" ng-style="setheight">
+					<span>特产</span>
+				</div>
+				<div class="store_case_box" type="4">
+					<!-- <div class="store_case_bg darkOrange" ng-style="setheight">
+						<span class="icon wx-shougongyi"></span>
+					</div> -->
+					<img src="../img/store/nav4.png" alt="" ng-style="setheight">
+					<span>手工艺</span>
+				</div>
+				<div class="store_case_box" type="9999">
+					<!-- <div class="store_case_bg lighterOrange" ng-style="setheight">
+						<span class="icon wx-qita"></span>
+					</div> -->
+					<img src="../img/store/nav5.png" alt="" ng-style="setheight">
+					<span>其他</span>
+				</div>
+			</nav>
+	<div id="refreshContainer" class="mui-content mui-scroll-wrapper" style="bottom:50px">
+		<div class="mui-scroll">
+			<div id="storeUiView" style="height: 100%;">
+				<!--轮播图-->
+				<div id="slider"  class="mui-slider" >
+				  <div class="mui-slider-group mui-slider-loop" id="slider_img">
+				    <!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
+				    <div class="mui-slider-item mui-slider-item-duplicate">
+				      <a href="#">
+				        <img src="img/icon/banner.png">
+				      </a>
+				    </div>
+				    <!-- 第一张 -->
+				    <div class="mui-slider-item">
+				      <a href="#">
+				       <img src="img/icon/banner.png">
+				      </a>
+				    </div>
+				    <!-- 第二张 -->
+				    <div class="mui-slider-item">
+				      <a href="#">
+				       <img src="img/icon/banner.png">
+				      </a>
+				    </div>
+				    <!-- 第三张 -->
+				    <div class="mui-slider-item">
+				      <a href="#">
+				        <img src="img/icon/banner.png">
+				      </a>
+				    </div>
+				    <!-- 第四张 -->
+				    <div class="mui-slider-item">
+				      <a href="#">
+				       <img src="img/icon/banner.png">
+				      </a>
+				    </div>
+				    <!-- 额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) -->
+				    <div class="mui-slider-item mui-slider-item-duplicate">
+				      <a href="#">
+				        <img src="img/icon/banner.png">
+				      </a>
+				    </div>
+				  </div>
+				  <div class="mui-slider-indicator" id="slider_dot">
+				    <div class="mui-indicator mui-active"></div>
+				    <div class="mui-indicator"></div>
+				    <div class="mui-indicator"></div>
+				    <div class="mui-indicator"></div>
+				  </div>
+				</div>
+			<!--搜索框-->
+			<div class="store_search" id="search">
+				<div class="mui-input-row mui-search">
+			    	<input type="search" id="strName" class="mui-input-clear" placeholder="请输入商品名称">
+				</div>
+				<button id="searchSubmit">搜索</button>
+			</div>
+			<!--商品列表导航-->
+			<nav class="store_case_nav display-show">
+				<div class="store_case_box" type="1">
+					<!-- <div class="store_case_bg lighterRed" ng-style="setheight">
+						<span class="icon wx-jiaqin"></span>
+					</div> -->
+					<img src="../img/store/nav1.png" alt="" ng-style="setheight">
+					<span>家禽</span>
+				</div>
+				<div class="store_case_box" type="2">
+					<!-- <div class="store_case_bg darkRed" ng-style="setheight">
+						<span class="icon wx-shengxu"></span>
+					</div> -->
+					<img src="../img/store/nav2.png" alt="" ng-style="setheight">
+					<span>牲畜</span>
+				</div>
+				<div class="store_case_box" type="3">
+					<!-- <div class="store_case_bg lighterPurple" ng-style="setheight">
+						<span class="icon wx-tutechan"></span>
+					</div> -->
+					<img src="../img/store/nav3.png" alt="" ng-style="setheight">
+					<span>特产</span>
+				</div>
+				<div class="store_case_box" type="4">
+					<!-- <div class="store_case_bg darkOrange" ng-style="setheight">
+						<span class="icon wx-shougongyi"></span>
+					</div> -->
+					<img src="../img/store/nav4.png" alt="" ng-style="setheight">
+					<span>手工艺</span>
+				</div>
+				<div class="store_case_box" type="9999">
+					<!-- <div class="store_case_bg lighterOrange" ng-style="setheight">
+						<span class="icon wx-qita"></span>
+					</div> -->
+					<img src="../img/store/nav5.png" alt="" ng-style="setheight">
+					<span>其他</span>
+				</div>
+			</nav>
+			<!--商品展示区域-->
+			<section class="store_good_list" id="store_good_list" style="height:auto">
+				
+				
+			</section>
+		</div>
+		</div>
+	</div>
+	<div class="locationMark">
+	</div>
+	<div class="locationSelect">
+		<ul class="mui-table-view locationHeader">
+			<li class="mui-table-view-cell">选择地区</li>
+		</ul>
+	</div> 
+	<footer class="footer"></footer>
+	<script src="js/jquery-1.8.3.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/public_templete.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/help_store.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/all.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/template" id="store_template">
+		<a class="store_good_item"  type="%type%" value="%value%">
+			<div class="store_good_img">
+				<img onerror="javascript:this.src='img/icon/avator_default.png'" src="%src%" / >
+				<img src="img/icon/lable.png" style="display:%owner%;">
+			</div>
+			<div class="storeFlex">
+				<div class="store_good_title">
+					<span class="Text_ellipsis">%title%</span>
+					<p class="store_good_price"><span>&yen;</span><span>%price%</span><span>.%percent%/%unit%</span></p>
+				</div>
+				<p class="isLoveGoods %active%">
+					<span  style="display: inline-block;height:22px;width:22px"></span>
+				</p>	
+			</div>
+			
+			<p class="store_good_location">
+				<span style="display:%poor%;">贫困户 : %poor_name%</span>
+				<span style="display:%poor1%;">帮扶干部 : %help_leader%</span>
+				<span style="display:%firm%;">认销企业 : %firm_name%</span>
+			</p>
+		</a>
+	</script>
+	<script type="text/javascript">
+		/*获取模板*/
+		var store_template = document.getElementById("store_template").innerHTML;
+		/*
+		 * @params start 此时为第一次加载页面
+		 * @params next_start 存在下一页是的ID
+		 * @params category_id 商品类型ID
+		 * */
+		var start=true;
+		var next_start="";
+		//默认显示全部
+		var category_id=0;
+		/*
+		 * 配置商品列表
+		 * @params type
+		 * @params url
+		 * @params data
+		 * */
+		//获取商品列表判断用户是否登陆
+		var userinfo = JSON.parse(window.localStorage.getItem('userinfo'));
+		var userid = 'None';
+		if(userinfo){
+			userid = userinfo.user._id;
+		}
+		var config = {
+			type : "get",
+            cache:1,
+			url : API.MALL.goods+category_id+"/",
+			data:{
+				user_id:userid,
+				next_start:next_start
+			}
+		}
+		var love_config = {
+			type : "post",
+			url : null,
+		}
+		 /*
+		  *@params category_id商品类别ID
+		  *@params has_more是否存在下一页
+		  *@params next_start存在下一页是的ID
+		  *@params type 企业帮扶(1)、贫困户(0)
+		  * */
+		 function storeData(type){
+		 	HuaXia.Ajax(config,function(romateData){
+		 		if(next_start!=null){
+			 		//第一次加载时 传递banner
+			 		if(start){
+			 			// banner(romateData.banners);
+			 			start=false;
+			 		}
+			 		if(romateData.goods.length==0){
+			 			$(".store_good_list").html('<h5 style="text-align: center;width: 100%;margin-top: 20px;">没有更多数据</h5>');
+			 		}
+			 		//模板数据替换
+			 		$.each(romateData.goods, function(index,item) {
+			 			var html =store_template
+				 		.replace(/%src%/,IMG_web + item.cover)
+				 		.replace(/%owner%/,item.type==1?"block":"none")
+				 		.replace(/%title%/,item.name)
+				 		.replace(/%price%/,(item.price).toString().split(".")[0])
+						 // .replace(/%percent%/,(item.price).toString().split(".")[1]||"00")
+						.replace(/%percent%/,(item.price).toFixed(2).toString().split(".")[1])
+				 		.replace(/%unit%/,item.unit)
+				 		.replace(/%active%/,item.has_fav?"active":"")
+				 		.replace(/%poor%/,item.type==0?"block":"none")
+				 		.replace(/%poor1%/,item.type==0?"block":"none")
+				 		.replace(/%firm%/,item.type==1?"block":"none")
+				 		.replace(/%type%/,item.type)
+				 		.replace(/%value%/,item._id)
+				 		.replace(/%poor_name%/,item.type==0?item.family.name:"")
+				 		.replace(/%help_leader%/,item.type==0?item.family.help_name:"")
+				 		.replace(/%firm_name%/,item.type==1?item.enterprise.name:"");
+				 		$("#store_good_list").append(html);
+			 		});
+			 		config.data.next_start = romateData.next_start;
+			 		mui("#refreshContainer").pullRefresh().endPullupToRefresh(!romateData.next_start);
+		 		//收藏
+		 		mui(".storeFlex").on("tap",".isLoveGoods",function(){
+		 			//判断当前用户是否登陆
+		 			if(userinfo){
+		 				var id = this.parentNode.parentNode.getAttribute("value");
+			 			if(this.classList.contains("active")==true){
+			 				this.classList.remove("active");
+			 				delete_love(id);
+			 			}else{
+			 				this.classList.add("active");
+							add_love(id);
+			 			}
+		 			}else{
+		 				mui.alert('请先登陆');
+		 			}
+                    return false;
+				});
+				//注册跳转商品详情页面
+				mui(".store_good_list").on("tap",".store_good_item",function(){
+					var id = this.getAttribute("value");
+					//location.href=serverPath.helpStore() + "pay_detail.html?id="+id;
+					var aipUrl = API.MALL.shopDetail.replace(/<goods_id>/,id);
+					HuaXia.Ajax({
+                        type:'get',
+                        url:aipUrl,
+                        data:{user_id:userid},
+                    },function(data){
+		                window.sessionStorage.setItem("pay_goods",JSON.stringify(data.goods));
+		                location.href=serverPath.helpStore() + "pay_detail.html?id="+id;
+                    })
+				});
+				//设置页面部分布局
+				setResponse();
+		 	}else{
+		 		//
+		 		$("#slider").removeClass("banner_loading");
+		 		//为空时数据展示
+		 		mui("#refreshContainer").pullRefresh().endPullupToRefresh(true);
+		 		//$("#store_good_list").html(notdata("没有更多商品!!"));
+		 	}
+
+		 	});
+		 }
+		/*
+		 *banner 操作
+		 * 首次加载其他次不回
+		 * */
+		function banner(obj){
+			if(obj.length==0){
+				return ;
+			}
+			var html = firstAndEnd(obj[obj.length-1]);
+			var htmlDot = "";
+			for(var i=0; i<obj.length; i++){
+			    var url = obj[i].url?obj[i].url:'#';
+				html = html +  "<div class='mui-slider-item'>"+
+					      "<a href='"+url+"' >"+
+					        "<img  src='"+IMG_web+obj[i].image+"' ng-style='setImgHeight'>"+
+					      "</a>"+
+					    "</div>"	
+			    htmlDot = htmlDot + "<div class='mui-indicator'></div>"	;	    
+			}
+			html = html + firstAndEnd(obj[0]);
+			$("#slider_img").html(html);
+			$("#slider_dot").html(htmlDot);
+			$("#slider_dot").children().eq(0).addClass("mui-active");
+			$("#slider_img").find("img").attr("onerror","javascript:this.src='img/icon/banner.png'").css({"height":$(window).width()*9/16,"object-fit":"cover","width":"100%"});
+			/*自动轮播*/
+			if(obj.length>1){
+				mui('.mui-slider').slider({interval:5000});
+			}
+		}
+		$("#slider_img").find("img").attr("onerror","javascript:this.src='img/icon/banner.png'").css({"height":$(window).width()*9/16,"object-fit":"cover","width":"100%"});
+		/*轮播图第一和嘴和一个*/
+		function firstAndEnd(obj){
+			if(obj.length==0){
+				return;
+			}
+			 var url = obj.url?obj.url:'#';
+			var html ="<div class='mui-slider-item mui-slider-item-duplicate' >"+
+					      "<a href='"+url+"'>"+
+					        "<img  src='"+IMG_web+obj.image+"' ng-style='setImgHeight'>"+
+					      "</a>"+
+					    "</div>"
+				return html;
+		}
+		/*初始化页面数据*/
+		mui.init({
+			pullRefresh : {
+				container : "#refreshContainer",
+				up : {
+					auto:true,
+				     contentrefresh : "正在加载...",//可选，正在加载状态时，上拉加载控件上显示的标题内容
+				     contentnomore:'没有更多数据了',//可选，请求完毕若没有更多数据时显示的提醒内容；
+					 callback : pullupRefresh,
+				},
+			}
+		});
+		//下拉刷新逻辑
+		function pullupRefresh(){
+			if(window.sessionStorage.getItem("category_id")){
+				category_id = window.sessionStorage.getItem("category_id")
+			}
+			storeData(category_id);
+//			if(next_start!=null){
+//				mui("#pullrefresh").pullRefresh().endPullupToRefresh();	
+//			}else{
+//				mui("#pullrefresh").pullRefresh().endPullupToRefresh();
+//			}
+		}
+		/*点击轮播banner*/
+		mui(".mui-slider-item").on("tap","a",function(){
+			window.location.href=this.getAttribute("href");
+		});
+		/*
+		 *点击收藏 
+		 * @params good_id商品ID
+		 * */
+		function add_love(id){
+			HuaXia.Ajax({
+				type:'post',
+				url:API.MALL.favorite.replace(/<goods_id>/,id),
+				data:{
+					user_id:userinfo.user._id
+				}
+			},function(data){
+				if(data){
+					$("#wx_tip").html("收藏成功").slideDown("slow",function(){
+						var _this = $(this);
+						setTimeout(function(){
+							_this.slideToggle("fast");
+						},2000)
+					});
+				}
+			});
+		}
+		/*
+		 *点击收藏取消 
+		 * @params good_id商品ID
+		 * */
+		function delete_love(id){
+			HuaXia.Ajax({
+				type:'delete',
+				url:API.MALL.unfavorite.replace(/<goods_id>/,id),
+				data:{
+					user_id:userinfo.user._id
+				}
+			},function(data){
+				if(data){
+					$("#wx_tip").html("取消收藏成功").slideDown("slow",function(){
+						var _this = $(this);
+						setTimeout(function(){
+							_this.slideToggle("fast");
+						},2000)
+					});
+				}
+			});
+		}
+	/*设置图片*/
+	function setResponse(){
+		var width = window.innerWidth;
+		var Element =$(".store_good_item").css("marginTop",width*0.02+"px");
+		var imgElement = $(".store_good_img img:nth-child(1)").css("height",width*0.49-16 + "px");
+	}
+	/*
+	 * 点击获取商品类型
+	 * @params type = 1,2,3,4,9999
+	 * */
+	mui(".store_case_nav").on("tap",".store_case_box",function(){
+		mui('#refreshContainer').pullRefresh().refresh(true);
+		$(this).addClass('active').siblings().removeClass('active');
+		//判断点击的是哪一个导航
+		if($(this).parent().hasClass('display-show')){
+			$('#nav_top').find('.store_case_box').eq($(this).index()).addClass('active').siblings().removeClass('active');
+		}else{
+			$('.store_case_nav.display-show').find('.store_case_box').eq($(this).index()).addClass('active').siblings().removeClass('active');
+		}
+	    
+		$("#store_good_list").html("");
+		config.data.next_start = ""
+		 category_id = this.getAttribute("type");
+		 config.data.category_id=category_id;
+		 config.url = API.MALL.goods+category_id+"/";
+		 window.sessionStorage.setItem("category_id",category_id);
+		 storeData(category_id);
+
+		 $(".display-show").addClass("scale");
+		 $(".display_block").addClass("scale-block");
+
+		 mui('#refreshContainer').pullRefresh().scrollTo(0, -280, 0);
+        //mui('#refreshContainer').pullRefresh().refresh(true);
+	})
+	/*设置banner高度*/
+	$("#slider").css("height",window.innerWidth*9/16)
+	//搜索
+	document.getElementById("strName").addEventListener("keydown",function(e){ 
+        if(13 == e.keyCode){ //点击了“搜索” 
+        	var value = jQuery("input[type=search]").val();
+        	searchAttch(value);
+        	if(value!=""){
+        		document.activeElement.blur();//隐藏软键盘
+        	}
+        } 
+    },false); 
+
+ 	//搜索
+ 	document.querySelector("#searchSubmit").onclick = function(){
+ 		var value = jQuery("input[type=search]").val();
+		 		if(value==""){
+		 			HuaXia.InputEmpty();
+		 			return ;
+				 }
+		// mui('.mui-popover').popover('toggle',document.getElementById("search"));
+		// mui('.mui-popover').on('tap','li',function(){
+		// 	var types = this.getAttribute('data_id');
+		// 	window.location.href = serverPath.helpStore() + "goods_search.html?value="+value+'&types='+types;
+		// })
+		window.location.href = serverPath.helpStore() + "goods_search.html?value="+value;
+ 	}
+   document.getElementById('refreshContainer').addEventListener('scrollend', function() {
+			if (mui('#refreshContainer').pullRefresh().y <= 270 * (-1)){
+				$(".display-show").addClass("scale");
+				$(".display_block").addClass("scale-block");
+			}
+			else{
+				$(".display-show").addClass("scale-block");
+				$(".display-show").removeClass("scale");
+				$(".display_block").addClass("scale");
+				$(".display_block").removeClass("scale-block");
+			}
+		});
+	//获取banners
+	 function getLocation()
+	 {
+	 	if (navigator.geolocation)
+	 		{
+	 			navigator.geolocation.getCurrentPosition(showPosition);
+	 		}
+	 		else{
+	 			alert('暂时无法定位')
+	 		}
+	 }
+	 function showPosition(position)
+	{
+	 	// lng:position.coords.latitude,
+	 	// lat:position.coords.longitude,
+	 }
+	
+	 HuaXia.Ajax({
+	 		type : "get",
+	 		url : API.NEWS.banners.replace(/<position>/,2),
+	 		data:{
+	 			lng:26.620295,
+	 			lat:106.648216,
+	 		}
+	 	},function(data){
+	 		for(var i=0;i<data.banner.length;i++){
+			    data.banner[i].cover = data.banner[i].image;
+            }
+			HuaXia.Eachbanners(data.banner,1);
+             var gallery = mui('#slider');
+                gallery.slider({
+                interval:1000//自动轮播周期，若为0则不自动播放，默认为0；
+            });
+	 	})
+	</script>
+	</body>
+</html>

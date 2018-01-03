@@ -1,0 +1,67 @@
+{
+    "banners": [                              
+        {
+            "image": "js.png",              
+            "url": "https://www.baidu.com"                
+        },
+        {
+            "image": "js.png",              
+            "url": "https://www.baidu.com"                
+        }
+    ],
+    "goods": [                                
+        {
+            "_id": "1",              
+            "name": "xxxx",                   
+            "cover": "png.png",              
+            "price": 28.33,                   
+            "unit": "xx",                     
+            "type": 1,                        
+            "enterprise": {                   
+                "name": "xxx"                 
+            },
+            "has_fav": true                 
+        },
+        {
+            "_id": "2",              
+            "name": "xxxx",                   
+            "cover": "png.png",              
+            "price": 28.33,                   
+            "unit": "xx",                     
+            "type": 0,                        
+            "family": {                       
+                "name": "xx",                 
+                "help_name": "xx"             
+            },
+            "has_fav": false                 
+        },
+        {
+            "_id": "3",              
+            "name": "xxxx",                   
+            "cover": "png.png",              
+            "price": 28.33,                   
+            "unit": "xx",                     
+            "type": 0,                        
+            "family": {                       
+                "name": "xx",                 
+                "help_name": "xx"             
+            },
+            "has_fav": false                 
+        },
+        {
+            "_id": "4",              
+            "name": "xxxx",                   
+            "cover": "png.png",              
+            "price": 28.33,                   
+            "unit": "xx",                     
+            "type": 0,                        
+            "family": {                       
+                "name": "xx",                 
+                "help_name": "xx"             
+            },
+            "has_fav": false                 
+        }
+    ],
+    "has_more": false,                        
+    "next_start": null     
+    }       

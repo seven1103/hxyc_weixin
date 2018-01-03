@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html ng-app="Index">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+		<meta http-equiv="Pragma" content="no-cache" />
+		<meta http-equiv="Expires" content="0" />
+		<title>详情页</title>
+		<link rel="stylesheet" type="text/css" href="../../css/mui.min.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/all.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/wx_icon.css"/>
+		<script src="../../js/userAgent.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<style type="text/css">
+		h4{
+			font-size: 16px;
+			color: #000;
+			font-weight: normal;
+			margin-bottom: 6px;
+		}
+		.Article .Article-header h4{
+			padding-bottom: 0;
+		}
+		.Article-header p{
+			line-height: 1.5;
+		}
+		.Article-body p{
+			line-height: 1.5;
+			color:black;
+			text-align:justify;
+			text-indent:24px;
+		}
+		.Article-body img{
+			width: 100%;
+			object-fit: cover;
+		}
+		.Article-body p{
+			text-indent: 0 !important;
+		}
+	</style>
+	<body>
+		<header class="header" id="noMicromessenger"></header>
+		<div id="content">
+		</div>
+		<script src="../../js/angular.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/jquery-1.8.3.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/public_templete.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/all.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/index1.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			$(document).ready(function(){
+				var id = HuaXia.getURL_id();
+				HuaXia.Ajax({
+					type : 'get',
+					url : API.NEWS.article+id+'/'
+				},function(data){
+					if(data.article==undefined){
+						$("body").html(notdata('此页面可能被删除或移至其他页面!!')).css("height","100vh");
+					}else{
+						var dom = 'div',
+						ev = document.getElementById('content'),
+						obj = ['class','Article'],
+						time = HuaXia.format(data.article.timed,1),
+						view = data.article.views
+						
+						html = '<div class="Article-header">'+
+							   '<h4>'+data.article.title+'</h4>'+
+							   '<p>发布部门:<span>'+data.article.gov.name+'</span></p>'+
+							   '<p>发布时间:<span>'+time+'</span><span style="display: flex;float: right;">'+view+'<i class="icon wx-guankan-" style="font-size: 14px;margin-left: 5px;"></i></span></p>'+
+							   '</div><div class="Article-body"><img src="'+data.article.cover+'"><p>'+data.article.content+'<p></div>';
+						HuaXia.Addhtml(ev,dom,html,obj);
+						$("#content").find("img").attr("onerror","javascript:this.src='"+serverPath.img()+"icon/banner.png'").css("height",window.innerWidth*9/16);	
+					}
+				});
+			})
+		</script>
+	</body>
+</html>

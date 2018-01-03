@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+		<meta http-equiv="Pragma" content="no-cache" />
+		<meta http-equiv="Expires" content="0" />
+		<link rel="stylesheet" type="text/css" href="../../css/mui.min.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/all.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/people_supervision.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/wx_icon.css"/>
+		<script src="../../js/userAgent.js" type="text/javascript" charset="utf-8"></script>
+		<title>民生政策详情</title>
+	</head>
+	<style type="text/css">
+		.Article-body p{
+			color:#000000;
+			text-align: justify;
+		}
+		h4{ text-align: center;}
+	</style>
+	<body>
+		<header class="header" id="noMicromessenger"></header>
+		<div class="Article">
+			<!--文章头部-->
+			<div class="Article-header">
+				<h4 id="title"><!--贵州省烟草公司毕节市公司卷烟物流配送中心物流--></h4>
+
+				<!--<p><span>51次浏览</span><span>2017-02-12</span></p>-->
+				<p class="look">发布时间：<span id="time"><!--2012.03.21--></span><span id="views"><!--300--><!--<i class="icon wx-guankan-"></i>--></span></p>
+			</div>
+			<!--文章内容-->
+			<div class="Article-body" id="content">
+				<!--<p>这个路面如此坑坑洼洼的有将近一年多，根本没人管。加深对接口按实际看的吧实木地板即可报名，
+					把对面把什么牛逼舅妈说不定静安寺马上办大美女</p>
+				<p>这个路面如此坑坑洼洼的有将近一年多，根本没人管。加深对接口按实际看的吧实木地板即可报名，
+					把对面把什么牛逼舅妈说不定静安寺马上办大美女</p>
+					<p>这个路面如此坑坑洼洼的有将近一年多，根本没人管。加深对接口按实际看的吧实木地板即可报名，
+					把对面把什么牛逼舅妈说不定静安寺马上办大美女</p>
+					<p>这个路面如此坑坑洼洼的有将近一年多，根本没人管。加深对接口按实际看的吧实木地板即可报名，
+					把对面把什么牛逼舅妈说不定静安寺马上办大美女</p>
+					<img src="../../img/demo.png"/>
+					<p>这个路面如此坑坑洼洼的有将近一年多，根本没人管。加深对接口按实际看的吧实木地板即可报名，
+					把对面把什么牛逼舅妈说不定静安寺马上办大美女</p>-->
+			</div>
+		</div>
+	</body>
+	<script src="../../js/jquery-1.8.3.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/all.js"></script>
+	<script type="text/javascript">
+		var itemId = HuaXia.GetQueryString("itemId");
+		var projectId = HuaXia.GetQueryString("projectId");
+		var apiUrl = API.PROJECTS.item_detail.replace(/<project_id>/,projectId)
+											  .replace(/<step_id>/,itemId);
+		HuaXia.Ajax({
+			type : "get",
+			url : apiUrl,
+		},function(data){
+			if(!data.step._id){
+				$("body").html(notdata('此页面可能被删除或移至其他页面!!')).css("height","100vh");
+			}else{
+				$("#title").text(data.step.name);
+				$("#unite").text(data.step.gov?data.step.gov.name:"无");
+				$("#time").text(HuaXia.format(data.step.timed,1));
+//				$("#views").text(data.step.views?data.step.views:"0");
+				var des = data.step.result.des?data.step.result.des:"";
+				var content = data.step.result.content;
+				var html = "<p>"+content+"</p>";
+				var img="";
+				for(var i=0; i<data.step.result.images.length;i++){
+					img = img +"<img src="+IMG_web+data.step.result.images[i]+" />"	
+				}
+				html = html + img +'<p>'+des+'</p>'
+				$("#content").html(html);
+			}	
+		});
+	</script>
+</html>

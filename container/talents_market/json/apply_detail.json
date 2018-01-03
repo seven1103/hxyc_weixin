@@ -1,0 +1,33 @@
+{
+    "labor": {
+        "_id": "1",               
+        "title": "找工作的标题",                
+        "photo": "",             
+        "worker": "张三",                   
+        "sex": 0,                         
+        "age": 38,                        
+        "salary": 4500.0,                 
+        "family": {                       
+            "name": "张三",                
+            "photo": "jpn.png",          
+            "member_count": 4,            
+            "property": "一般贫困户",          
+            "reason": "交通落后",            
+            "avg_income": {               
+                "year": "2016年",         
+                "rmb": 1468.0             
+            },
+            "address": "xx乡xx村",          
+            "location": {                 
+                "lat": 33.1131,          
+                "lng": 91.113             
+            },
+            "help_name": "李四",            
+            "help_phone": "13765674853"     
+        },
+        "detail": "html格式详情",             
+        "work_area": "金海湖新区",            
+        "tags": [0,1,2,3],                
+        "timed": 20171225      
+    }
+}

@@ -1,0 +1,30 @@
+{
+	"labors" : [{
+			"_id":"1",
+			"title":"我是求职1",
+			"photo":"http://192.168.6.163:8020/json/jc.jpg",
+			"helper":"张三",
+			"worker":"李四",
+			"tags":[0,1,2,3],
+			"timed":"20170125"
+	},{
+			"_id":"2",
+			"title":"我是求职2",
+			"photo":"http://192.168.6.163:8020/json/jc.jpg",
+			"helper":"张四",
+			"worker":"李五",
+			"tags":[0,1],
+			"timed":"20170126"
+	},{
+			"_id":"3",
+			"title":"我是求职3",
+			"photo":"http://192.168.6.163:8020/jc.jpg",
+			"helper":"张五",
+			"worker":"李刘",
+			"tags":[0,1,2],
+			"timed":"20170126"
+	}
+	],
+	"has_more" : false,
+	"next_start":null
+}

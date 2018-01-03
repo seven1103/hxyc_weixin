@@ -1,0 +1,6 @@
+.isMicroMessenger{
+	display: none;
+}
+.isPhoneBrower{
+	display: block;
+}

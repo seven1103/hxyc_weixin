@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html ng-app="talents" ng-controller="applyDetailCtrl">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+		<meta http-equiv="Pragma" content="no-cache" />
+		<meta http-equiv="Expires" content="0" />
+		<title>务工详情</title>
+		<link rel="stylesheet" type="text/css" href="../../css/mui.min.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/wx_list.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/wx_icon.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/wx_talent.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/wx_response.css"/>
+		<script src="../../js/userAgent.js" type="text/javascript" charset="utf-8"></script>
+		<style>
+			.isIssue p{margin: 5px 0}
+		</style>
+	</head>
+	<body ng-cloak>
+	<!-- <header class="header"></header>	 -->
+        <opention></opention>
+		<div class="mui-content mui-scroll-wrapper" style="margin-bottom: 40px;">
+			<div class="mui-scroll">
+		<!--<div class="uiDetail">-->
+			<!--商品详情-->
+			<div class="store_good_detail">
+				<div class="store_pay_detailImg">
+					<div id="slider" class="mui-slider" >
+					  <div class="mui-slider-group">
+					    <!-- 第一张 -->
+					    <!--<div class="mui-slider-item"  ng-repeat="img in data.images">
+					      <a href="#">
+					       <img onerror="javascript:this.src='../../img/icon/banner.png'" ng-src="{{img.url | getUrl}}" ng-style="setimgheight" >
+					      </a>
+					    </div>-->
+					    <div class="mui-slider-item">
+						      <a href="#">
+						       <img onerror="javascript:this.src='../../img/icon/banner.png'" ng-src="{{data.photo | getUrl}}" ng-style="setimgheight" >
+						      </a>
+						    </div>
+					  </div>
+					  <!--<div class="mui-slider-indicator">
+					    <div class="mui-indicator" ng-repeat="img in data.images"></div>
+					  </div>-->
+					</div>
+				</div>
+				<div class="apply_detail">
+					<h2 style="margin-bottom:20px;">{{data.title}}</h2>
+					<div class="isIssue">
+						<p class="apply_sallary"><span>务工人 : <span class="colorBlack">{{data.worker}}</span></span> <span>性别 : <span class="colorBlack" ng-if="data.sex!=1&&data.sex!=2">未设定</span> <span class="colorBlack" ng-if="data.sex==1">男</span> <span class="colorBlack" ng-if="data.sex==2">女</span></span><span>年龄 : <span class="colorBlack">{{data.age}}</span></span></p>
+						<p class="apply_sallary" style="">
+							<span>文化程度:<span class="colorBlack">{{data.edu}}</span></span>
+							<span style="margin-left:25px">期望薪资 : <i>&yen;{{data.salary}}/月</i></span>
+							<span></span>
+						</p>
+					</div>
+					<p>期望务工区域 : <span class="colorBlack">{{data.work_area}}</span></p>
+					<div class="apply_welfare">
+						
+						<p class="talent_condition">
+							<span class={{tags[0]}}>包吃</span><span class={{tags[1]}}>包住</span><span class={{tags[2]}}>五险</span><span class={{tags[3]}}>一金</span>
+						</p>
+						<!--<p ng-if="data.tags[0]==undefined">
+							<span class="apply_welfare_status"><i class="icon wx-duigou"></i></span><span class="colorBlack">包吃</span>
+						</p>
+						<p ng-if="data.tags[1]==1">
+							<span class="apply_welfare_status active"><i class="icon wx-duigou"></i></span><span class="colorBlack">包住</span>
+						</p>
+						<p ng-if="data.tags[1]==undefined">
+							<span class="apply_welfare_status"><i class="icon wx-duigou"></i></span><span class="colorBlack">包住</span>
+						</p>
+						<p ng-if="data.tags[2]==2">
+							<span class="apply_welfare_status active"><i class="icon wx-duigou"></i></span><span class="colorBlack">五险</span>
+						</p>
+						<p ng-if="data.tags[2]==undefined">
+							<span class="apply_welfare_status"><i class="icon wx-duigou"></i></span><span class="colorBlack">五险</span>
+						</p>
+						<p ng-if="data.tags[3]==3">
+							<span class="apply_welfare_status active"><i class="icon wx-duigou"></i></span><span class="colorBlack">一金</span>
+						</p>
+						<p ng-if="data.tags[3]==undefined">
+							<span class="apply_welfare_status"><i class="icon wx-duigou"></i></span><span class="colorBlack">一金</span>
+						</p>-->
+					<div>
+				</div>
+			</div>
+		</div>
+		<!--求职信息-->
+			<div class="store_people_help isIssue">
+				<div class="good_publish_detail">
+					<div class="publish_info">
+						<img onerror="javascript:this.src='../../img/icon/banner.png'"  ng-src="{{data.family.avatar|getUrl}}" />
+						<div class="apply_poor_info">
+							<span>贫困户 : <span class="colorBlack">{{data.family.name}}</span></span>
+							<span>帮扶干部 : <span class="colorBlack">{{data.family.help_name}}</span></span>
+						</div>
+					
+					</div>
+				</div>
+				<div class="good_publish_detail_text">
+					<div class="publish_info_detail">
+						<span>家庭人数 : <span class="colorBlack">{{data.family.member_count}}人</span></span>
+						<span>贫困户属性 : <span>{{data.family.property}}</span></span>
+					</div>
+					<div class="publish_info_detail" style="display:block">
+						<span style="margin-bottom:10px;display:block">主要致贫原因 : <span class="colorBlack">{{data.family.causes | causes}}</span></span>
+						<span>{{data.family.avg_income.year}}年人均收入 : <span class="colorBlack">{{data.family.avg_income.rmb}}元</span></span>	
+					</div>
+					<p id="location" style="color:#8F8F94;">
+						<!-- <i class="icon wx-dingwei"></i> -->
+						家庭住址 : <span class="colorBlack">{{data.family.address}}</span><span class="location_point" style="display: none">{{data.family.location.lat}},{{data.family.location.lng}}</span></p>
+				</div>
+			</div>
+			<!--商品详情-->
+			<div class="goog_intoduce" style="margin-top: 0;">
+				<div class="goog_intoduce_titel">
+					详情内容
+				</div>
+				<div class="goog_intoduce_content">
+					<p>{{data.detail}}</p>
+					<img ng-repeat="item in data.images" onerror="javascript:this.src='../../img/icon/banner.png'" src={{item.url|getUrl}}  />
+				</div>
+			</div>
+			</div>
+		</div>
+		</div>
+		<div class="apply_call_leader">
+			<div style="display: flex;justify-content: center;align-items: center;white-space: nowrap;">联系人 :{{data.family.help_name}} {{data.family.help_phone}}</div>
+			<div><i class="icon wx-dianhua"></i><a href="tel:{{data.family.help_phone}}" style="color: #fff;">拨打电话</a></div>
+		</div>
+    <script src="../../js/jquery-1.8.3.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/angular.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/public_templete.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/talents.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/all.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		mui(".mui-scroll-wrapper").scroll();
+		window.onload = function(){
+			mui('.mui-slider').slider({
+			  interval:5000//自动轮播周期，若为0则不自动播放，默认为0；
+			});
+		}
+
+       // 唤起地图
+        $('#location').click(function(){
+            var address =  $(this).find('.location_point ').html()
+             window.location.href = 'http://api.map.baidu.com/geocoder?location='+address+'&output=html';
+        })
+	</script>
+</body>
+</html>

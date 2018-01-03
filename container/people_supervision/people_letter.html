@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html ng-app="people_supervision">
+
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+		<meta http-equiv="Pragma" content="no-cache" />
+		<meta http-equiv="Expires" content="0" />
+		<title>信访信息</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<link rel="stylesheet" type="text/css" href="../../css/mui.min.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/all.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/people_supervision.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/wx_icon.css"/>
+		<script src="../../js/userAgent.js" type="text/javascript" charset="utf-8"></script>
+		<style type="text/css">
+			#sliderSegmentedControl2 a.mui-control-item{width: 50%;}
+			#sliderSegmentedControl2 a.mui-control-item.mui-active{color:#7CDA7B;border-bottom: 2px solid #7CDA7B;}
+			.mui-segmented-control.mui-scroll-wrapper{height: 40px;}
+			.mui-segmented-control.mui-scroll-wrapper .mui-scroll{height: 40px;}
+			.mui-pull-bottom-tips {
+                text-align: center;
+                background-color: #efeff4;
+                font-size: 15px;
+                line-height: 40px;
+            }
+            #fabu{background-attachment: #ffffff;}
+            .mui-fullscreen .mui-segmented-control~.mui-slider-group{top:38px}
+            .mui-scroll{background: #fff;}
+            h4{margin-bottom: 8px;}
+            .input_title{height: 30px;line-height: 30px;font-size: 14px;border-bottom: 1px solid #ccc;margin-bottom: 10px;}
+			.issue_add_btn.img{height: 60px;width: 60px;border: 1px solid #ccc;border-radius: 5px;line-height: 60px;text-align: center;color: #ccc;}
+			.issue_add_imgbox{display: flex;flex-flow: wrap;}
+			.issue_add_imgbox .img-see{position: relative;}
+			.issue_add_imgbox .img-see .delete{position: absolute;z-index: 2;right: 5px;top: 0;height: 20px;
+			width: 20px;background: red;color: #fff;font-size: 20px;line-height: 20px;text-align: center;opacity: 0.5;}
+			.issue_add_imgbox img{height: 60px;width: 60px;object-fit: cover;margin-right: 5px;margin-bottom: 5px;}
+			.issue_add_imgbox .img-view{display: inline-block;display: flex;position: relative;height: 60px;width: 60px;}
+			.issue_add_imgbox .img-view .demo_form_input.img{height: 60px;width: 60px;position: absolute;opacity: 0;top: 0;left: 0;}
+			form.form input,form.form textarea{
+				margin: 5px 0;
+			}
+			form.form p.Prompt{padding-left: 22%;color: red;}
+			label:before{
+				content: "*";
+				color: red;
+				vertical-align: middle;
+				margin-right: 5px;
+			}
+		</style>
+		<script src="../../js/angular.min.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+
+	<body>
+		<!--<header class="header" id="noMicromessenger"></header>-->
+		<div class="mui-content">
+			<div id="" class="mui-slider mui-fullscreen" style="bottom: 0;">
+				<div id="sliderSegmentedControl2" class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+					<div class="mui-scroll" style="width: 100%;background: #fff;border-bottom: 1px solid #EEEEEE;">
+						<a class="mui-control-item mui-active" href="#item1mobile">
+							信访信息
+						</a>
+						<a class="mui-control-item" href="#item2mobile">
+							发布信访述求
+						</a>
+					</div>
+				</div>
+				<div class="mui-slider-group">
+					<div ng-controller="letter1" id="item1mobile" class="mui-slider-item mui-control-content mui-active">
+						<div id="scroll1" class="mui-scroll-wrapper">
+							<div class="mui-scroll">
+								<ul class="mui-table-view">
+									<!--<li class="mui-table-view-cell">
+										<h4>毕节市四项措施处理结果</h4>
+										<p>发布单位:<span>金海湖新区管委会</span></p>
+										<p class="look">发布时间:<span>2012.03.21</span><span>300<i class="icon wx-guankan-"></i></span></p>
+									</li>
+									<li class="mui-table-view-cell">
+										<h4>毕节市四项措施处理结果</h4>
+										<p>发布单位:<span>金海湖新区管委会</span></p>
+										<p class="look">发布时间:<span>2012.03.21</span><span>300<i class="icon wx-guankan-"></i></span></p>
+									</li>
+									<li class="mui-table-view-cell">
+										<h4>毕节市四项措施处理结果</h4>
+										<p>发布单位:<span>金海湖新区管委会</span></p>
+										<p class="look">发布时间:<span>2012.03.21</span><span>300<i class="icon wx-guankan-"></i></span></p>
+									</li>-->
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div ng-controller="letter2" id="item2mobile" class="mui-slider-item mui-control-content">
+						<div class="mui-scroll-wrapper">
+							<div class="mui-scroll">
+								<form id="fabu" class="form" name="myForm"  novalidate>
+										<div class="input-item">
+											<label>姓　　名:</label>
+											<input type="text"  name="user" ng-model="user" required />
+										</div>
+										<p class="Prompt" ng-show="myForm.user.$dirty && myForm.user.$invalid">
+											<span ng-show="myForm.user.$error.required">用户名是必须的。</span>
+										</p>
+										<div class="input-item">
+											<label>联系电话:</label>
+											<input type="tel" name="tel" required />
+										</div>
+										<p class="Prompt" ng-show="myForm.tel.$dirty && myForm.tel.$invalid">
+											<span ng-show="myForm.tel.$error.required">电话号码必填</span>
+										</p>
+										<div class="input-item">
+											<label>身份证号:</label>
+											<input type="number" name="userID" ng-model="userID"  ng-minlength="18" ng-maxlength="22" required />
+										</div>
+										<p class="Prompt" ng-show="myForm.userID.$dirty && myForm.userID.$invalid">
+											<span ng-show="myForm.userID.$error.required">身份证必填</span>
+											<span ng-show="myForm.userID.$error.minlength||myForm.userID.$error.maxlength">身份证格式不正确</span>
+										</p>
+										<div class="input-item">
+											<label>住　　址:</label>
+											<input type="text" name="address" ng-model="address" required />
+										</div>
+										<p class="Prompt" ng-show="myForm.address.$dirty && myForm.address.$invalid">
+											<span ng-show="myForm.address.$error.required">地址必填</span>
+										</p>
+										<div class="input-item" style="display: block;">
+											<label style="display: block;">诉求内容:</label>
+											<textarea name="content" ng-model="content" required rows="" cols="" style="width: 100%;height: 100px;background: #fafafa;" placeholder="在这里输入诉求内容..."></textarea>
+										</div>
+										<p class="Prompt" ng-show="myForm.content.$dirty && myForm.content.$invalid" style="padding-left: 0;">
+											<span ng-show="myForm.content.$error.required">举报内容必填</span>
+										</p><br>
+										<div class="input-item" style="margin-bottom: 20px;">
+											<label>添加照片:</label>
+											<div class="issue_add_imgbox">
+												<div class="img-view">
+													<div class="issue_add_btn img">
+													<span class="icon wx-zengjia"></span>
+													</div>
+													<input class="demo_form_input img" type="file" name="file[]" multiple="multiple" accept="image/*" onchange="add(this,this.files);" />
+												</div>
+											</div>
+										</div>
+					
+										
+										<p class="Prompt" ng-show="myForm.password.$dirty || myForm.password.$invalid">
+											<span ng-show="myForm.password.$error.required">查询密码必填</span>
+											<span ng-show="myForm.password.$error.minlength||myForm.password.$error.maxlength">查询密码格式不正确</span>
+										</p>
+										<button  style="width: 100%;background: #dddddd;margin-top: 20px;margin-bottom: 30px;height: 35px;" onclick="upload()" ng-disabled="myForm.user.$dirty&&myForm.user.$invalid&&myForm.tel.$dirty&&myForm.tel.$invalid&&myForm.userID.$dirty&&myForm.userID.$invalid&&myForm.address.$dirty &&myForm.address.$invalid&&myForm.content.$dirty && myForm.content.$invalid">
+											确定提交
+										</button>
+									</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="../../js/jquery-1.8.3.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/mui.pullToRefresh.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/mui.pullToRefresh.material.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/angular-route.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/public_templete.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/all.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/people_supervision.js" type="text/javascript" charset="utf-8"></script>
+		<script>
+			mui.init();
+			//  记录下一页数据
+				var num = '';
+			(function($) {
+				//阻尼系数
+				var deceleration = mui.os.ios?0.003:0.0009;
+				$('.mui-scroll-wrapper').scroll({
+					bounce: false,
+					scrollX: false, //是否横向滚动
+					indicators: true, //是否显示滚动条
+					deceleration:deceleration
+				});
+				$.ready(function() {
+					//循环初始化所有下拉刷新，上拉加载。
+					$.each(document.querySelectorAll('.mui-slider-group .mui-scroll'), function(index, pullRefreshEl) {
+						if(index<1){
+						$(pullRefreshEl).pullToRefresh({
+							up: {
+								auto:'true',
+								callback: function() {
+									var self = this;
+									if(num==null){
+							    		self.endPullUpToRefresh(true);
+							    	}else{
+						    			HuaXia.Ajax({
+								    		type:'get',
+								    		url:API.LETTERS.letter,
+								    		data : {next_start:num}
+								    	},function(data){
+									    	if(data.articles.length==0){
+									    		self.endPullUpToRefresh(true);
+									    		jQuery("#scroll1").html(notdata("暂无任何信息!"));
+									    	}else{
+									    		for(var i=0;i<data.articles.length;i++){
+									    			var ev = self.element.querySelector('.mui-table-view');
+									    			var dom = 'li';
+									    			var obj = ['class','mui-table-view-cell','id',data.articles[i]._id];
+									    			//var time = parseInt(data.articles[i].timed/100);
+													var Date = HuaXia.format(data.articles[i].timed,1);
+									    			var html = '<h4 class="Text_ellipsis">'+data.articles[i].title+'</h4>'+
+									    					   '<p>发布单位:<span>'+data.articles[i].gov.name+'</span></p>'+
+									    					   '<p class="look">发布时间:<span>'+Date+'</span><span>'+data.articles[i].views+'<i class="icon wx-guankan-"></i></span></p>';
+									    		    HuaXia.Addhtml(ev,dom,html,obj);
+									    		}
+									    		self.endPullUpToRefresh();
+									    		num = data.next_start;
+									    	}
+								    	});
+									}
+								}
+							}
+						});
+						}else{console.log(1)}
+					});
+				});
+			})(mui);
+		</script>
+		
+		<!--图片上传-->
+		<script type="text/javascript">
+				  		//声明本地暂存图片数组
+						var imgArr = new Array();
+						//最多只能添加六张图片
+						var Imgnummax = 9;
+				  		function add(obj,files){
+				  			HuaXia.addimgs(obj,files,imgArr,Imgnummax);
+				  			console.log(imgArr);
+						}
+				  		
+		//			  	删除当前选中图片
+						function deletes(obj,index){
+							HuaXia.deleteimgs(obj,index,imgArr);
+							console.log(imgArr);
+						}
+						
+					function upload(){
+						var name = $("input[name=user]").val();
+						var phone = $("input[name=tel]").val();
+						var idCard = $("input[name=userID]").val();
+						var address = $("input[name=address]").val();
+						var content = $("textarea[name=content]").val();
+						if(name==""||phone==""||idCard==""||address==""||content==""||imgArr.length==0){
+							mui.toast("请完善信息!");
+						}else{
+								HuaXia.CreatReading();
+								HuaXia.img_compression(imgArr,imgArr,function(images){
+									var picture = JSON.stringify(images);
+									HuaXia.Ajax({
+										type:'post',
+										url:API.LETTERS.letter,
+										data:{
+											'name':name,
+											'contact':phone,
+											'card_id':idCard,
+											'address':address,
+											'content':content,
+											'images':picture,
+											'pwd':'123456',
+										},
+									},function(res){
+										HuaXia.CloseReading();
+										window.history.back(); 
+									})
+								});
+						}
+					}
+		</script>
+	</body>
+</html>

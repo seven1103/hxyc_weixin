@@ -1,0 +1,8 @@
+<div class="region_list">
+	<div class="title">
+		<h1>地区选择</h1>
+	</div>
+	<ul class="inner" ng-repeat="item in data">
+		<li id="{{item._id}}" ng-click="getId($event,index)"><span class="icon wx-dingwei"></span>{{item.full_name}}</li>
+	</ul>
+</div>

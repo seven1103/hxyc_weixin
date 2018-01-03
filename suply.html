@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html ng-app="talents" ng-controller="talentsCtrl">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=0">
+	    <meta http-equiv="pragma" content="no-cache">
+	    <meta http-equiv="cache-control" content="no-cache">
+	    <meta http-equiv="expires" content="0">
+	
+	    <meta name="keywords" content="精准云帮扶，帮扶商城">
+	    <meta name="description" content="华夏云城，全国第一家精准云帮扶平台。">
+	
+	    <meta name="apple-mobile-web-app-capable" content="yes">
+	    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+	    <meta content="telephone=no" name="format-detection">
+		<title>供需信息</title>
+		<link rel="stylesheet" type="text/css" href="css/mui.min.css"/>
+		<link rel="stylesheet" type="text/css" href="css/wx_list.css"/>
+		<link rel="stylesheet" type="text/css" href="css/wx_icon.css"/>
+		<link rel="stylesheet" type="text/css" href="css/wx_talent.css"/>
+		<link rel="stylesheet" type="text/css" href="css/wx_response.css"/>
+		<script src="js/userAgent.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<style type="text/css">
+		.mui-bar-nav~.mui-content .mui-slider.mui-fullscreen {
+			top: 42px;
+		    bottom: 50px;
+		}
+		#scrollContent {
+			width: 100%;
+			background:white;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+		#scrollContent .mui-control-item{
+			width:50%;
+			background:none;
+			border-bottom: 4px solid #ddd;
+		}
+		.mui-segmented-control.mui-segmented-control-inverted .mui-control-item.mui-active{
+			background: none!important;
+			color: #cc3e3d;
+			border-bottom: 4px solid #cc3e3d!important;
+		}
+		.mui-pull-loading{
+			width: 100%;
+			display: block;
+			text-align: center;
+			margin-top: 5px;
+		}
+		.store_search{
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+		.store_search .mui-input-row{
+			width: 100%;
+		}
+		.store_search button{
+			border: none;
+			height: 32px;
+			width: 40px;
+			background:green;
+			color: white;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			margin-bottom: 12px;
+			margin-left: 5px;
+			font-size: 10px;
+			display: none;
+			padding:0;
+			opacity: 0.6;
+		}
+		.mui-segmented-control .mui-control-item{
+			line-height: 35px;
+		}
+	.mui-slider .mui-segmented-control.mui-segmented-control-inverted~.mui-slider-group .mui-slider-item{
+		border: none;
+	}	
+	</style>
+	<body>
+		<div class="wx_tip" style="display: none;" id="wx_tip">2222</div>
+		<header class="header"></header>
+		<div class="mui-content">
+			<div class="mui-slider mui-fullscreen" id="slider">
+				<div class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+				    <div class="mui-scroll" id="scrollContent">
+				        <a class="mui-control-item mui-active" href="#item1" type="0">
+				           	 商品需求
+				        </a>
+				        <a class="mui-control-item" href="#item2" type="1">
+				        	  商品供应
+				        </a>
+				    </div>
+				</div>
+				<!--搜索框-->
+				<div class="talent_search store_search">
+			    	<div class="mui-input-row mui-search">
+			          <input type="search" class="mui-input-clear" placeholder="请输入职位" ng-focus="getFocus()">
+			      	</div>	
+			      	<button id="searchSubmit">确认</button>
+				</div>
+				<!--内容区域-->
+				<div class="mui-slider-group" style="margin-top: 60px;">
+					<!--item1-->
+					<div class="mui-slider-item mui-control-content mui-active" id="item1">
+						<div class="mui-scroll-wrapper">
+							<div class="mui-scroll" id="scroll1">
+								<ul class="mui-table-view wx_list" id="goodsSuply">
+									<li class="mui-table-view-cell" value="%id%">
+								        <img onerror="javascript:this.src='img/icon/avator_default.png'" src="%src%" />
+								      	<div class="wx_text_content">
+											<h2>收购包谷米</h2>
+											<div class="wx_list_text">
+												<p class="talent_people_info"><span>收购数量 : 1000斤</span><span>联系人: 张先生</span></p>
+												<p>收购单位 : 中国移动</p>
+												<p>发布时间 : 2017.02.06</p>
+											</div>
+										</div>
+							       </li>
+							       <li class="mui-table-view-cell" value="%id%">
+								        <img onerror="javascript:this.src='img/icon/avator_default.png'" src="%src%" />
+								      	<div class="wx_text_content">
+											<h2>收购包谷米</h2>
+											<div class="wx_list_text">
+												<p class="talent_people_info"><span>收购数量 : 1000斤</span><span>联系人: 张先生</span></p>
+												<p>收购单位 : 中国移动</p>
+												<p>发布时间 : 2017.02.06</p>
+											</div>
+										</div>
+							       </li>
+							       <li class="mui-table-view-cell" value="%id%">
+								        <img onerror="javascript:this.src='img/icon/avator_default.png'" src="%src%" />
+								      	<div class="wx_text_content">
+											<h2>收购包谷米</h2>
+											<div class="wx_list_text">
+												<p class="talent_people_info"><span>收购数量 : 1000斤</span><span>联系人: 张先生</span></p>
+												<p>收购单位 : 中国移动</p>
+												<p>发布时间 : 2017.02.06</p>
+											</div>
+										</div>
+							       </li>
+							       <li class="mui-table-view-cell" value="%id%">
+								        <img onerror="javascript:this.src='img/icon/avator_default.png'" src="%src%" />
+								      	<div class="wx_text_content">
+											<h2>收购包谷米</h2>
+											<div class="wx_list_text">
+												<p class="talent_people_info"><span>收购数量 : 1000斤</span><span>联系人: 张先生</span></p>
+												<p>收购单位 : 中国移动</p>
+												<p>发布时间 : 2017.02.06</p>
+											</div>
+										</div>
+							       </li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<!--item2-->
+					<div class="mui-slider-item mui-control-content" id="item2">
+						<div class="mui-scroll-wrapper">
+							<div class="mui-scroll" id="scroll2">
+								<ul class="mui-table-view wx_list" id="resuit">
+									<li class="mui-table-view-cell" value="%id%">
+								        <img onerror="javascript:this.src='img/icon/avator_default.png'" src="%src%" />
+								      	<div class="wx_text_content">
+											<h2>供应西红柿</h2>
+											<div class="wx_list_text">
+												<p class="talent_people_info"><span>库存 : 1000斤</span><span>联系人: 张先生</span></p>
+												<p>供应单位 : 中国移动</p>
+												<p>发布时间 : 2017.02.06</p>
+											</div>
+										</div>
+							       </li>
+							       <li class="mui-table-view-cell" value="%id%">
+								        <img onerror="javascript:this.src='img/icon/avator_default.png'" src="%src%" />
+								      	<div class="wx_text_content">
+											<h2>供应西红柿</h2>
+											<div class="wx_list_text">
+												<p class="talent_people_info"><span>库存 : 1000斤</span><span>联系人: 张先生</span></p>
+												<p>供应单位 : 中国移动</p>
+												<p>发布时间 : 2017.02.06</p>
+											</div>
+										</div>
+							       </li>
+							       <li class="mui-table-view-cell" value="%id%">
+								        <img onerror="javascript:this.src='img/icon/avator_default.png'" src="%src%" />
+								      	<div class="wx_text_content">
+											<h2>供应西红柿</h2>
+											<div class="wx_list_text">
+												<p class="talent_people_info"><span>库存 : 1000斤</span><span>联系人: 张先生</span></p>
+												<p>供应单位 : 中国移动</p>
+												<p>发布时间 : 2017.02.06</p>
+											</div>
+										</div>
+							       </li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<footer class="footer"></footer>
+		<div class="locationMark">
+		</div>
+		<div class="locationSelect">
+			<ul class="mui-table-view locationHeader">
+			    <li class="mui-table-view-cell">选择地区</li>
+			</ul>
+		</div>  
+		<script src="js/angular.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/mui.pullToRefresh.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/jquery-1.8.3.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/all.js"></script>
+		<script src="js/public_templete.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/talents.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/template" id="apply_template">
+			<li class="mui-table-view-cell" value="%id%">
+		        <img onerror="javascript:this.src='img/icon/avator_default.png'" src="%src%" />
+		      	<div class="wx_text_content">
+					<h2>%title%</h2>
+					<div class="wx_list_text">
+						<p class="talent_people_info"><span>务工人:%worker%</span><span>帮扶干部:%helper%</span></p>
+						<p>发布时间 : %time%</p>
+						<p class="talent_condition" id="apply_%index%">
+							<span class="%active%">包吃</span>
+							<span class="%active1%">包住</span>
+							<span class="%active2%">五险</span>
+							<span class="%active3%">一金</span>
+						</p>
+					</div>
+				</div>
+	       </li>
+		</script>
+		<script type="text/template" id="resuit_template">
+			 <li class="mui-table-view-cell" value="%value%">
+			        <img onerror="javascript:this.src='img/icon/avator_default.png'" src="%src%" />
+					<div class="wx_text_content">
+						<h2>%title%</h2>
+						<div class="wx_list_text">
+							<p class="talent_people_info"><span>招聘单位:%ent_name%</span></p>
+							<p>发布时间 : %time%</p>
+							<p class="talent_condition">
+								<span class="%active%">包吃</span>
+								<span class="%active1%">包住</span>
+								<span class="%active2%">五险</span>
+								<span class="%active3%">一金</span>
+							</p>
+						</div>
+					</div>
+		        </li>
+		</script>
+		<script>
+			(function($){
+				$(".mui-scroll-wrapper").scroll({
+					bounce: false,
+					scrollX: true, //是否横向滚动
+					indicators: true, //是否显示滚动条
+				});
+				var type;
+				mui("#scrollContent").on("tap","a",function(){
+					type = this.getAttribute("type");
+					window.sessionStorage.setItem("talentType",type);
+				});
+				if(id==undefined||id==0||id==null){
+					jQuery("a[type=0]").addClass("mui-active");
+				}
+				var id = window.sessionStorage.getItem("talentType");
+				if(id>0){
+					mui('#slider').slider().gotoItem(id,0);
+				}
+				 $.ready(function () {
+				 	$.each(document.querySelectorAll(".mui-slider-group .mui-scroll"), function(index,pullRefreshEl) {
+				 		if(index==0){
+				 			var num = "first";
+				 			$(pullRefreshEl).pullToRefresh({
+				 				up:{
+				 					auto:true,
+				 					callback:function(){
+				 						var self = this;
+				 						if(num==null){
+				 							self.endPullUpToRefresh(true);
+				 						}else{
+				 							var data = HuaXia.Ajax({
+										    		type:'get',
+										    		url:API.JOBS.labors,
+										    		data:{"next_start":num}
+										    });
+										    if(data.labors.length==0){
+										    	self.endPullUpToRefresh(true);
+										    	jQuery("#scroll1").html(notdata("暂无更多求职信息!")).css("height","100%");
+										    }else{
+										        var apply_template = document.getElementById("apply_template").innerHTML;
+										        jQuery.each(data.labors, function(index,item) {
+													var html=apply_template
+															.replace(/%id%/,item._id)
+															.replace(/%src%/,item.photo)
+															.replace(/%title%/,item.title)
+															.replace(/%worker%/,item.worker)
+															.replace(/%helper%/,item.helper)
+															.replace(/%index%/,index)
+															.replace(/%time%/,HuaXia.format(item.timed,1))
+															.replace(/%active%/, item.tags[0]==0?"active":"")
+															.replace(/%active1%/,item.tags[1]?"active":"")
+															.replace(/%active2%/,item.tags[2]?"active":"")
+															.replace(/%active3%/,item.tags[3]?"active":"")
+													jQuery("#apply").append(html);
+												});
+												self.endPullUpToRefresh(true);
+												num = data.next_start;
+										    }
+				 						}
+				 					}
+				 				}
+				 			});
+				 		}else if(index==1){
+				 			var num = "first";
+				 			$(pullRefreshEl).pullToRefresh({
+				 				up:{
+				 					auto:true,
+				 					callback:function(){
+				 						var self = this;
+				 						if(num==null){
+				 							self.endPullUpToRefresh(true);
+				 						}else{
+				 							var data = HuaXia.Ajax({
+										    		type:'get',
+										    		url:API.JOBS.employs,
+										    		data:{"next_start":num}
+										    });
+										    if(data.employs.length==0){
+										    	self.endPullUpToRefresh(true);
+										    	jQuery("#scroll2").html(notdata("暂无更多招聘信息!")).css("height","100%");
+										    }else{
+										    	var resuit_template= document.getElementById("resuit_template").innerHTML;
+										    	jQuery.each(data.employs, function(index,item) {
+													var html=resuit_template
+															.replace(/%value%/,item._id)
+															.replace(/%src%/,item.image)
+															.replace(/%title%/,item.title)
+															.replace(/%ent_name%/,item.enterprise.name)
+															.replace(/%time%/,HuaXia.format(item.timed,1))
+															.replace(/%active%/, item.tags[0]==0?"active":"")
+															.replace(/%active1%/,item.tags[1]?"active":"")
+															.replace(/%active2%/,item.tags[2]?"active":"")
+															.replace(/%active3%/,item.tags[3]?"active":"")
+													jQuery("#resuit").append(html);
+												});
+												self.endPullUpToRefresh(true);
+												num = data.next_start;
+										    }
+				 						}
+				 					}
+				 				}
+				 			});
+				 		}
+				 	});
+				 	//职位搜索
+				 	document.querySelector("#searchSubmit").onclick = function(){
+				 		var value = jQuery("input[type=search]").val();
+				 		if(value==""){
+				 			jQuery("#wx_tip").html("输入内容不可为空!!").slideDown('slow',function(){
+				 				var _this = jQuery(this);
+				 				setTimeout(function(){
+				 					_this.slideToggle("fast");
+				 				},2000)
+				 			});
+				 			return ;
+				 		}
+				 		var searchType = window.sessionStorage.getItem("talentType");
+						window.location.href = serverPath.talents_market() + "talents_search.html?searchType="+searchType + "&value="+value;				 		
+				 	}
+				 	
+				 	
+				 	
+				});
+			})(mui)
+			/*
+			 * 求职页面初始化数据函数
+			 * @params url
+			 * @params type
+			 * return dom
+			 * */
+			function applyData(apply){
+				var result = HuaXia.Ajax(apply);
+				if(result){
+					has_more = result.has_more;
+					$.each(result.labors, function(index,item) {
+					var html=apply_template
+					.replace(/%id%/,item._id)
+					.replace(/%src%/,item.photo)
+					.replace(/%title%/,item.title)
+					.replace(/%worker%/,item.worker)
+					.replace(/%helper%/,item.helper)
+					.replace(/%index%/,index)
+					.replace(/%time%/,HuaXia.format(item.timed,1))
+					.replace(/%active%/, item.tags[0]==0?"active":"")
+					.replace(/%active1%/,item.tags[1]?"active":"")
+					.replace(/%active2%/,item.tags[2]?"active":"")
+					.replace(/%active3%/,item.tags[3]?"active":"")
+					$("#apply").append(html);
+					});
+				}
+			}
+			/*
+			 * 招聘页面数据函数
+			 * @params url
+			 * @params type
+			 * return dom
+			 * */
+			function resuitData(resuit){
+				var result = HuaXia.Ajax(resuit);
+				if(result){
+					has_more=result.has_more;
+					$.each(result.employs, function(index,item) {
+					var html=resuit_template
+					.replace(/%value%/,item._id)
+					.replace(/%src%/,item.photo)
+					.replace(/%title%/,item.title)
+					.replace(/%ent_name%/,item.ent_name)
+					.replace(/%time%/,HuaXia.format(item.timed,1))
+					.replace(/%active%/, item.tags[0]==0?"active":"")
+					.replace(/%active1%/,item.tags[1]?"active":"")
+					.replace(/%active2%/,item.tags[2]?"active":"")
+					.replace(/%active3%/,item.tags[3]?"active":"")
+					$("#resuit").append(html);
+					});
+				}
+			}
+	</script>
+	<script type="text/javascript">
+			window.onload = function(){
+				$("body").on('click','#headerLocation',function(){
+					$(".locationMark").toggle();
+					$(".locationSelect").slideToggle('fast');
+				});
+				$(".locationSelect").on('click','a[id]',function(){
+					 //数据存储
+					 var  x_region_id = $(this).attr("id");
+					 var  currageArea = $(this).text();
+					 localStorage.setItem('currageArea',currageArea);
+					 localStorage.setItem("x_region_id",x_region_id);
+					 //页面交互
+					 var html = '<i class="icon wx-dingwei"></i>'
+					 $("#headerLocation").html(html+$(this).text());
+					 $(".locationMark").toggle();
+					 $(".locationSelect").slideToggle('fast');
+				});
+				
+				var api = API.MISC.regions;
+				var getRegion = window.sessionStorage.getItem("allRegion");
+				if(getRegion){
+					var data = eval('('+getRegion+')');
+					fillRegion(data);
+				}else{
+					mui.ajax(api,{
+						type : 'get',
+						success:function(data){
+							window.sessionStorage.setItem('allRegion',JSON.stringify(data));
+							fillRegion(data);
+						}
+					});
+				}
+			/**
+			 * @params obj {obj} 地区对象
+			 * **/
+				function fillRegion(obj){
+					mui.each(obj.result.provinces,function(index,item){
+							var ul = document.createElement('ul');
+							ul.className = 'mui-table-view mui-table-view-chevron';
+							var li = document.createElement('li');
+							li.className = 'mui-table-view-cell mui-collapse';
+							var a = document.createElement('a');
+							a.className = 'mui-navigate-right';
+							a.innerText =item.name ;
+							li.appendChild(a);
+							ul.appendChild(li);
+							mui.each(item.regions,function(index,item){
+								var subUl = document.createElement('ul');
+								subUl.className = 'mui-table-view mui-table-view-chevron';
+								var subLi = document.createElement('li');
+								subLi.className = 'mui-table-view-cell';
+								var subA = document.createElement('a');
+								subA.id = item._id;
+								subA.innerText = item.prefecture+item.name;
+								subLi.appendChild(subA);
+								subUl.appendChild(subLi);
+								li.appendChild(subUl);
+							});
+							document.getElementsByClassName('locationSelect')[0].appendChild(ul);
+						});
+				}
+				
+			}
+		</script>
+	</body>
+</html>

@@ -1,0 +1,40 @@
+{
+    "goods": {
+        "_id": "aaadsadasd",              
+        "name": "商品名称",                   
+        "cover": "image.png",              
+        "type": 0,                        
+        "price": 28.33,                   
+        "unit": "斤",                      
+        "amount": 900,                    
+        "sales": 90,                      
+        "delivery_time": "有现货",           
+        "express_type": "包邮",             
+        "detail": "html格式",               
+        "contact": "13311141111",         
+        "family": {                      
+            "name": "张三",                 
+            "photo": "image.png",         
+            "member_count": 4,            
+            "property": "一般贫困户",          
+            "reason": "交通落后",             
+            "avg_income": {               
+                "year": "2016年",          
+                "rmb": 1468.0             
+            },
+            "address": "xx乡xx村",          
+            "location": {                
+                "lat": 33.1131,           
+                "lng": 91.113             
+            },
+            "help_name": "李四",            
+            "help_phone": "131311"    
+        },
+        "enterprise": {                   
+            "name": "众隆集团",               
+            "icon": "image.png",           
+            "tel": "xxxx"                 
+        },
+        "has_fav": true                
+    }
+}

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script type="text/javascript">
+		var getRegion = localStorage.getItem("x_region_id");
+		if(getRegion==undefined){
+			window.location.href = "container/region/get_region.html";
+		}else{
+			window.location.href = "main.html";
+		}
+		//window.location.href = "container/region/get_region.html";
+	</script>
+</html>

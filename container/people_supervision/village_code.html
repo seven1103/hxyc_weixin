@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html ng-app="people_supervision">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+		<meta http-equiv="Pragma" content="no-cache" />
+		<meta http-equiv="Expires" content="0" />
+		<title>民生监督</title>
+		<link rel="stylesheet" type="text/css" href="../../css/mui.min.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/wx_list.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/wx_icon.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/wx_talent.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/wx_response.css"/>
+		<script src="../../js/userAgent.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<style type="text/css">
+		.mui-bar-nav~.mui-content{
+			padding-top: 102px;
+		}
+		div.content{
+			padding-top: 80px;
+		}
+		div.content h3{
+			color: #0062CC;
+			text-align: center;
+			font-weight: 200;
+		}
+		div.content img{
+			margin-top: 30px;
+			object-fit: cover;
+			width: 80%;
+		}
+	</style>
+	<body>
+		<div class="wx_tip" style="display: none;" id="wx_tip">2222</div>
+		<header class="header"></header>
+		<div class="content">
+			<h3>梨树村民生公示栏</h3>
+			<center><img src=""/></center>
+		</div>
+		
+		
+		<script src="../../js/angular.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/jquery-1.8.3.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/angular-route.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/all.js"></script>
+		<script src="../../js/public_templete.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/people_supervision.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			$(document).ready(function(){
+				var id = HuaXia.GetQueryString('id');
+				var name = HuaXia.GetQueryString('name');
+				HuaXia.Ajax({
+					type:'get',
+			    	url:API.VILLAGE.VillageCode.replace('<village_id>',id),
+				},function(data){
+					console.log(data);
+					$('h3').html(name+'民生公示栏');
+					if(data.qr_image){
+						$('img').attr('src',data.qr_image);
+					}else{
+						$('img').attr('src','../../img/icon/avator_default.png');
+					}
+				})
+			});
+		</script>
+	</script>
+	</body>
+</html>

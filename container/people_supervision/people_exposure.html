@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html ng-app = "people_supervision">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+		<meta http-equiv="Pragma" content="no-cache" />
+		<meta http-equiv="Expires" content="0" />
+		<title>我要曝光</title>
+		<link rel="stylesheet" type="text/css" href="../../css/mui.min.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/all.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/people_supervision.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/wx_icon.css"/>
+		<script src="../../js/userAgent.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/angular.min.js" type="text/javascript" charset="utf-8"></script>
+		<style type="text/css">
+			.issue_add_btn.img{height: 60px;width: 60px;border: 1px solid #ccc;border-radius: 5px;line-height: 60px;text-align: center;color: #ccc;}
+			.issue_add_imgbox{display: flex;flex-flow: wrap;}
+			.issue_add_imgbox .img-see{position: relative;}
+			.issue_add_imgbox .img-see .delete{position: absolute;z-index: 2;right: 5px;top: 0;height: 20px;
+			width: 20px;background: red;color: #fff;font-size: 20px;line-height: 20px;text-align: center;opacity: 0.5;}
+			.issue_add_imgbox img{height: 60px;width: 60px;object-fit: cover;margin-right: 5px;margin-bottom: 5px;}
+			.issue_add_imgbox .img-view{display: inline-block;display: flex;position: relative;height: 60px;width: 60px;}
+			.issue_add_imgbox .img-view .demo_form_input.img{height: 60px;width: 60px;position: absolute;opacity: 0;top: 0;left: 0;}
+		</style>
+	</head>
+	<body style="background: #fff;">
+		<div id="fabu" class="form">
+			<div class="input-item" style="display: block;">
+				<label style="display: block;">曝光内容:</label>
+				<textarea name="" rows="" cols="" style="width: 100%;height: 100px;background: #fafafa;" placeholder="在这里输入曝光内容..."></textarea>
+			</div>
+			<div class="input-item" style="margin-bottom: 20px;">
+				<label>添加照片:</label>
+				<div class="issue_add_imgbox">
+					<div class="img-view">
+						<div class="issue_add_btn img">
+						<span class="icon wx-zengjia"></span>
+						</div>
+					<input class="demo_form_input img" type="file" name="file[]" multiple="multiple" accept="image/*" onchange="add(this,this.files);" />
+					</div>
+				</div>
+			</div>
+			<button id="btn" style="width: 100%;background: #dddddd;margin-top: 20px;margin-bottom: 30px;height: 35px;">确定提交</button>
+		</div>
+		<script src="../../js/jquery-1.8.3.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/angular-route.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/all.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/public_templete.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/people_supervision.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+//					声明本地暂存图片数组
+						var imgArr = new Array();
+				  		function add(obj,files){
+				  			HuaXia.addimgs(obj,files,imgArr);
+				  			console.log(imgArr);
+						}
+				  		
+	//			  		删除当前选中图片
+						function deletes(obj,index){
+							HuaXia.deleteimgs(obj,index,imgArr);
+							console.log(imgArr);
+						}
+						document.getElementById('btn').addEventListener('tap',function(){
+							var content = $('textarea').val();
+							if(HuaXia.GIFD(imgArr)&&content.length>=5&&content.length<=100){
+								HuaXia.CreatReading();
+								HuaXia.img_compression(imgArr,imgArr,function(images){
+									/*图片数组转成json格式*/
+									var picture = JSON.stringify(images);
+									HuaXia.Ajax({
+										type:'post',
+										url:API.SUPERVISE.exposures,
+										data:{
+											'type':0,
+											'content': $('textarea').val(),
+											'images':picture
+										},
+									},function(res){
+										HuaXia.CloseReading();
+										//window.history.back();
+										window.location.href = serverPath.base + 'main.html';
+									})
+								});
+							}else{
+								if(!content){
+									mui.toast("请填写内容!");
+								}else if(!HuaXia.GIFD(imgArr)){
+									mui.toast("请上传图片！");
+								}else if(content.length<=5){
+									mui.toast("内容不能小于5个字");
+								}else if(content>=120){
+									mui.toast("内容不能大于120个字");
+								}
+							}
+						});
+		
+		</script>
+	</body>
+</html>

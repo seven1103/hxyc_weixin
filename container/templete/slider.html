@@ -1,0 +1,62 @@
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta charset="UTF-8"/>
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="../../css/mui.min.css"/>
+		<style type="text/css">
+			.mui-slider{height: 200px;}
+			img{height: 100%;width: auto;}
+			.mui-slider-item{position: relative;}
+			.inline_bg{position: absolute;bottom: 0;left: 0;background: #000;height: 30px;width: 100%;opacity: 0.2;}
+			.mui-slider-item p{position: absolute;bottom: 0;left: 0;height: 30px;width: 100%;color: #fff;margin-bottom: 0;line-height: 30px;}
+		</style>
+	</head>
+	<body>
+			<div class="mui-slider">
+			  <div class="mui-slider-group mui-slider-loop">
+			    <!--支持循环，需要重复图片节点-->
+			    <div class="mui-slider-item mui-slider-item-duplicate">
+			    	<a href="#">
+			    		<img src="4.jpg" />
+			    	</a>
+			    	<div class="inline_bg"></div>
+			    	<p>这是第四张</p>
+			    </div>
+			    <div class="mui-slider-item">
+			    	<a href="#"><img src="../../img/slider1.jpg" /></a>
+			    	<div class="inline_bg"></div>
+			    	<p>这是第一张</p>
+			    </div>
+			    <div class="mui-slider-item">
+			    	<a href="#"><img src="../../img/slider2.jpg" /></a><
+			    	<div class="inline_bg"></div>
+			    	<p>这是第一张</p>
+			    </div>
+			    <div class="mui-slider-item">
+			    	<a href="#"><img src="../../img/slider3.jpg" /></a>
+			    	<div class="inline_bg"></div>
+			    	<p>这是第二张</p>
+			    </div>
+			    <div class="mui-slider-item">
+			    	<a href="#"><img src="../../img/slider4.jpg" /></a>
+			    	<div class="inline_bg"></div>
+			    	<p>这是第三张</p>
+			    </div>
+			    <!--支持循环，需要重复图片节点-->
+			    <div class="mui-slider-item mui-slider-item-duplicate">
+			    	<a href="#"><img src="../../img/slider1.jpg" /></a>
+			    	<div class="inline_bg"></div>
+			    	<p>这是第一张</p>
+			    </div>
+			  </div>
+		</div>
+		<script src="../../js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			var gallery = mui('.mui-slider');
+				gallery.slider({
+				  interval:5000//自动轮播周期，若为0则不自动播放，默认为0；
+				});
+		</script>
+	</body>
+</html>

@@ -1,0 +1,97 @@
+*{
+	padding: 0;
+	margin: 0;
+}
+html,body{
+	height: 100%;
+	width: 100%;
+	font-family: "arial, helvetica, sans-serif","微软雅黑";
+}
+.wx_logo{
+	height: 50%;
+	display: flex;
+	justify-content: center;
+	align-content: center;
+	flex-flow: column nowrap;
+}
+.wx_logo>div{
+	display: flex;
+	justify-content: center;
+}
+.wx_logo>div:nth-child(2){
+	margin-top: 15px;
+}
+.wx_logo>div:nth-child(1) img{
+	height: 100px;
+	width: 100px;
+	object-fit: cover;
+}
+.wx_logo>div:nth-child(2) img{
+	width: 134px;
+	height: 41px;
+	object-fit: cover;
+}
+.wx_content{
+	height: 50%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+/*点动画效果*/
+.dotting {
+	color:black;
+    display: inline-block; min-width: 2px; min-height: 2px;
+    box-shadow: 2px 0 black, 6px 0 black, 10px 0 black; 
+    -webkit-animation: dot 1s infinite step-start both;
+    animation: dot 1s infinite step-start both;
+}
+@keyframes dot {
+    25% { box-shadow: none; }
+    50% { box-shadow: 2px 0 black; }
+    75% { box-shadow: 2px 0 black, 6px 0 black; }
+}
+/**
+ * 区域选择
+ * **/
+.regionbox{
+	height: 100%;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	overflow-y: auto;
+}
+.region_list{
+	height: 80%;
+	width: 60%;
+	background: #FAFAFA;
+	overflow: auto;
+}
+.region_list ul{
+	list-style: none;
+}
+.region_list .inner{
+	padding: 4px;
+	font-size: 12px;
+	color: #333333;
+	text-align: left;
+	line-height: 2.5;
+	overflow: auto;
+}
+.region_list .title{
+	line-height: 2.5;
+	box-shadow: 0 1px 3px #fafafa;
+	background: #eee;
+	text-align: center;
+}
+.region_list ul>li{
+	border-bottom: 1px solid #eee;
+}
+.region_list h1{
+	font-weight: 500;
+	color: #333;
+	font-size: 14px;
+}
+.region_list ul>li span{
+	font-size: 14px;
+}

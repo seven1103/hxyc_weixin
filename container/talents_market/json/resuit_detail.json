@@ -1,0 +1,19 @@
+{
+    "employ": {
+        "_id": "1",             
+        "title": "招聘人标题",               
+        "image": "png.png",             
+        "salary": 4500.0,                
+        "tags": [0,1,2,3],                
+        "enterprise": {
+            "name": "众隆集团",              
+            "icon": "png.png",          
+            "contact": "xxx",            
+            "tel": "12312113"            
+        },
+        "nums": 20,                      
+        "address": "金海湖新区",              
+        "detail": "html详情内容",            
+        "timed": 20170213               
+    }
+}

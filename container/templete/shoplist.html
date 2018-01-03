@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>商品列表</title>
+		<link rel="stylesheet" type="text/css" href="../../css/mui.min.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/all.css"/>
+		<style type="text/css">
+			
+			ul.shopList li.shop_item{width: 50%;height: 200px;float: left;background: #fff;box-sizing: border-box;margin-bottom: 6px;}
+			ul.shopList li.shop_item:nth-child(2n){border-left: 3px solid #EFEFF4;}
+			ul.shopList li.shop_item:nth-child(2n+1){border-right: 3px solid #EFEFF4;}
+			ul.shopList li.shop_item div{padding: 10px 5px;border: 1px solid #ccc;height: 200px;}
+			ul.shopList li.shop_item div img{height: 120px;width: 100%;obj-fit:cover;}
+		</style>
+	</head>
+	<body>
+		<!--<header class="mui-bar mui-bar-nav ">
+			列表
+		</header>-->
+		<div class="mui-content" id="pullrefresh" class="mui-content mui-scroll-wrapper">
+			<div class="mui-scroll">
+				<ul class="shopList">
+				<li class="shop_item">
+					<div>
+						<img src="../../img/slider1.jpg"/>
+						<p>全生态家养猪肉</p>
+						<p>&yen;28.00/斤</p>
+						<p>贫困户：张某某</p>
+					</div>
+				</li>
+				<li class="shop_item">
+					<div id="">
+						<img src="../../img/slider2.jpg"/>
+						<p>全生态家养猪肉</p>
+						<p>&yen;28.00/斤</p>
+						<p>贫困户：张某某</p>
+					</div>
+	
+				</li>
+				<li class="shop_item">
+					<div id="">
+						<img src="../../img/slider3.jpg"/>
+						<p>全生态家养猪肉</p>
+						<p>&yen;28.00/斤</p>
+						<p>贫困户：张某某</p>
+					</div>
+				</li>
+				<li class="shop_item">
+					<div id="">
+						<img src="../../img/slider4.jpg"/>
+						<p>全生态家养猪肉</p>
+						<p>&yen;28.00/斤</p>
+						<p>贫困户：张某某</p>
+					</div>
+				</li>
+			</ul>
+			</div>
+			
+		</div>
+		<script src="../../js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			mui.init({
+		        pullRefresh: {
+		            container: '#pullrefresh',
+		            up: {
+		                contentrefresh: '正在加载...',
+		                callback: pullupRefresh
+		            },
+		            down:{
+		            	contentrefresh: '正在加载...',
+		                callback: pulldownRefresh
+		            }
+		        }
+		    });
+		    function pullupRefresh(){
+		    	alert(1);
+		    }
+		    function pulldownRefresh(){
+		    	alert(2);
+		    }
+		</script>
+	</body>
+</html>

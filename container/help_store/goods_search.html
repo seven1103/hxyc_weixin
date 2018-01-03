@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html ng-app="talents" ng-controller="talentSearchCtrl">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+		<meta http-equiv="Pragma" content="no-cache" />
+		<meta http-equiv="Expires" content="0" />
+		<title>商品搜索</title>
+		<link rel="stylesheet" type="text/css" href="../../css/mui.min.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/wx_list.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/wx_icon.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/wx_talent.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/wx_response.css"/>
+		<script src="../../js/userAgent.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<!--下拉刷新容器-->
+		<div id="refreshContainer" class="mui-content mui-scroll-wrapper">
+		  <div class="mui-scroll" id="scroll">
+		    <!--数据列表-->
+		    <section class="store_good_list" id="store_good_list">
+		      
+		    </section>
+		  </div>
+		</div>
+	<script src="../../js/jquery-1.8.3.min.js" type="text/javascript" charset="utf-8"></script>	
+	<script src="../../js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/all.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/template" id="store_template">
+		<a class="store_good_item"  type="%type%" value="%value%">
+			<div class="store_good_img">
+				<img onerror="javascript:this.src='img/icon/avator_default.png'" src="%src%" / >
+				<img src="img/icon/lable.png" style="display:%owner%;">
+			</div>
+			<div class="storeFlex">
+				<div class="store_good_title">
+					<span>%title%</span>
+					<p class="store_good_price"><span>&yen;</span><span>%price%</span><span>.%percent%/%unit%</span></p>
+				</div>
+				<p class="isLoveGoods %active%">
+					<span class="icon wx-shoucang"></span>
+				</p>	
+			</div>
+			
+			<p class="store_good_location">
+				<span style="display:%poor%;">贫困户 : %poor_name%</span>
+				<span style="display:%poor1%;">帮扶干部 : %help_leader%</span>
+				<span style="display:%firm%;">认销企业 : %firm_name%</span>
+			</p>
+		</a>
+	</script>
+	<script type="text/javascript">
+	/*初始化页面数据*/
+	mui.init({
+		pullRefresh : {
+			container : "#refreshContainer",
+			up : {
+				auto:true,
+			    contentrefresh : "正在加载...",//可选，正在加载状态时，上拉加载控件上显示的标题内容
+			    contentnomore:'没有更多数据了',//可选，请求完毕若没有更多数据时显示的提醒内容；
+				callback : pullupRefresh,
+			},
+		}
+	});
+   	var searchKey = HuaXia.GetQueryString("value");
+   	var types = 0;//无用参数
+   	var apiUrl = API.MALL.search.replace(/<keyword>/,searchKey);	
+	/*获取模板*/
+	var store_template = document.getElementById("store_template").innerHTML;
+	var next_start="";
+	var userid;
+	var userinfo = JSON.parse(window.localStorage.getItem('userinfo'))
+    if(userinfo){
+        userid = userinfo.user._id;
+    }else{
+        userid = 'None';
+    }
+	 /*
+	  *@params category_id商品类别ID
+	  *@params has_more是否存在下一页
+	  *@params next_start存在下一页是的ID
+	  *@params type 企业帮扶(1)、贫困户(0)
+	  * */
+	 function pullupRefresh(){
+	 	var self=this;
+	 	HuaXia.Ajax({
+	 		url:apiUrl,
+	 		type:'get',
+	 		data:{next_start:next_start,user_id:userid,type:types}
+	 	},function(data){
+	 		console.log(data);
+	 		var romateData = data;
+	 		if(next_start){
+	 			self.endPullupToRefresh(true);
+	 		}else{
+	 			//模板数据替换
+	 		jQuery.each(romateData.goods, function(index,item) {
+	 			var html =store_template
+		 		.replace(/%src%/,IMG_web + item.cover)
+		 		.replace(/%owner%/,item.type==1?"block":"none")
+		 		.replace(/%title%/,item.name)
+		 		.replace(/%price%/,(item.price).toString().split(".")[0])
+		 		.replace(/%percent%/,(item.price).toString().split(".")[1]||"00")
+		 		.replace(/%unit%/,item.unit)
+		 		.replace(/%active%/,item.has_fav?"active":"")
+		 		.replace(/%poor%/,item.type==0?"block":"none")
+		 		.replace(/%poor1%/,item.type==0?"block":"none")
+		 		.replace(/%firm%/,item.type==1?"block":"none")
+		 		.replace(/%type%/,item.type)
+		 		.replace(/%value%/,item._id)
+		 		.replace(/%poor_name%/,item.type==0?item.family.name:"")
+		 		.replace(/%help_leader%/,item.type==0?item.family.help_name:"")
+		 		.replace(/%firm_name%/,item.type==1?item.enterprise.name:"");
+		 		$("#store_good_list").append(html);
+	 		});
+	 		next_start = romateData.next_start;
+	 		self.endPullupToRefresh(true);
+	 		/*mui("#pullrefresh").pullRefresh().endPullupToRefresh();*/
+	 		//收藏
+            var userinfo = JSON.parse(window.localStorage.getItem('userinfo'));
+	 		mui(".storeFlex").on("tap",".isLoveGoods",function(){
+	 		    //判断当前用户是否登陆
+		 			if(userinfo){
+		 				var id = this.parentNode.parentNode.getAttribute("value");
+			 			if(this.classList.contains("active")==true){
+			 				this.classList.remove("active");
+			 				delete_love(id);
+			 			}else{
+			 				this.classList.add("active");
+							add_love(id);
+			 			}
+		 			}else{
+		 				mui.alert('请先登陆');
+		 			}
+			});
+			//注册跳转商品详情页面
+			mui(".store_good_item").on("tap",".store_good_img",function(){
+					var id = this.parentNode.getAttribute("value");
+					//location.href=serverPath.helpStore() + "pay_detail.html?id="+id;
+					var aipUrl = API.MALL.shopDetail.replace(/<goods_id>/,id);
+					HuaXia.Ajax({
+                        type:'get',
+                        url:aipUrl,
+                    },function(data){
+		                window.sessionStorage.setItem("pay_goods",JSON.stringify(data.goods));
+		                location.href=serverPath.helpStore() + "pay_detail.html?id="+id;
+                    })
+				});
+			//设置页面部分布局
+			setResponse();
+	 		}
+	 	});
+	 }
+
+	/*点击轮播banner*/
+	mui(".mui-slider-item").on("tap","a",function(){
+		window.location.href=this.getAttribute("href");
+	});
+	/*
+		 *点击收藏
+		 * @params good_id商品ID
+		 * */
+		function add_love(id){
+		     var userinfo = JSON.parse(window.localStorage.getItem('userinfo'));
+			HuaXia.Ajax({
+				type:'post',
+				url:API.MALL.favorite.replace(/<goods_id>/,id),
+				data:{
+					user_id:userinfo.user._id
+				}
+			},function(data){
+				if(data){
+					$("#wx_tip").html("收藏成功").slideDown("slow",function(){
+						var _this = $(this);
+						setTimeout(function(){
+							_this.slideToggle("fast");
+						},2000)
+					});
+				}
+			});
+		}
+		/*
+		 *点击收藏取消
+		 * @params good_id商品ID
+		 * */
+		function delete_love(id){
+		     var userinfo = JSON.parse(window.localStorage.getItem('userinfo'));
+			HuaXia.Ajax({
+				type:'delete',
+				url:API.MALL.unfavorite.replace(/<goods_id>/,id),
+				data:{
+					user_id:userinfo.user._id
+				}
+			},function(data){
+				if(data){
+					$("#wx_tip").html("取消收藏成功").slideDown("slow",function(){
+						var _this = $(this);
+						setTimeout(function(){
+							_this.slideToggle("fast");
+						},2000)
+					});
+				}
+			});
+		}
+	/*设置图片*/
+	function setResponse(){
+		var width = window.innerWidth;
+		var Element =$(".store_good_item").css("marginTop",width*0.02+"px");
+		var imgElement = $(".store_good_img img:nth-child(1)").css("height",width*0.49-16 + "px");
+	}
+	</script>
+	</body>
+</html>
+

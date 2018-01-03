@@ -1,0 +1,140 @@
+@media only screen and (max-width:320px ) {
+	/*后期调整*/
+	.apply_unite_detail p{
+		font-size: 12px;
+	}
+	nav.store_case_nav .store_case_box .store_case_bg .icon{
+		font-size:24px;
+	}
+	.apply_unite_detail p .icon{
+		font-size: 16px;
+	}
+	/*人力市场*/
+	.wx_list .mui-table-view-cell .wx_text_content .wx_list_text p{
+		font-size: 12px;
+	}
+	/*后期增加*/
+	.talent_condition span{
+		font-size: 12px;
+	}
+	.apply_detail h2{
+		font-size: 14px;
+	}
+	.apply_detail p{
+		font-size: 12px;
+	}
+	.apply_poor_info{
+		font-size: 12px;
+	}
+	.good_publish_detail>.publish_info span{
+		font-size: 12px;
+	}
+	.isIssue #location>span{
+		font-size: 12px;
+	}
+	.good_publish_detail_text #location{
+		font-size: 12px;
+	}
+	.goog_intoduce_titel{
+		font-size: 15px;
+	}
+	.store_good_title span:nth-child(1){
+		font-size: 14px;
+	}
+	/*end*/
+	.wx_list .mui-table-view-cell .wx_text_content h2{
+		font-size: 14px;
+	}
+	.wx_list .mui-table-view-cell img{
+		height:90px;
+		width: 30.4%;
+	}
+	nav.talent_nav{
+		font-size: 14px;
+	}
+	section.talent_issue{
+		font-size: 12px;
+	}
+	section.talent_issue .issue_input>input{
+		font-size: 12px;
+	}
+	section.talent_issue .issue_detail_input>textarea{
+		font-size: 12px;
+	}
+	/*商场*/
+	div.store_search input{
+		font-size:12px;
+	}
+	nav.store_case_nav .store_case_box >span{
+	font-size: 12px;
+	}
+	section.store_good_list .store_good_item>.store_good_title{
+		font-size:14px;
+	}
+	section.store_good_list .store_good_item>.store_good_img:nth-child(1){
+		height: 120px;
+	}
+	div.store_good_detail .good_detail_info{
+		font-size: 12px;
+	}
+	div.store_good_detail>.store_pay_text h2{
+		font-size:14px;
+	}
+	.good_publish_detail .publish_info img{
+		/* height: 60px;
+		width: 60px; */
+		height: 50px;
+		width: 50px;
+	}
+	.good_publish_detail_text *{
+		font-size: 12px;
+	}
+	.good_publish_detail_text p:nth-child(2), .good_publish_detail_text p:nth-child(3) {
+    	font-size: 12px;
+	}
+	.goog_intoduce_content p{
+		font-size: 12px;
+	}
+	div.good_pay_detail>img{
+		width: 80px;
+		height: 80px;
+	}
+	.pay_good_getTime span{
+		font-size: 10px;
+	}
+	.pay_good_num, .pay_good_getTime {
+		font-size: 12px;
+	}
+	div.good_pay_detail .good_pay_introduce>h2{
+		font-size: 14px;
+	}
+	.good_pay_info.mui-table-view >.mui-table-view-cell{
+		font-size: 12px;
+	}
+	.good_pay_info.mui-table-view >.mui-table-view-cell .good_pay_addNum>div{
+		height: 30px;
+		width: 30px;
+	}
+	.pay_attention p{
+		font-size: 12px;
+	}
+	.good_pay_footer{
+		font-size: 14px;
+	}
+	/*供需*/
+	.supplyHeader .supply_firm p{
+		font-size: 12px;
+	}
+	.supply_title h2{
+		font-size: 14px;
+	}
+	.supplyHeader .supply_firm_des p{
+		font-size: 12px;
+	}
+	.detail_instruction p{
+		font-size: 12px;
+	}
+	.supply_instruction h2{
+		font-size: 14px;
+	}
+}

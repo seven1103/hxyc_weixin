@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+		<meta http-equiv="Pragma" content="no-cache" />
+		<meta http-equiv="Expires" content="0" />
+		<title>搜索结果</title>
+		<link rel="stylesheet" type="text/css" href="../../css/mui.min.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/all.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/people_supervision.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/wx_icon.css"/>
+		<style>
+					/* 资讯item样式 */
+				.mui-table-view-cell>a:not(.mui-btn){
+					white-space: inherit;
+				}
+				.mui-table-view-cell>a p.title{
+					color: #000;
+				}
+				.mui-table-view-cell>a p.company,.mui-table-view-cell>a p.update{                                                                                                         line-height: 1;
+					display: flex;
+					justify-content: space-between;
+					font-size: 12px !important;
+				}
+				.mui-table-view-cell>a p.update>span{
+					font-size: 12px;
+				}
+				.mui-table-view-cell>a p.update>span:nth-child(2){
+					color: #7CDA7B;
+				}
+				.mui-table-view-cell>a p.update>span i{
+					color: #8f8f94;
+					font-size: 12px !important;
+					margin-right: 5px;
+				}
+				.mui-fullscreen{
+					top: 70px;
+					bottom: 0;
+				}
+				p.look{
+					display: flex;
+					justify-content: space-between;
+				}
+				p.look i{
+					font-size: 12px !important;
+					color: #ccc;
+					margin-right: 5px;
+				}
+				p.look>span{
+					color: #7CDA7B;
+				}
+				li.mui-table-view-cell p{
+					line-height: 1.5;
+				}
+				li.mui-table-view-cell h4{
+					margin-bottom: 10px;
+				}
+		</style>
+		<script src="../../js/userAgent.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<!--下拉刷新容器-->
+		<div id="refreshContainer" class="mui-content mui-scroll-wrapper">
+		  <div class="mui-scroll" id="scroll">
+		    <!--数据列表-->
+		    <ul class="mui-table-view" id="list">
+		     
+		    </ul>
+		  </div>
+		</div>
+	<script src="../../js/jquery-1.8.3.min.js" type="text/javascript" charset="utf-8"></script>	
+	<script src="../../js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/all.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/template" id="template">
+		<li class="mui-table-view-cell" id="%id%">
+			<a href="javascript:;">
+				<h4>%title%</h4>
+				<p>发布单位:<span>%gov_name%</span></p>
+				<p class="look">发布时间:%time%</span>
+					<span><i class="icon wx-guankan-"></i>%views%</span>
+				</p>
+			</a>
+		</li>
+	</script>
+	<script type="text/javascript">
+		(function($){
+				var searchKey = HuaXia.GetQueryString("value");
+
+				var column_id = HuaXia.GetQueryString("column_id");
+				var apiUrl = API.PROJECTS.project_search.replace(/<column_id>/,column_id);
+					//var apiUrl = 'http://192.168.6.58:8688/api/projects/<column_id>/search/'.replace(/<column_id>/,column_id);
+		    mui.init({
+		      pullRefresh : {
+		        container:'#refreshContainer',
+		        up : {
+		          auto:true,	
+		          callback :function(){
+		          	var num = "";
+		          	var self = this;
+		          	if(num==null){
+		          		self.endPullupToRefresh(true);
+		          	}else{
+	          			HuaXia.Ajax({
+					    		type:'get',
+					    		url:apiUrl,
+					    		data:{"next_start":num,keyword:searchKey}
+					    },function(data){
+								console.log(data);
+					    	//判断类型 进行html填充
+							if(data.projects.lenght==0){
+								self.endPullupToRefresh(true);
+								jQuery("#scroll").html(notdata("搜索内容为空!!")).css("height","100%");
+							}else{
+								 var apply_template = document.getElementById("template").innerHTML;
+						        jQuery.each(data.projects, function(index,item) {
+									var html=apply_template
+											.replace(/%id%/,item._id)
+											.replace(/%title%/,item.title)
+											.replace(/%gov_name%/,item.gov.name)
+											.replace(/%time%/,HuaXia.format(item.timed,1))
+											.replace(/%views%/,item.views)
+									jQuery("#list").append(html);
+								});
+								self.endPullupToRefresh(true);
+								num = data.next_start;
+							}
+					    });
+		          	}
+		          }
+		        }
+		      }
+		    });
+		    
+		})(mui)
+
+		mui('.mui-table-view').on('tap','.mui-table-view-cell',function(){
+			var id = this.getAttribute("id");
+			window.location.href =serverPath.supervision() +  "people_funds_detail.html?id="+id;
+		});
+	</script>
+	</body>
+</html>
+

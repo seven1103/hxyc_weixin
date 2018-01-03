@@ -1,0 +1,145 @@
+/**
+ * 加载
+ * **/
+.jz{
+	background:url('../img/icon/timg.gif');
+	background-repeat: no-repeat;
+	background-position:0px 0px;
+}
+
+
+
+@font-face {font-family: "iconfont";
+  src: url('../fonts/iconfont.eot?'); /* IE9*/
+  src: url('../fonts/iconfont.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('../fonts/iconfont.woff?') format('woff'), /* chrome, firefox */
+  url('../fonts/iconfont.ttf?') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
+  url('../fonts/iconfont.svg?#iconfont') format('svg'); /* iOS 4.1- */
+}
+
+.icon{
+  font-family: 'iconfont' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-size: 20px!important;
+}
+/*定位*/
+.wx-dingwei:before { content: "\e600"; }
+/*订单 用于我的页面*/
+.wx-gouwuche:before { content: "\e607"; }
+/*收藏 用于商场首页*/
+.wx-shoucang:before { content: "\e601"; }
+/*荣誉*/
+.wx-rongyu:before { content: "\e662"; }
+/*购物车 用于商场*/
+.wx-gouwuche1:before { content: "\e64a"; }
+/*公积金*/
+.wx-gongjijin:before { content: "\e603"; }
+/*增加*/
+.wx-zengjia:before { content: "\e69a"; }
+/*更多*/
+.wx-gd:before { content: "\e60b"; }
+/*点赞*/
+.wx-dz:before { content: "\e6a4"; }
+/*基本信息 用于我的*/
+.wx-jbxx:before { content: "\e604"; }
+/*收藏 用于商场详情*/
+.wx-sc1:before { content: "\e892"; }
+/*民生物资*/
+.wx-wz:before { content: "\e61c"; }
+/*曝光*/
+.wx-bg:before { content: "\e657"; }
+/*网上举报*/
+.wx-bj:before { content: "\e608"; }
+/*电话*/
+.wx-dianhua:before { content: "\e6c9"; }
+/*信访信息*/
+.wx-xx:before { content: "\e6eb"; }
+/*民生政策*/
+.wx-tp:before { content: "\e65f"; }
+/*对勾 无背景*/
+.wx-gou:before { content: "\e74f"; }
+/*历史*/
+.wx-ls:before { content: "\e618"; }
+/*我的*/
+.wx-me:before { content: "\e606"; }
+/*企业*/
+.wx-qiye:before { content: "\e6f8"; }
+/*收藏*/
+.wx-sc:before { content: "\e605"; }
+/*建议征集*/
+.wx-jianyi:before { content: "\e675"; }
+/*对勾 有背景*/
+.wx-gou1:before { content: "\e73d"; }
+/*商场 用于footer*/
+.wx-store:before { content: "\e624"; }
+/*视频 用于视频页*/
+.wx-shipin:before { content: "\e659"; }
+/*监督 用于footer*/
+.wx-jd:before { content: "\e616"; }
+/*人力市场*/
+.wx-rlsc:before { content: "\e66d"; }
+/*民生监督  我要查询*/
+.wx-chaxun:before { content: "\e681"; }
+/*检察院 业务受理*/
+.wx-yewuxinxi:before { content: "\e673"; }
+/*不良信息举报*/
+.wx-jubao:before { content: "\e609"; }
+/*中标公告*/
+.wx-miaozhunjing2:before { content: "\e626"; }
+/*我的发布*/
+.wx-dingdan:before { content: "\e9a6"; }
+/*毕业证查询*/
+.wx-beiye:before { content: "\e60c"; }
+/*发票*/
+.wx-fapiao:before { content: "\e61d"; }
+/*排名*/
+.wx-paiming:before { content: "\e61b"; }
+/*名声监督 资金*/
+.wx-fund:before { content: "\e60d"; }
+/*多彩金海湖*/
+.wx-build:before { content: "\e602"; }
+/*纪检举报*/
+.wx-chuiziicon:before { content: "\e65c"; }
+/*观看次数*/
+.wx-guankan-:before { content: "\e612"; }
+/*执法办案查询*/
+.wx-chaxun1:before { content: "\e63c"; }
+/*民生项目*/
+.wx-xiangmu:before { content: "\e733"; }
+/*牲畜*/
+.wx-shengxu:before { content: "\e610"; }
+/*家禽*/
+.wx-jiaqin:before { content: "\e611"; }
+/*其他*/
+.wx-qita:before { content: "\e613"; }
+/*土特产*/
+.wx-tutechan:before { content: "\e614"; }
+/*商城手工艺*/
+.wx-shougongyi:before { content: "\e615"; }
+/*对勾 用于详情*/
+.wx-duigou:before { content: "\e65d"; }
+/*压缩包*/
+.wx-yasuobao:before { content: "\e617"; }
+/*新加资讯*/
+.wx-zixun:before { content: "\e619"; }
+/*商城-》联系*/
+.wx-dianhua1:before { content: "\e64b"; }
+/*商城顶部-》收藏*/
+.wx-wujiaoxing2:before { content: "\e881"; }
+/*购买详情 -》是否收藏*/
+.wx-soucangshixin:before { content: "\e60e"; }
+/*网络错误   点击刷新按钮*/
+.wx-dianji:before { content: "\e65e"; }
+/*二维码*/
+.icon-qrcode:before { content: "\e61a"; }
+/*获得荣誉*/
+.icon-jiangbei:before { content: "\e61f"; }

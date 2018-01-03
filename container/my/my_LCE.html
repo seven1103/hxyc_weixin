@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+		<meta http-equiv="Pragma" content="no-cache" />
+		<meta http-equiv="Expires" content="0" />
+		<title>获得证书</title>
+		<link rel="stylesheet" type="text/css" href="../../css/all.css"/>
+		<script src="../../js/userAgent.js" type="text/javascript" charset="utf-8"></script>
+		<style type="text/css">
+			*{padding: 0;margin: 0;}
+			body,html{
+				height: 100%;
+			}
+			body{
+				/*background: url(../../img/my/rankbg/1.jpg) no-repeat;*/
+				background-size:cover;
+				background-position: center;
+				background-attachment: fixed;
+			}
+			#username{
+				position: absolute;
+				height: 5%;width: 100%;
+				text-align: center;bottom: 41.47%;
+				line-height:30px;
+				color: #fff;
+				font-size: 1em;
+			}
+			#pingtai{
+				position: absolute;bottom: 3%;right: 3%;height: 5%;
+			}
+			#pingtai p{color: #FFFFFF;font-size: 0.75em;font-weight: bold;;}
+		</style>
+	</head>
+	<body id="body">
+		<div id="username">
+			王美丽
+		</div>
+		<div id="pingtai">
+			<p>华夏云城扶贫平台</p>
+			<p>www.gzhxyc.com</p>
+		</div>
+	</body>
+	<script src="../../js/jquery-1.8.3.min.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		window.onload = function(){
+//			获取当前用户
+			var data = JSON.parse(window.localStorage.getItem("userinfo"));
+			console.log(data);
+			if(!data){
+				$("#body").html(notdata("授权无效, 需要重新授权")).css("height","100%");
+				//授权代码
+				//window.location.replace(auth());
+			}else{
+				document.getElementById('username').innerHTML = data.user.name;
+				var title = data.user.honor.title;
+				var imgsrc='';
+				switch(title){
+					case '荣誉村民':
+						 imgsrc = '../../img/my/rankbg/1.jpg';
+						break;
+					case '村长':
+						 imgsrc = '../../img/my/rankbg/2.jpg';
+						break;
+					case '副镇长':
+						 imgsrc = '../../img/my/rankbg/3.jpg';
+						break;
+					case '镇长':
+						 imgsrc = '../../img/my/rankbg/4.jpg';
+						break;
+					case '副县长':
+						 imgsrc = '../../img/my/rankbg/5.jpg';
+						break;
+					case '县长':
+						 imgsrc = '../../img/my/rankbg/6.jpg';
+						break;
+					default:
+						alert('未知等级，好恐怖');
+						break;
+				}
+				var dom = document.getElementById('body');
+				dom.setAttribute("style","background: url("+imgsrc+") no-repeat;background-size:cover;background-position: center;");
+			
+				var height = document.documentElement.clientHeight;
+				document.getElementById('body').style.height = height+'px';
+			}
+	}		
+	</script>
+</html>

@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html ng-app = "my" ng-controller = "my_order">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+		<meta http-equiv="Pragma" content="no-cache" />
+		<meta http-equiv="Expires" content="0" />
+		<title>待付款</title>
+		<link rel="stylesheet" type="text/css" href="../../css/mui.min.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/all.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/my.css"/>
+		<script src="../../js/userAgent.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/angular.min.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<style type="text/css">
+		.my_order p:nth-child(1){
+			color: #000000;
+			font-weight:500;
+		}
+		.mui-table-view-cell p { margin-bottom: -1px;}
+		.mui-content{margin-bottom: 0;}
+	</style>
+	<body>
+		<div class="mui-content">
+			<div id="pullrefresh" class="mui-content mui-scroll-wrapper">
+			<div class="mui-scroll" id="scroll">
+			<div class="my_order_box">
+			</div></div></div>
+		</div>
+		<script src="../../js/jquery-1.8.3.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/all.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/public_templete.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/my.js" type="text/javascript" charset="utf-8"></script>
+        <script src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js"> </script>
+		<script type="text/javascript">
+			//	下拉刷新
+				mui.init({
+			        pullRefresh: {
+			            container: '#pullrefresh',
+			            up: {
+			            	auto : true,
+			                contentrefresh: '正在加载...',
+			                callback: pullupRefresh
+			            },
+			            
+			        }
+			    });
+			    //			    记录下一页数据
+				var num = '';
+				var Userinfo = JSON.parse(window.localStorage.getItem('userinfo'));
+                var userid = JSON.parse(window.localStorage.getItem('userinfo')).user._id;
+			    function pullupRefresh(){
+		    		if(num==null){
+		    			mui('#pullrefresh').pullRefresh().endPullupToRefresh(true);
+		    		}else{
+		    			HuaXia.Ajax({
+				    		type:'get',
+				    		url:API.MALL.orders,
+				    		data : {user_id:userid,next_start:num}
+				    	},function(data){
+//				    	判断是否授权	
+						if(data.orders==undefined){
+							$("html").css("height",'100%');
+							$("body").html(notdata(data.msg)).css("height",'100%');
+							//window.location.replace(auth());
+							return;
+						}
+//			    			判断数据是否为空
+						if(data.orders.length==0){
+							mui('#pullrefresh').pullRefresh().endPullupToRefresh(true);
+							$("#scroll").html(notdata('这里空空的,快去商城看看吧!')).css("height",'100%');
+						}else{
+						    var totall = 0;
+							for(var i=0;i<data.orders.length;i++){
+//								var goodid = data.orders[i]._id;
+                                var goodid = data.orders[i].goods_id;
+								var goodtitle = data.orders[i].name;
+								var goodimg = IMG_web + data.orders[i].cover;
+//									判断商品类型
+								if(data.orders[i].type==0){
+									if(data.orders[i].family){
+										var goodname ='贫困户:'+data.orders[i].family.name;
+										var helpname = '帮扶干部:'+data.orders[i].family.help_name;
+									}else{
+										var goodname ='贫困户:未知';
+										var helpname = '帮扶干部:未知';
+									}
+									
+								}else{
+									var goodname ='认销单位:'+data.orders[i].enterprise.name;
+									var helpname = '';
+								}
+								var goodprice = data.orders[i].price;
+								var goodunit = data.orders[i].unit;
+								var goodnums = data.orders[i].nums;
+								var gooddelivery_time = '';//data.orders[i].goods.delivery_time;
+								var goodtotall = (goodprice*goodnums).toFixed(2);
+								var goodstatus = data.orders[i].status;
+//									判断当前订单状态
+								var status = 1;
+								switch(goodstatus)
+								{
+								case 0:
+								  var buttonHTML = '<button type="button" class="Btn paybtn" onclick="payfor(this,\''+data.orders[i]._id+'\',\''+data.orders[i].sn+'\')">付款</button>'+
+			    									'<button type="button" class="cancelbtn" onclick="cancel(this,\''+data.orders[i]._id+'\')">取消订单</button>';
+								  break;
+								case 1:
+								  var buttonHTML = '<button type="button" class="Spendbtn">已付款</button>'+
+			    									'<button type="button" class="Btn confirmbtn" onclick="determine(this,\''+data.orders[i]._id+'\')">确定收货</button>';
+								  break;
+								case 3:
+								  var buttonHTML = '<button type="button" class="finishbtn" >交易完成</button>';
+			    								   /*'<button type="button" class="deletebtn" onclick="Delete(this,\''+data.orders[i]._id+'\')">删除订单</button>';*/
+								  break;
+								default:
+								  status = 0;
+								  break;
+								}
+//									判断是否显示当前商品
+								if(goodstatus==0){
+								        totall = 1;
+//										载入html
+									var ev = document.getElementsByClassName('my_order_box')[0];
+									var dom = 'ul';
+									var obj = ['class','mui-table-view my-order'];
+									var html = '<li class="mui-table-view-cell" id="'+goodid+'" ng-click="bbb()">'+
+											   '<img src="'+goodimg+'"/><div class="my_order">'+
+											   '<p class="Text_ellipsis">'+goodtitle+'</p>'+
+											   '<p class="flex_between"><span>'+goodname+'</span>'+
+											   '<span>'+helpname+'</span></p><p class="flex_between">'+
+											   '<span><span>单价:</span><span class="item-price">&yen;'+
+											   '<span style="font-size: 15px;">'+goodprice.toFixed(2)+'</span>/'+goodunit+
+											   '</span></span><span class="item-store" style="color: #8f8f94;">购买量：'+goodnums+'</span></p>'+
+											   '<p class="Ontime">收获时间：'+gooddelivery_time+'</p></div></li>'+
+											   '<li class="mui-table-view-cell flex_between"><p style="line-height: 30px;">'+
+											   '合计：<span style="color: red;">&yen;<span style="font-size: 16px;">'+goodtotall+'</span></span></p>'+
+											   '<div>'+buttonHTML+'</div></li>';
+									HuaXia.Addhtml(ev,dom,html,obj);
+								}
+							}
+							if(totall==0){
+								    mui('#pullrefresh').pullRefresh().endPullupToRefresh(true);
+							        $("#scroll").html(notdata('这里空空的,快去商城看看吧!')).css("height",'100%');
+                                }else{
+								    mui('#pullrefresh').pullRefresh().endPullupToRefresh();
+								    num = data.next_start;
+                                }
+						}
+				    	});
+		    		}
+			    }
+//				操作
+				//支付
+				function payfor(ev,id,sn) {
+                    var Id = id;
+					//var btnArray = ['否', '是'];
+					var text = ev.parentNode.parentNode.parentNode.firstChild.querySelector('.Text_ellipsis');
+					var text1 = $(text).html();
+                    mui.confirm('确定支付',text1, '', function (e) {
+                        if (e.index == 1) {
+                            HuaXia.Ajax({
+                                type: 'post',
+                                url: API.MALL.pay,
+                                data: {
+                                    user_id: userid,
+                                    open_id: Userinfo.user.oauth[0].openid,
+                                    body: Id,
+                                    order_id: Id,
+                                    sn: sn
+                                }
+                            }, function (data) {
+                                var datainfo = data;
+                                wx.config({
+                                    debug: false,
+                                    appId: datainfo.appId,
+                                    timestamp: datainfo.timeStamp,
+                                    nonceStr: datainfo.nonceStr,
+                                    signature: datainfo.paySign,
+                                    jsApiList: [
+                                        'checkJsApi',
+                                        'chooseWXPay'
+                                    ]
+                                });
+                                wx.chooseWXPay({
+                                    appId: datainfo.appId,
+                                    timestamp: datainfo.timeStamp, // 支付签名时间戳，注意微信jssdk中的所有使用timestamp字段均为小写。但最新版的支付后台生成签名使用的timeStamp字段名需大写其中的S字符
+                                    nonceStr: datainfo.nonceStr, // 支付签名随机串，不长于 32 位
+                                    package: datainfo.package, // 统一支付接口返回的prepay_id参数值，提交格式如：prepay_id=***）
+                                    signType: 'MD5', // 签名方式，默认为'SHA1'，使用新版支付需传入'MD5'
+                                    paySign: data.sign, // 支付签名
+                                    success: function (res) {
+                                        if (res.errMsg == "chooseWXPay:ok") {
+                                            //支付成功
+                                            mui.alert('支付成功');
+                                            //处理当前支付成功订单状态
+											//3.0.4版本bug
+                                            // var staute = ev.parentNode;
+                                            // ev.parentNode.innerHTML = '<button type="button" class="Spendbtn">已付款</button>'+
+			    							// 		'<button type="button" class="Btn confirmbtn" onclick="determine(this,\''+Id+'\')">确定收货</button>';
+											window.location.href = "my_order2.html";
+                                        } else {
+                                            mui.alert('支付出错');
+                                        }
+                                    },
+                                    cancel: function (res) {
+                                        mui.alert('支付取消')
+                                        //支付取消
+                                    },
+                                    error: function (res) {
+                                        mui.alert('支付失败')
+                                    }
+                                });
+                            })
+                        } else {
+                            //mui.alert('撤销成功');
+                        }
+                    })
+			    }
+
+                //取消订单
+                function cancel(ev, id) {
+						var text = ev.parentNode.parentNode.parentNode.firstChild.querySelector('.Text_ellipsis');
+						var text1 = $(text).html();
+                        mui.confirm('是否取消该订单',text1,'', function (e) {
+                            if (e.index == 1) {
+                                var apiUrl = API.MALL.unorders.replace(/<order_id>/, id);
+                                HuaXia.Ajax({
+                                    type: 'post',
+                                    url: apiUrl,
+                                    data: {next_start: num, user_id: userid}
+                                }, function (data) {
+                                    if (data) {
+                                        ev.parentNode.parentNode.parentNode.remove();
+                                       mui.toast('取消成功!')
+                                   }
+                                });
+                            }
+                        })
+                    }
+
+                    //确认收货
+                function determine(ev,id) {
+						var Id = id;
+                        mui.confirm('是否确定收货','','', function (e) {
+                            var staute = ev.parentNode;
+                            ev.parentNode.innerHTML = '<button type="button" class="finishbtn" >已完成</button>';
+                            if (e.index == 1) {
+                                var apiUrl = API.MALL.confirm.replace(/<order_id>/, Id);
+                                HuaXia.Ajax({
+                                    type: 'post',
+                                    url: apiUrl,
+                                    data: {user_id:userid}
+                                }, function (data) {
+                                });
+                            }
+                        })
+                    }
+
+                    //删除订单
+                function Delete(ev, id) {
+                        var btnArray = [''];
+                        mui.confirm('是否删除当前订单', btnArray, function (e) {
+                            if (e.index == 1) {
+                                var apiUrl = API.MALL.unorders.replace(/<order_id>/, id);
+                                HuaXia.Ajax({
+                                    type: 'post',
+                                    url: API.MALL.orders,
+                                    data: {next_start: num}
+                                }, function (data) {
+                                    if (data) {
+                                        ev.parentNode.parentNode.parentNode.remove();
+                                        mui.toast('删除成功!')
+                                    }
+                                });
+                            }
+                        });
+                    }
+
+                 //	点击查看
+                mui('.my_order_box').on('tap','.mui-table-view-cell:nth-child(1)',function(){
+                    //获取参数
+                    var id = this.getAttribute("id");
+                    var aipUrl = API.MALL.shopDetail.replace(/<goods_id>/,id);
+					HuaXia.Ajax({
+                        type:'get',
+                        url:aipUrl,
+                    },function(data){
+		                window.sessionStorage.setItem("pay_goods",JSON.stringify(data.goods));
+		                location.href=serverPath.helpStore() + "pay_detail.html?id="+id;
+                    })
+                });
+
+			    //监听返回事件
+                $(function(){
+                    pushHistory();
+                    window.addEventListener("popstate", function(e) {
+                        if(window.sessionStorage.getItem('goods_history')==1){
+                            window.sessionStorage.removeItem('goods_history');
+                            window.history.go(-2);
+                        }else{
+                            window.sessionStorage.removeItem('goods_history');
+                            window.history.go(-1);
+                        }
+
+                    }, false);
+                    function pushHistory() {
+                    var state = {
+                    title: "title",
+                    url: "#"
+                    };
+                    window.history.pushState(state, "title", "#");
+                    }
+                });
+		</script>
+	</body>
+</html>

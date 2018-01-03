@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html ng-app="people_supervision">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+		<meta http-equiv="Pragma" content="no-cache" />
+		<meta http-equiv="Expires" content="0" />
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="../../css/mui.min.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/wx_list.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/wx_icon.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/wx_talent.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/wx_response.css"/>
+		<script src="../../js/userAgent.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<style type="text/css">
+		body{
+			background-color: white;
+		}
+		.mui-bar-nav~.mui-content .mui-slider.mui-fullscreen {
+			top: 42px;
+		}
+		#scrollContent {
+			width: 100%;
+			background:white;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+		#scrollContent .mui-control-item{
+			width:50%;
+			background:none;
+			border-bottom: 4px solid #ddd;
+		}
+		.mui-segmented-control.mui-segmented-control-inverted .mui-control-item.mui-active{
+			background: none!important;
+			color: #7CDA7B;
+			border-bottom: 4px solid #7CDA7B!important;
+		}
+		.mui-pull-loading{
+			width: 100%;
+			display: block;
+			text-align: center;
+			margin-top: 5px;
+		}
+		
+	.mui-segmented-control .mui-control-item{
+			line-height: 35px;
+		}
+	.mui-slider .mui-segmented-control.mui-segmented-control-inverted~.mui-slider-group .mui-slider-item{
+		border: none;
+	}	
+	.mui-table-view-cell:after{
+		left: 0;
+	}
+	#item2 h4{
+		margin-bottom: 15px;
+	}
+	#introduce img{width:100%}
+	</style>
+	<body>
+		<div class="wx_tip" style="display: none;" id="wx_tip">2222</div>
+
+		<div class="mui-content">
+			<div class="mui-slider mui-fullscreen" id="slider">
+				<div class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+				    <div class="mui-scroll" id="scrollContent">
+				        <a class="mui-control-item mui-active" href="#item1" type="0">
+				           	 村介绍
+				        </a>
+				        <a class="mui-control-item" href="#item2" type="1">
+				        	   村资讯
+				        </a>
+				    </div>
+				</div>
+				<!--内容区域-->
+				<div class="mui-slider-group">
+					<!--item1-->
+					<div class="mui-slider-item mui-control-content mui-active" id="item1">
+						<div class="mui-scroll-wrapper">
+							<div class="mui-scroll" id="scroll1">
+								<div class="item1temp">
+								
+								</div>
+							</div>
+						</div>
+					</div>
+					<!--item2-->
+					<div class="mui-slider-item mui-control-content" id="item2">
+						<div class="mui-scroll-wrapper">
+							<div class="mui-scroll" id="scroll2">
+								<ul class="mui-table-view" id="RightList">
+									
+								</ul>
+								
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="../../js/angular.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/mui.pullToRefresh.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/jquery-1.8.3.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/public_templete.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/angular-route.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/people_supervision.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/all.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/template" id="item2_template">
+			<li class="mui-table-view-cell" value="%id%">
+				<h4>%title%</h4>
+				<!--<p>发布单位:<span>%gov%</span></p>-->
+				<p>发布时间:<span>%date%</span><span style="display: flex;float: right;color:#7CDA7B"><img src="../../img/see.png" style="height:15px;vertical-align: sub;margin-right:5px">%view%</span></p>
+			</li>
+		</script>
+		<script type="text/javascript">
+		mui.init();
+			(function($) {
+				//阻尼系数
+				$('.mui-scroll-wrapper').scroll({
+					/*bounce: false,*/
+					scrollX: false, //是否横向滚动
+					indicators: true, //是否显示滚动条
+				});
+				$.ready(function() {
+					//循环初始化所有下拉刷新，上拉加载。
+					var ID = HuaXia.GetQueryString("id");
+					var region = HuaXia.GetQueryString("region_id");
+					if(region){
+						window.localStorage.setItem('x_region_id',region);
+					}
+					$.each(document.querySelectorAll('.mui-slider-group .mui-scroll'), function(index, pullRefreshEl) {
+					 if(index == 0){
+						HuaXia.Ajax({
+							type : 'get',
+							url : API.VILLAGE.VillageDetail.replace('<village_id>',ID),
+						},function(data){	
+							
+							var $body = jQuery('body');
+							document.title = data.village.name;
+							var $iframe = jQuery("<iframe src='/favicon.ico'></iframe>");
+							$iframe.on('load',function() {
+								setTimeout(function() {
+								$iframe.off('load').remove();
+								}, 0);
+							}).appendTo($body);
+
+
+
+
+							var ev = document.getElementsByClassName('item1temp')[0],
+							dom = 'div',
+							obj = ['class','office_introduce'],
+							leaders="",cover;
+							if(data.village.leaders.length==0){
+								leaders = "<center>暂时没有村班子!</center>";
+							}else{
+								for(var i=0;i<data.village.leaders.length;i++){
+									leaders = leaders + '<li><img src="'+IMG_web+HuaXia.ImgIF(data.village.leaders[i].photo,1)+'" alt="" />'+
+														'<p>'+data.village.leaders[i].name+'</p><p>'+data.village.leaders[i].title+'</p></li>';
+								}
+							}
+							if(data.village.desc.cover==null){
+								cover = '';
+							}else{
+								cover = '<img src="'+HuaXia.ImgIF(data.village.desc.cover,1)+'" alt="" />';
+							}
+							var html = '<h4>村班子</h4><ul class="office_leader clear">'+leaders+'</ul><div id="introduce">'+
+										'<h4>村介绍</h4>'+data.village.desc.content+'</div>';
+							HuaXia.Addhtml(ev,dom,html,obj);
+								
+						});
+					}else if(index==1){
+						var flag = ""
+						$(pullRefreshEl).pullToRefresh({
+							up: {
+								auto:true,
+								callback: function() {
+									
+									var self = this;
+									if(flag==null){
+										self.endPullupToRefresh(true);
+									}else{
+										var aipUrl = API.VILLAGE.VillageDetaiList.replace(/<village_id>/,ID);
+										HuaXia.Ajax({
+											type : 'get',
+											url : aipUrl,
+											data : {next_start:flag}
+										},function(data){
+											if(data.articles.length==0){
+												self.endPullUpToRefresh(true);
+												jQuery("#item2").html(notdata("没有更多的数据!"));
+												jQuery(".mui-pull-loading").css("display","none");
+											}else{
+												var item2Template = document.getElementById("item2_template").innerHTML;
+												jQuery.each(data.articles, function(index,item) {
+													var html=item2Template
+															.replace(/%id%/,item._id)
+															.replace(/%title%/,item.title)
+														    /*.replace(/%gov%/,item.gov_id)*/
+														    .replace(/%date%/,HuaXia.format(item.timed,1))
+														     .replace(/%view%/,item.views);
+													jQuery("#RightList").append(html);	
+												});
+											self.endPullUpToRefresh(true);
+											flag=data.next_start;
+											}
+										});
+									}
+								}
+							}
+						});
+					}
+				});
+			});
+		})(mui);
+		
+		mui("#item2").on('tap','li',function(){
+			var id = this.getAttribute("value");
+			window.location.href = location.href = serverPath.base+"news.html?id="+id;
+		})
+		</script>
+	</body>
+</html>

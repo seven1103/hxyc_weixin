@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html ng-app="people_supervision">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+		<meta http-equiv="Pragma" content="no-cache" />
+		<meta http-equiv="Expires" content="0" />
+		<title>村村公示</title>
+		<link rel="stylesheet" type="text/css" href="../../css/mui.min.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/wx_list.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/wx_icon.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/wx_talent.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/wx_response.css"/>
+		<script src="../../js/userAgent.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<style type="text/css">
+		.mui-bar-nav~.mui-content{
+			padding-top: 102px;
+		}
+	</style>
+	<body>
+
+		<!--搜索框-->
+		<div class="talent_search store_search" >
+	    	<div class="mui-input-row mui-search">
+	          <input type="search" class="mui-input-clear" placeholder="请输入村名称" ng-focus="getFocus()" ng-blur="onBlur()">
+	      	</div>	
+	      	<button id="searchSubmit">确认</button>
+		</div>
+		<!--下拉刷新容器-->
+		<div class="mui-content mui-scroll-wrapper" id="refreshContainer" style="top:60px;">
+			<div class="mui-scroll" id="scroll1">
+				<ul class="mui-table-view wx_list" id="apply">
+					<li class="mui-table-view-cell" ng-repeat="x in data">
+			            <div class="mui-table">
+			                <div class="mui-table-cell mui-col-xs-10 publicityTitle" value="123456789">
+			                    <h4 class="mui-ellipsis">梨树村</h4>
+			                </div>
+			                <!-- <div class="mui-table-cell mui-col-xs-2 mui-text-right">
+			                    <span class="icon icon-qrcode"></span>
+			                </div> -->
+			            </div>
+			       </li>
+				</ul>
+			</div>
+		</div>
+		<script src="../../js/angular.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/jquery-1.8.3.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/angular-route.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/all.js"></script>
+		<script src="../../js/public_templete.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/people_supervision.js" type="text/javascript" charset="utf-8"></script>
+		<script>
+		mui.init();
+		(function($) {
+			$('.mui-scroll-wrapper').scroll({
+					/*bounce: false,*/
+					scrollX: true, //是否横向滚动
+					indicators: true, //是否显示滚动条
+			});
+				HuaXia.Ajax({
+			    		type:'get',
+			    		url:API.VILLAGE.VillageLists,
+				    },function(data){
+				    	var Data = data.villages;
+				    	for(var i=0;i<Data.length;i++){
+				    		var ev = document.getElementById('apply');
+			    			var dom = 'li';
+			    			var obj = ['class','mui-table-view-cell','id',Data[i]._id];
+				            var html = ' <div class="mui-table"><div class="mui-table-cell mui-col-xs-10 publicityTitle" value="'+Data[i]._id+'">'+
+				            			'<h4 class="mui-ellipsis">'+Data[i].name+'</h4>'+
+				            			'</div></div>';
+			    			HuaXia.Addhtml(ev,dom,html,obj);
+				    	}
+				    });
+		})(mui)
+	 				
+		 	//职位搜索
+		 	document.querySelector("#searchSubmit").onclick = function(){
+		 		var value = jQuery("input[type=search]").val();
+		 		if(value==""){
+		 			jQuery("#wx_tip").html("输入内容不可为空!!").slideDown('slow',function(){
+		 				var _this = jQuery(this);
+		 				setTimeout(function(){
+		 					_this.slideToggle("fast");
+		 				},2000)
+		 			});
+		 			return ;
+		 		}else{
+		 			$('#apply').empty();
+		 			HuaXia.Ajax({
+			    		type:'get',
+			    		url:API.VILLAGE.SearchVillageLists.replace('<keyword>',value),
+				    },function(data){
+				    	var Data = data.villages;
+				    	for(var i=0;i<Data.length;i++){
+				    		var ev = document.getElementById('apply');
+			    			var dom = 'li';
+			    			var obj = ['class','mui-table-view-cell','id',Data[i]._id];
+				            // var html = ' <div class="mui-table"><div class="mui-table-cell mui-col-xs-10 publicityTitle" value="'+Data[i]._id+'">'+
+				            // 			'<h4 class="mui-ellipsis">'+Data[i].name+'</h4>'+
+				            // 			'</div><div class="mui-table-cell mui-col-xs-2 mui-text-right" value="'+Data[i]._id+'" name="'+Data[i].name+'">'+
+							// 			'<span class="icon icon-qrcode"></span></div></div>';
+							var html = ' <div class="mui-table"><div class="mui-table-cell mui-col-xs-10 publicityTitle" value="'+Data[i]._id+'">'+
+				            			'<h4 class="mui-ellipsis">'+Data[i].name+'</h4>'+
+				            			'</div></div>';
+			    			HuaXia.Addhtml(ev,dom,html,obj);
+				    	}
+				    });		
+		 		}
+		 	}
+		//点击进入详情页		 	
+		mui("#apply").on("tap",".publicityTitle",function(){
+			var id = this.getAttribute("value");
+			location.href = serverPath.supervision()+"village_publicity_detail.html?id="+id;
+		});
+		//点击进入二维码
+		mui("#apply").on("tap",".mui-text-right",function(){
+			var id = this.getAttribute("value");
+			var name = this.getAttribute("name");
+			location.href = serverPath.supervision()+"village_code.html?id="+id+"&&name="+name;
+		});
+		
+		//监听input,当输入框再次为空时，再次请求接口
+		$('.mui-input-clear').bind('input propertychange', function() {  
+		   if(!$(this).val()){
+		   		HuaXia.Ajax({
+			    		type:'get',
+			    		url:API.VILLAGE.VillageLists,
+				    },function(data){
+				    	var Data = data.villages;
+				    	for(var i=0;i<Data.length;i++){
+				    		var ev = document.getElementById('apply');
+			    			var dom = 'li';
+			    			var obj = ['class','mui-table-view-cell','id',Data[i]._id];
+				            var html = ' <div class="mui-table"><div class="mui-table-cell mui-col-xs-10 publicityTitle" value="'+Data[i]._id+'">'+
+				            			'<h4 class="mui-ellipsis">'+Data[i].name+'</h4>'+
+				            			'</div><div class="mui-table-cell mui-col-xs-2 mui-text-right" value="'+Data[i]._id+'" name="'+Data[i].name+'">'+
+				            			'<span class="icon icon-qrcode"></span></div></div>';
+			    			HuaXia.Addhtml(ev,dom,html,obj);
+				    	}
+				    });
+		   }
+		}); 
+	</script>
+	</body>
+</html>

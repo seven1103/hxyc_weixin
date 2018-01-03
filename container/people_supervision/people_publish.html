@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html ng-app ="people_supervision">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+		<meta http-equiv="Pragma" content="no-cache" />
+		<meta http-equiv="Expires" content="0" />
+		<title>信息大发布</title>
+		<link rel="stylesheet" type="text/css" href="../../css/mui.min.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/all.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/people_supervision.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/wx_icon.css"/>
+		<script src="../../js/userAgent.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/angular.min.js" type="text/javascript" charset="utf-8"></script>
+		<style type="text/css">
+			.look span:nth-child(2){display: inline-block;float: right;line-height: 16px;}
+			.look span:nth-child(2) i{font-size: 14px;margin-left: 5px;}
+			h4{margin-bottom:6px;}
+			#banners{background: url(../../img/icon/bgLogding.gif) no-repeat;background-position: center 80%;background-size: 80%;}
+			#policyList.notdata:after,#policyList.notdata:before{
+				background: none;
+			}
+			#policyList.notdata{
+				 background-color: #efeff4;
+				 height: 40vh;
+			}
+			   
+		</style>
+	</head>
+	<body ng-cloak>
+		<!-- <header class="header"></header> -->
+		<div class="mui-content" ng-controller = "people_policy">
+			<div id="pullrefresh" class="mui-content mui-scroll-wrapper">
+			<div class="mui-scroll">
+			<!--滑动模块-->
+			<div class="mui-slider my-slider" id="banners">
+			 <!--轮播图-->
+				  <div class="mui-slider-group mui-slider-loop">
+				    <!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
+				    <div class="mui-slider-item mui-slider-item-duplicate">
+				      <a href="#">
+				        <img src="../../img/icon/banner_defalt2.jpg">
+				      </a>
+				    </div>
+				    <!-- 第一张 -->
+				    <div class="mui-slider-item">
+				      <a href="#">
+				       <img src="../../img/icon/banner_defalt1.jpg">
+				      </a>
+				    </div>
+				    <!-- 第二张 -->
+				    <div class="mui-slider-item">
+				      <a href="#">
+				       <img src="../../img/icon/banner_defalt2.jpg">
+				      </a>
+				    </div>
+				    
+				    <!-- 额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) -->
+				    <div class="mui-slider-item mui-slider-item-duplicate">
+				      <a href="#">
+				        <img src="../../img/icon/banner_defalt1.jpg">
+				      </a>
+				    </div>
+				  </div>
+				  <div class="mui-slider-indicator" >
+				    <div class="mui-indicator mui-active"></div>
+				    <div class="mui-indicator"></div>
+				  </div>
+			</div>
+			<div accesskey="na">{{data}}</div>
+			
+			<ul class="mui-table-view" id="policyList">
+				<!--<li class="mui-table-view-cell">
+					<h4 class="Text_ellipsis">贵州大方经济开发区物流园区地平</h4>
+					<p>编&nbsp;&nbsp;号：<span>20120321</span></p>
+					<p class="Text_ellipsis">发布单位:<span>金海湖新区管委会</span></p>
+					<p class="look">发布时间:<span>2012.03.21</span><span>300<i class="icon wx-guankan-"></i></span></p>
+				</li>
+				<li class="mui-table-view-cell">
+					<h4 class="Text_ellipsis">贵州大方经济开发区物流园区地平</h4>
+					<p>编&nbsp;&nbsp;号：<span>20120321</span></p>
+					<p class="Text_ellipsis">发布单位:<span>金海湖新区管委会</span></p>
+					<p class="look">发布时间:<span>2012.03.21</span><span>300<i class="icon wx-guankan-"></i></span></p>
+				</li>-->
+			</ul>
+		</div>
+		<script src="../../js/jquery-1.8.3.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/angular-route.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/public_templete.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/people_supervision.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/all.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			//  下拉刷新
+		    mui.init({
+		        pullRefresh: {
+		            container: '#pullrefresh',
+		            up: {
+		            	auto:true,
+		                contentrefresh: '正在加载...',
+		                callback: pullupRefresh
+		            }
+		        }
+		    });
+		    
+		    //  记录下一页数据
+			var num = '';
+		    function pullupRefresh(){
+		    	var self = this;
+		    	if(num==null){
+		    		self.endPullupToRefresh(true);
+		    	}else{
+	    			HuaXia.Ajax({
+			    		type:'get',
+			    		url:API.NEWS.publish,
+			    		data : {next_start:num}
+			    	},function(data){
+				    		//第一次加载头部轮播图
+		    			if(num==''){
+		    				if(data.banners==undefined||data.banners.length==0){
+		    					jQuery("#banners").css("background","url(../../img/icon/banner.png) no-repeat center center");
+		    				}else{
+			    				 HuaXia.Eachbanners(data.banners,1);
+			    				 //	轮播图滚动
+								var gallery = mui('.mui-slider');
+								if(data.banners.length>1){
+									gallery.slider({
+								        interval:5000//自动轮播周期，若为0则不自动播放，默认为0；
+								    });
+								}
+		    				}
+		    			}
+	    				if(data.articles.length==0){
+	    					self.endPullupToRefresh(true);
+	    					$("#policyList").html(notdata("没有更多数据!")).addClass("notdata");
+	    					$(".mui-pull").css("display","none");
+	    				}else{
+							for(var i=0;i<data.articles.length;i++){
+								var ev = document.getElementsByClassName('mui-table-view')[0];
+								var dom = 'li';
+								//var time = parseInt(data.articles[i].timed/100);
+								var Date = HuaXia.format(data.articles[i].timed,1);
+								var obj = ['class','mui-table-view-cell','id',data.articles[i]._id];
+								var html = '<h4 class="Text_ellipsis">'+data.articles[i].title+'</h4>'+
+										//    '<p>编&nbsp;&nbsp;号：<span>'+data.articles[i]._id+'</span></p>'+
+										   '<p class="Text_ellipsis">发布单位:<span>'+(data.articles[i].gov.name||'无')+'</span></p>'+
+										   '<p class="look">发布时间:<span>'+Date+'</span><span style="color:#7CDA7B"><img src="../../img/see.png" style="height:15px;vertical-align: sub;margin-right:5px">'+data.articles[i].views||0+'</span></p>';
+								HuaXia.Addhtml(ev,dom,html,obj);
+							}
+							mui('#pullrefresh').pullRefresh().endPullupToRefresh();
+							num = data.next_start;
+		    			}
+			    	});
+		    	}
+		    }
+		    
+		    if (mui.os.plus) {
+					mui.plusReady(function() {
+						setTimeout(function() {
+							mui('#pullrefresh').pullRefresh().pullupLoading();
+						}, 1000);
+	
+					});
+				} else {
+					mui.ready(function() {
+							mui('#pullrefresh').pullRefresh().pullupLoading();
+						
+					});
+				}
+
+		</script>
+	</body>
+</html>

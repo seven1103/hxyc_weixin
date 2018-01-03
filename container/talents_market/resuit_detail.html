@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html ng-app="talents" ng-controller="resuitDetailCtrl">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+		<meta http-equiv="Pragma" content="no-cache" />
+		<meta http-equiv="Expires" content="0" />
+		<title>人才市场</title>
+		<link rel="stylesheet" type="text/css" href="../../css/mui.min.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/wx_list.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/wx_icon.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/wx_talent.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/wx_response.css"/>
+		<script src="../../js/userAgent.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body ng-cloak>
+	<header class="header"></header>
+	<div class="mui-content mui-scroll-wrapper" style="margin-bottom: 40px;">
+		<div class="mui-scroll">
+	<!--<div class="uiDetail">-->
+		<!--商品详情-->
+		<div class="store_good_detail">
+			<div class="store_pay_detailImg">
+				<img onerror="javascript:this.src='../../img/icon/banner.png'" src="{{data.image}}" ng-style="setimgheight"  />
+			</div>
+			<div class="apply_detail">
+				<h2>{{data.title}}</h2>
+				<p class="apply_sallary"><span>岗位薪资 : <i>&yen;{{data.salary}}/月</i></span> <span>招聘人数 : <span class="colorBlack">{{data.nums}}</span></span></p>
+				<p>务工地点 : <span class="colorBlack">{{data.address}}</span></p>
+				<div class="apply_welfare" id="apply_welfare">
+					<p ng-if="data.tags[0]==0">
+					<span class="apply_welfare_status active"><i class="icon wx-duigou"></i></span><span class="colorBlack">包吃</span>
+				</p>
+				<p ng-if="data.tags[0]==undefined">
+					<span class="apply_welfare_status"><i class="icon wx-duigou"></i></span><span class="colorBlack">包吃</span>
+				</p>
+				<p ng-if="data.tags[1]==1">
+					<span class="apply_welfare_status active"><i class="icon wx-duigou"></i></span><span class="colorBlack">包住</span>
+				</p>
+				<p ng-if="data.tags[1]==undefined">
+					<span class="apply_welfare_status"><i class="icon wx-duigou"></i></span><span class="colorBlack">包住</span>
+				</p>
+				<p ng-if="data.tags[2]==2">
+					<span class="apply_welfare_status active"><i class="icon wx-duigou"></i></span><span class="colorBlack">五险</span>
+				</p>
+				<p ng-if="data.tags[2]==undefined">
+					<span class="apply_welfare_status"><i class="icon wx-duigou"></i></span><span class="colorBlack">五险</span>
+				</p>
+				<p ng-if="data.tags[3]==3">
+					<span class="apply_welfare_status active"><i class="icon wx-duigou"></i></span><span class="colorBlack">一金</span>
+				</p>
+				<p ng-if="data.tags[3]==undefined">
+					<span class="apply_welfare_status"><i class="icon wx-duigou"></i></span><span class="colorBlack">一金</span>
+				</p>
+				<div>
+			</div>
+		</div>
+	</div>
+		<div class="store_pay_text apply_detail_des">
+			<div class="store_industry_help">
+				<div class="good_publish_detail">
+					<div class="publish_info">
+						<img onerror="javascript:this.src='../../img/icon/avator_default.png'" src="{{data.enterprise.icon}}" />
+						<div class="apply_unite_detail">
+							<p>招聘单位 : <span>{{data.enterprise.name}}</span></p>	
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	
+		<!--商品详情-->
+		<div class="goog_intoduce" style="margin-top: 0;">
+			<div class="goog_intoduce_titel">
+				产品详情
+			</div>
+			<div class="goog_intoduce_content">
+				<p>{{data.detail}}</p>
+				<img onerror="javascript:this.src='../../img/icon/banner.png'" src="" ng-style="setimgheight" />
+			</div>
+		</div>
+	<!--</div>-->
+			
+	</div>
+</div>	
+	</div>
+	<div class="apply_call_leader">
+		<div>{{data.enterprise.contact}}(联系人) : {{data.enterprise.tel}}</div>
+		<div><i class="icon wx-dianhua"></i><a href="tel:{{data.enterprise.tel}}">拨打电话</a></div>
+	</div>
+	<script src="../../js/angular.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/public_templete.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/talents.js" type="text/javascript" charset="utf-8"></script>
+	<!--<script src="../../js/all.js"></script>-->
+	<script>
+		mui('.mui-scroll-wrapper').scroll();
+	</script>
+</body>
+</html>
+

@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html ng-app = "my" ng-controller = "my_honner">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+		<meta http-equiv="Pragma" content="no-cache" />
+		<meta http-equiv="Expires" content="0" />
+		<title>我的荣誉</title>
+		<link rel="stylesheet" type="text/css" href="../../css/mui.min.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/all.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/my.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/wx_icon.css"/>
+		<script src="../../js/userAgent.js" type="text/javascript" charset="utf-8"></script>
+		<style type="text/css">
+			html,body{
+				height: 100%;
+			}
+			#progress:after{
+				content: '';
+				background-image:url(../../img/icon/jindu.png);
+    			background-size:100%;
+				position: absolute;
+				display: inline-block;
+				height: 15px;
+				width: 15px;
+				right: -5px;
+				top: -5px;
+			}
+			.my-honner-list .mui-table-view-cell{
+				font-size: 16px;
+			}
+			p,span{
+				font-size: 16px;
+			}
+			.wx-paiming{
+				font-size: 18px;
+			}
+			.wx-rongyu{
+				font-size:20px;
+			}
+			@media only screen and (max-width:320px ){
+			 .my-honner-list .mui-table-view-cell{
+				font-size: 14px;
+			 }
+			 p,span{
+				font-size: 14px;
+				}
+			.wx-paiming{
+				font-size: 16px;
+			}
+			.wx-rongyu{
+				font-size:18px;
+			}	
+			}
+			.mui-content{margin-bottom: 0;}
+		</style>
+		<script src="../../js/angular.min.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body ng-cloak>
+		<header class="header"></header>
+		<div class="mui-content">
+			<div id="pullrefresh" class="mui-content mui-scroll-wrapper" style="margin-top: 20px;">
+			<div class="mui-scroll">
+			<div class="my-box">
+				<div class="my-head">
+					<span onclick = "gotohonner()"><i class="icon wx-rongyu"></i>&nbsp;荣誉：{{usertitle?usertitle:'暂无'}}</span>
+					<span onclick = "gotorank()"><i class="icon wx-paiming"></i>&nbsp;排名：{{rank?rank:'0'}}名</span>
+				</div>
+				<div class="my-head-background"></div>
+				<div class="my-head-content">
+					<div class="my-honnr">
+						<p>荣誉值:&nbsp;&nbsp;<span class="my-honnr-distance">{{score?score:'0'}}</span>贡献值</p>
+						<p>距离下一次升值还差<span style="font-size: 14px;">{{tonext?tonext:'0'}}</span>爱心贡献值</p>
+					</div>
+					<div class="my-progress">
+						<p style="display: flex;justify-content: space-between;"><span >{{usertitle?usertitle:'暂无'}}</span><span>{{nexttx?nexttx:'暂无'}}</span></p>
+						<!--<div id="demo1" class="mui-progressbar">
+							<span></span>
+						</div>-->
+						<div style="width: 100%;height: 6px;border-radius: 5px;border: 1px solid #fff;position: relative;margin-top: 5px;">
+							<span id="progress" style="border-left-radius: 5px;width: 0%;background: #fff;height: 6px;position: absolute;top: 0;left: 0;display: inline-block;"></span>
+						</div> 
+					</div>
+				</div>
+			</div>
+			<!--列表-->
+			
+			<ul class="mui-table-view my-honner-list">
+			<!--	<li class="mui-table-view-cell">
+					<span class="left title">认购项目</span>
+					<span class="right title">获得贡献值</span>
+				</li>-->
+				<!--<li class="mui-table-view-cell">
+					<span class="left">从江狗肉</span>
+					<span class="right">+175</span>
+				</li>
+				<li class="mui-table-view-cell">
+					<span class="left">从江狗肉</span>
+					<span class="right">+175</span>
+				</li>
+				<li class="mui-table-view-cell">
+					<span class="left">从江狗肉</span>
+					<span class="right">+175</span>
+				</li>-->
+			</ul></div></div>
+		</div>
+		<script src="../../js/jquery-1.8.3.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/public_templete.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/my.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/all.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			mui.init({
+		        pullRefresh: {
+		            container: '#pullrefresh',
+		            up: {
+		            	auto:true,
+		                contentrefresh: '正在加载...',
+		                callback: pullupRefresh
+		            },
+		           /* down:{
+		            	contentrefresh: '正在加载...',
+		                callback: pulldownRefresh
+		            }*/
+		        }
+		    });
+		    var num = '';
+		    var user_id = JSON.parse(window.localStorage.getItem('userinfo')).user._id
+		    function pullupRefresh(){
+		    	if(num==null){
+	    			mui('#pullrefresh').pullRefresh().endPullupToRefresh(true);
+	    		}else{
+		    	//	拉取我的荣誉纪录
+				HuaXia.Ajax({
+					type:'get',
+					url:API.MINE.honor,
+					data:{user_id:user_id,next_start:num}
+				},function(data){
+						if(data.honors==undefined){
+					$("body").html(notdata(data.msg));
+					//授权代码
+					window.location.replace(auth());
+				}
+				//授权后填充页面
+				if(num==null){
+					mui('#pullrefresh').pullRefresh().endPullupToRefresh(true);
+				}else{
+					if(data.honors.length==0){
+						mui('#pullrefresh').pullRefresh().endPullupToRefresh(true);
+						$(". my-honner-list").html(notdata("快去为自己增加荣誉吧!!"));
+					}else{
+						for(var i=0;i<data.honors.length;i++){
+						var ev = document.getElementsByClassName('my-honner-list')[0];
+						var dom = 'li';
+						var obj = ['class','mui-table-view-cell'];
+						var html = '<span class="left">'+data.honors[i].name+'</span>'+
+									'<span class="right">+'+data.honors[i].score+'</span>';
+						HuaXia.Addhtml(ev,dom,html,obj);
+						}
+				       mui('#pullrefresh').pullRefresh().endPullupToRefresh();
+				       num = data.honors.next_start;
+					}
+				}
+					
+				});
+		    }
+		}   
+		/*	mui.ready(function() {
+				mui('#pullrefresh').pullRefresh().pullupLoading();
+			});*/
+		</script>
+	</body>
+</html>

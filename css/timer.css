@@ -1,0 +1,152 @@
+
+.interviewBox {
+	margin-left: 20px;
+	border-left: 6px solid #dddddd;
+	position: relative;
+}
+.timebarProgress{
+	border-left: 6px solid #CC3E3D;
+	margin-left: -6px;
+	position: absolute;
+	left: 0;
+	top: 0;
+	animation:myheight .5s alternate;
+	transition:all 0.25s;
+	animation-fill-mode: forwards;
+}
+/*@keyframes myheight {
+	from{ height:0;}
+	to{height: 70%;}
+}*/
+.interviewTimeBox {
+	display: flex;
+	height: 45px;
+	width: 45px;
+	border-radius: 100%;
+	background-color: #ffffff;
+	border: 3px solid #dddddd;
+	position: relative;
+	top: 15px;
+	left: -15px;
+}
+
+.interviewTimeBox p {
+	margin: auto;
+	font-size: 14px;
+}
+.interviewPadding{
+	padding-top: 8px;
+}
+.interviewTimeContent .contentText {
+	background-color: #eeeeee;
+	border: 1px solid #dddddd;
+	padding: 7px;
+	margin-left: 25px;
+	margin-right: 152x;
+	margin-top: 8px;
+	position: relative;
+}
+
+.interviewTimeContent .contentText .redDot {
+	height: 30px;
+    width: 30px;
+    border-radius: 100%;
+    background-color: #EEEEEE;
+    border: 4px solid #DDDDDD;
+    position: absolute;
+    z-index: 5;
+    left: -45px;
+    top: 50%;
+    margin-top: -.9em;
+    padding-top: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.interviewTimeContent .contentText .redDot.active{
+	background:#CC3E3D;
+}
+.interviewTimeContent .contentText .redDot i{
+	margin-bottom:7px;
+	color: #fff;
+	font-size:14px;
+}
+.interviewTimeContent .contentText .interviewTimeText {
+	position: absolute;
+	top: 50%;
+	left: -78px;
+	margin-top: -5px;
+}
+
+.interviewTimeContent .contentText .triangle {
+	border-right: 10px solid #dddddd;
+	border-top: 10px dotted transparent;
+	border-bottom: 10px dotted transparent;
+	position: absolute;
+	left: -10px;
+	top: 50%;
+	margin-top: -12px;
+}
+.interviewTextPadding{
+	padding: 4px;	
+}
+.interviewTimeContent .contentText h2 {
+	font-size:16px;
+	font-weight: 100;
+}
+.interviewTimeContent .contentText p{
+	font-size: 14px;
+	color: black;
+	margin-top: 5px;
+}
+.interviewTimeContent .contentText p span{
+	color: #8F8F94;
+}
+.interviewTimeContent .contentText p span.file{
+	color: #609bfc;
+}
+@media only screen and (max-width:320px){
+ .interviewTimeContent .contentText h2 {
+	font-size:14px;
+}
+ .interviewTimeContent .contentText p{
+	font-size: 12px;
+}	
+.interviewPadding{
+	padding-top: 4px;
+}
+.interviewTimeContent .contentText .redDot{
+	height: 25px;
+	width: 25px;
+	   left: -42.5px;
+}
+}
+
+/*更改*/
+/*查看附件按钮*/
+.Lookfile{position: relative;display: inline-block;}
+.Lookfile .filebutton{
+	border: 1px solid #CC3E3D;color: #CC3E3D;
+	display: inline-block;width: 100px;height: 30px;
+	line-height: 30px;background: #fff;
+	text-align: center;border-radius: 5px;margin: 5px 0;
+}
+.Lookfile .fileimgs{
+	opacity: 0;
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100px;
+	height: 30px;
+}
+.Lookfile .fileimgs img{
+	height: 30px;width: 100px;
+	position: absolute;left: 0;top:5px
+}
+
+/*.Lookfile{
+	border: 1px solid #CC3E3D;color: #CC3E3D;
+	display: inline-block;width: 100px;height: 30px;
+	line-height: 30px;background: #fff;
+	text-align: center;border-radius: 5px;margin: 5px 0;
+}*/

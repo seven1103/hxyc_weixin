@@ -1,0 +1,298 @@
+ <!DOCTYPE html>
+<html ng-app="people_supervision">
+
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+		<meta http-equiv="Pragma" content="no-cache" />
+		<meta http-equiv="Expires" content="0" />
+		<title>项目详情</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<link rel="stylesheet" type="text/css" href="../../css/mui.min.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/all.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/people_supervision.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/wx_icon.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/view.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/timer.css"/>
+		<script src="../../js/userAgent.js" type="text/javascript" charset="utf-8"></script>
+		<style type="text/css">
+			#sliderSegmentedControl2 .mui-scroll{display: flex;}
+			#sliderSegmentedControl2 a.mui-control-item{flex: 1;}
+			#sliderSegmentedControl2 a.mui-control-item.mui-active{color:#7CDA7B;border-bottom: 2px solid #7CDA7B;}
+			.mui-segmented-control.mui-scroll-wrapper{height: 40px;}
+			.mui-segmented-control.mui-scroll-wrapper .mui-scroll{height: 40px;}
+			.mui-pull-bottom-tips {
+                text-align: center;
+                background-color: #efeff4;
+                font-size: 15px;
+                line-height: 40px;
+            }
+            .mui-fullscreen .mui-segmented-control~.mui-slider-group{top:38px}
+            .mui-scroll{background: #fff;}
+            .Article-body p{color: black;text-align:justify;}
+            .mui-fullscreen{bottom: 0;}
+		</style>
+		<script src="../../js/angular.min.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+
+	<body>
+		<!--<header class="header" id="noMicromessenger"></header>-->
+		<!-- <header class="header"></header> -->
+		<div class="mui-content">
+			<div id="" class="mui-slider mui-fullscreen" style="bottom: 0;">
+				<div id="sliderSegmentedControl2" class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+					<div class="mui-scroll" style="width: 100%;background: #fff;border-bottom: 1px solid #EEEEEE;">
+						<a class="mui-control-item mui-active" href="#item1mobile">
+							项目介绍
+						</a>
+						<a class="mui-control-item" href="#item2mobile">
+							项目流程
+						</a>
+						<!--<a class="mui-control-item" href="#item3mobile">
+							项目进度
+						</a>-->
+					</div>
+				</div>
+				<div class="mui-slider-group">
+					<div ng-controller = "fundslist1"  id="item1mobile" class="mui-slider-item mui-control-content mui-active">
+						<div id="scroll1" class="mui-scroll-wrapper">
+							<div class="mui-scroll">
+								<div class="Article">
+									<!--<div>
+									
+									<div class="Article-header">
+										<h4>贵州省烟草公司毕节市公司卷烟物流配送中心物流</h4>
+										<p>发布单位：<span>金海湖新区管委会</span></p>
+										
+										<p class="look">发布时间：<span>2012.03.21</span><span>300<i class="icon wx-guankan-"></i></span></p>
+									</div>
+									
+									<div class="Article-body">
+										<img src="../../img/slider1.jpg"/>
+										<p>这个路面如此坑坑洼洼的有将近一年多，根本没人管。加深对接口按实际看的吧实木地板即可报名，
+											把对面把什么牛逼舅妈说不定静安寺马上办大美女</p>
+										
+									</div>
+									</div>-->
+								</div>
+							</div>
+						</div>
+					</div>
+					<div ng-controller = "fundslist2" id="item2mobile" class="mui-slider-item mui-control-content">
+						<div class="mui-scroll-wrapper" id="scroll2">
+							<div class="mui-scroll">
+								<div style="background: white;margin-bottom: 20px;">
+									<div class="interviewBox">
+											<div class="timebarProgress"></div>
+<!--											
+											<div class="interviewTimeContent">
+												<div class="interviewPadding">
+												   <div class="contentText"> 
+													    <div class="redDot active"><i class="icon wx-gou"></i></div> 
+													    <div class="triangle"></div> 
+													    <div class="interviewTextPadding">
+													    	<h2>第一项：项目招标公示</h2> 
+														    <p>摘要 ： <span>2016年12月12日金海湖新区针对新双大道发布招标公示</span></p> 
+														     <div class="Lookfile">
+														     	<span class="filebutton">查看图片附件</span>
+														     	<div class="fileimgs">
+														     		<img src="../../img/demo.png"  data-preview-src="" data-preview-group="1" style="width: 100px;" />
+														     		<img src="../../img/slider1.jpg" data-preview-src="" data-preview-group="1" style="width: 100px;" />
+														     	</div>
+			
+														     </div>
+														    <p>更新时间 ：<span>2017-01-03</span></p>
+													    </div>
+												   </div> 
+											   </div>
+											</div> 
+											<div class="interviewTimeContent"> 
+											   <div class="interviewPadding">
+												   <div class="contentText"> 
+													    <div class="redDot active"><i class="icon wx-gou"></i></div> 
+													    <div class="triangle"></div> 
+													    <div class="interviewTextPadding">
+													    	<h2>第二项：项目招标公示</h2> 
+														    <p>摘要 ： <span>2016年12月12日金海湖新区针对新双大道发布招标公示</span></p> 
+														   
+														    <div class="Lookfile">
+														     	<span class="filebutton">查看图片附件</span>
+														     	<div class="fileimgs">
+														     		<img src="../../img/demo.png"  data-preview-src="" data-preview-group="2" style="width: 100px;"/>
+														     		<img src="../../img/slider1.jpg" data-preview-src="" data-preview-group="2" style="width: 100px;"/>
+														     	</div>
+			
+														     </div>
+														  
+														    <p>更新时间 ：<span>2017-01-03</span></p>
+													    </div>
+												   </div> 
+											   </div>
+											</div> 
+											<div class="interviewTimeContent"> 
+											   <div class="interviewPadding">
+												   <div class="contentText"> 
+													    <div class="redDot"><i class="icon wx-gou"></i></div> 
+													    <div class="triangle"></div> 
+													    <div class="interviewTextPadding">
+													    	<h2>第三项：项目招标公示</h2> 
+														   
+													    </div>
+												   </div> 
+											   </div>
+											</div> 
+											<div class="interviewTimeContent"> 
+											   <div class="interviewPadding">
+												   <div class="contentText"> 
+													    <div class="redDot"><i class="icon wx-gou"></i></div> 
+													    <div class="triangle"></div> 
+													    <div class="interviewTextPadding">
+													    	<h2>第四项：项目招标公示</h2> 
+														    
+													    </div>
+												   </div> 
+											   </div>
+											</div> 
+									-->
+									</div>	
+								</div>
+							</div>
+						</div>
+					</div>
+
+
+				</div>
+			</div>
+		</div>
+		<script src="../../js/jquery-1.8.3.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/mui.pullToRefresh.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/mui.pullToRefresh.material.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/angular-route.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/public_templete.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/all.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/people_supervision.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/mui.zoom.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/mui.previewimage.js" type="text/javascript" charset="utf-8"></script>
+		<script>
+			mui.init();
+			//  记录下一页数据
+				var num = '';
+			(function($) {
+				//阻尼系数
+				var deceleration = mui.os.ios?0.003:0.0009;
+				$('.mui-scroll-wrapper').scroll({
+					bounce: false,
+					scrollX: false, //是否横向滚动
+					indicators: true, //是否显示滚动条
+					deceleration:deceleration
+				});
+				$.ready(function() {
+					var ID = HuaXia.getURL_id();
+					//循环初始化所有下拉刷新，上拉加载。
+					$.each(document.querySelectorAll('.mui-slider-group .mui-scroll'), function(index, pullRefreshEl) {
+//						页面一
+						if(index==0){
+							console.log(ID);
+							var apiUrl = API.PROJECTS.projectIndroduce.replace(/<project_id>/,ID);
+							HuaXia.Ajax({
+								type:'get',
+								url:apiUrl,
+							},function(data){
+								if(HuaXia.GIFD(data.project)==''){
+									jQuery("#scroll1").html(notdata('暂时没有更多数据!!'));
+								}else{
+									var ev = document.getElementsByClassName('Article')[0];
+									var dom = 'div';
+									var obj = [];
+									var time = parseInt(data.project.timed/100);
+									var Date = HuaXia.format(data.project.timed,1);
+									var imgs = '';
+									if(data.project.images!=undefined){
+										for(var i=0;i<data.project.images.length;i++){
+											imgs = imgs+'<img src="'+data.project.images[i].url+'"/>'
+										}
+									}
+									var html = '<div class="Article-header"><h4>'+data.project.title+'</h4>'+
+											   '<p>发布单位：<span>'+data.project.gov.name+'</span></p>'+
+											   '<p class="look">发布时间：<span>'+Date+'</span><span style="color:#7CDA7B"><img src="../../img/see.png" style="height:15px;vertical-align: sub;margin-right:5px">'+data.project.views+'</span></p>'+
+											   '</div><div class="Article-body">'+imgs+
+											   '<p>'+data.project.content+'</p></div>';
+											   //console.log(data.project.images);
+									HuaXia.Addhtml(ev,dom,html,obj);
+								}
+							});
+						}
+//						页面二
+						if(index==1){
+							var apiUrl = API.PROJECTS.projectStep.replace(/<project_id>/,ID);
+							HuaXia.Ajax({
+								type:'get',
+								url:apiUrl,
+							},function(data){
+								if(HuaXia.GIFD(data.steps)==''){
+									jQuery("#scroll2").html(notdata("暂时没有更多数据!!"));
+								}else{
+									for(var i=0;i<data.steps.length;i++){
+										var ev = document.getElementsByClassName('interviewBox')[0];
+										var dom = 'div';
+										var obj = ['class','interviewTimeContent','id',data.steps[i]._id];
+										var content;
+										var imgs = new Array;
+										var imgdiv;
+                                        if(data.steps[i].result.images.length==0){
+												imgs[i]='';
+												imgdiv = imgs[i]='';
+                                        }else{
+												for(var j=0;j<data.steps[i].result.images.length;j++){
+													imgs[i] = imgs[i]+'<img src="'+IMG_web+data.steps[i].result.images[j]+'"  data-preview-src="" data-preview-group="'+i+'" style="width: 100px;height:30px" />';
+												}
+												imgdiv = '<div class="Lookfile" ><span class="filebutton">查看图片附件</span>'+
+													  		 '<div class="fileimgs">'+imgs[i]+'</div></div>';
+                                        }
+										if(data.steps[i].result.desc==null){
+											content = imgdiv;
+										}else{
+											var zaiyao = HuaXia.delChtml(data.steps[i].result.desc);
+											var time = parseInt(data.steps[i].result.timed);
+											var Date = HuaXia.format(time,1);
+											content = '<p>摘要 ： <span>'+zaiyao+'</span></p>'+
+													  imgdiv+
+													  '<p>更新时间 ：<span>'+Date+'</span></p>';
+													  
+										}
+										var html = '<div class="interviewPadding"><div class="contentText">'+
+												   '<div class="redDot active"><i class="icon wx-gou"></i></div>'+
+												   '<div class="triangle"></div>'+
+												   '<div class="interviewTextPadding"><h2>'+data.steps[i].name+'</h2>'+content+
+												   '</div></div></div>';
+										HuaXia.Addhtml(ev,dom,html,obj);		   
+									}
+	//								获取当前进度
+									var process = 0;
+									for(var n=data.steps.length-1;n>=0;n--){
+										
+										if(data.steps[n].result.desc==null){
+											process = n;
+										}
+									}
+									var top = jQuery('.interviewTimeContent:nth-child('+(process+1)+')').offsetTop;
+									var c_hength = (jQuery('.interviewTimeContent').height())/2;
+									var height = top + c_hength +'px';
+									//设置进度条
+									jQuery(".timebarProgress").animate({height:height});
+								}
+							});
+						}
+//
+					});
+					
+				});
+			})(mui);
+			mui.previewImage();
+		</script>
+	</body>
+</html>

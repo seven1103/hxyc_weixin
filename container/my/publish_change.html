@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+		<meta http-equiv="Pragma" content="no-cache" />
+		<meta http-equiv="Expires" content="0" />
+		<title>修改发布</title>
+		<link rel="stylesheet" type="text/css" href="../../css/mui.min.css"/>
+		<!--<link rel="stylesheet" type="text/css" href="../../css/all.css"/>-->
+		<link rel="stylesheet" type="text/css" href="../../css/wx_talent.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/wx_icon.css"/>
+		<script src="../../js/userAgent.js" type="text/javascript" charset="utf-8"></script>
+		<style type="text/css">
+			.issue_add_imgbox{display: flex;flex-flow: wrap;}
+			.issue_add_imgbox .img-see{position: relative;}
+			.issue_add_imgbox .img-see .delete{position: absolute;z-index: 2;right: 5px;top: 0;height: 20px;
+			width: 20px;background: red;color: #fff;font-size: 20px;line-height: 20px;text-align: center;opacity: 0.5;}
+			.issue_add_imgbox img{height: 60px;width: 60px;object-fit: cover;margin-right: 5px;margin-bottom: 5px;}
+			.issue_add_imgbox .img-view{display: inline-block;display: flex;position: relative;height: 60px;width: 60px;}
+			.issue_add_imgbox .img-view .demo_form_input.img{height: 60px;width: 60px;position: absolute;opacity: 0;top: 0;left: 0;}
+			/*.issue_add_btn.img{}*/
+
+		</style>
+	</head>
+	<body>
+		<div id="issue">
+				   <section class="talent_issue" >
+					<div class="issue_add_title">
+						<div class="issue_add_info">标　　题 :</div>
+						<div class="issue_input"><input type="text" name="issue_title" ng-model="issue_title" id="issue_title" value=""  placeholder="这里输入输入标题"/></div>
+					</div>
+					<div class="issue_add_location">
+						<div class="issue_add_info">岗位薪资 :</div>
+						<div class="issue_input"><input type="text" name="issue_location" ng-model="issue_location" id="issue_location" value="" placeholder="这里输入输入岗位薪资" /></div>
+					</div>
+					<div class="issue_add_location">
+						<div class="issue_add_info">务工地点 :</div>
+						<div class="issue_input"><input type="text" name="issue_location" ng-model="issue_location" id="issue_location" value="" placeholder="这里输入输入务工地点" /></div>
+					</div>
+					<div class="issue_add_location">
+						<div class="issue_add_info">单位福利 :</div>
+						<div class="issue_input">
+							<div class="mui-input-row mui-checkbox mui-left">
+							    <label>包吃</label>
+							    <input name="radio" type="checkbox" checked>
+							</div>
+							<div class="mui-input-row mui-checkbox mui-left ">
+							    <label>包住</label>
+							    <input name="radio" type="checkbox" checked>
+							</div>
+							<div class="mui-input-row mui-checkbox mui-left ">
+							    <label>五险</label>
+							    <input name="radio" type="checkbox" checked>
+							</div>
+							<div class="mui-input-row mui-checkbox mui-left ">
+							    <label>一金</label>
+							    <input name="radio" type="checkbox" checked>
+							</div>
+						</div>
+					</div>
+					<div class="issue_add_recruit">
+						<div class="issue_add_info">招聘人数 :</div>
+						<div class="issue_input"><input type="text" name="issue_num" ng-model="issue_num" id="issue_num" value="" placeholder="这里输入招聘人数" /></div>
+					</div>
+					<div class="issue_add_detail">
+						<div class="issue_add_info">情况介绍 :</div>
+						<div class="issue_detail_input">
+							<textarea name="issue_detail" id="issue_detail" ng-model="issue_detail" rows="5" cols="" placeholder="这里输入务工详情内容......"></textarea>
+						</div>
+					</div>
+					<div class="issue_add_img">
+						<div class="issue_add_info">添加封面 :</div>
+						<div class="issue_add_imgbox" id='fm1'>
+							<div class="img-view">
+								<div class="issue_add_btn img">
+								<span class="icon wx-zengjia"></span>
+								</div>
+								<input class="demo_form_input img" type="file" name="file[]" multiple="multiple" accept="image/*" onchange="add(this,this.files);" />
+							</div>
+						</div>
+					</div>
+				</section>	
+				<div class="borderBottom"></div>
+				<!--官方信息-->
+				<section class="talent_issue">
+					<div class="issue_add_title">
+						<div class="issue_add_info">企业名称 :</div>
+						<div class="issue_input"><input type="text" name="issue_title" ng-model="issue_title" id="issue_title" value=""  placeholder="这里输入企业名称"/></div>
+					</div>
+					<div class="issue_add_img" style="border: none;">
+						<div class="issue_add_info">添加封面 :</div>
+						<div class="issue_add_imgbox" id='fm2'>
+							<div class="img-view">
+								<div class="issue_add_btn img">
+								<span class="icon wx-zengjia"></span>
+								</div>
+								<input class="demo_form_input img" type="file" name="file[]" multiple="multiple" accept="image/*" onchange="add(this,this.files);" />
+							</div>
+						</div>
+					</div>
+					<div class="issue_add_recruit">
+						<div class="issue_add_info">联  系  人 :</div>
+						<div class="issue_input"><input type="text" name="issue_num" ng-model="issue_num" id="issue_num" value="" placeholder="这里输入联系人" /></div>
+					</div>
+					<div class="issue_add_recruit">
+						<div class="issue_add_info">联系电话 :</div>
+						<div class="issue_input"><input type="text" name="issue_num" ng-model="issue_num" id="issue_num" value="" placeholder="这里输入联系电话" /></div>
+					</div>
+					<button class="issue_submit" id="Submit">提   交</button>
+				</section>
+				<div style="position: fixed;z-index: 1000;background: #fff;display: none;height: 100px;width: 100px;border-radius: 10px;box-shadow: 0px 0px 0px 4px #888888;line-height: 50px;font-size: 12px;" id="loading">
+					正在上传，请稍等...
+				</div>			
+		      </div><!--发布招聘信息块-->
+		      <script src="../../js/jquery-1.8.3.min.js" type="text/javascript" charset="utf-8"></script>
+			  <script src="../../js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+			 <script src="../../js/loading.js" type="text/javascript" charset="utf-8"></script>
+			 <script src="../../js/all.js" type="text/javascript" charset="utf-8"></script>
+			 <script type="text/javascript">
+//			 		选择图片数组
+					var imgfile1 = new Array();
+					var imgfile2 = new Array();
+					var imgFile =new Array();
+			  		function add(obj,files){
+			  			
+						var ul=obj.parentNode.parentNode;
+					
+						//首先判断当前已选图片数量
+						var img = ul.querySelectorAll('img');
+						if(img.length>3){
+							mui.alert('最多上传四张图片');
+						}else{
+							for(var i=0;i<files.length;i++){
+							//	判断当前的图片组
+							var b = obj.parentNode.parentNode.getAttribute('id');
+							if(b=="fm1"){
+								imgfile1.push(files[i]);
+							}else{
+								imgfile2.push(files[i]);
+							}
+							var img=document.createElement('img');
+							var reader=new FileReader();
+							reader.readAsDataURL(files[i]);
+							reader.onload=function(evt){
+								img.setAttribute('src',evt.target.result);
+							}
+							var src=window.URL.createObjectURL(files[i]);
+							var div = document.createElement('div');
+							div.setAttribute('class','img-see');
+							div.innerHTML = "<img src='"+src+"' /><span class='delete' onclick = 'deletes(this,"+files[i].lastModified+")'>&times;</span>";
+							ul.appendChild(div);
+						}
+					
+						var li=document.createElement('div');
+						li.setAttribute('class','img-view');
+						li.innerHTML='<div class="issue_add_btn img">'+'<span class="icon wx-zengjia"></span></div>'+
+									'<input class="demo_form_input img" type="file" name="file[]" multiple="multiple" accept="image/*" onchange="add(this,this.files);" /></div>';
+						ul.appendChild(li);
+						obj.parentNode.remove();
+						}
+						
+					}
+			  		
+//			  		删除当前选中图片
+					function deletes(obj,index){
+						//						判断删除图片组
+						var c = obj.parentNode.parentNode.getAttribute('id');
+						if(c=='fm1'){
+							for(var j=0;j<imgfile1.length;j++){
+								if(imgfile1[j].lastModified == index){
+									imgfile1.splice(j,1);
+									break;
+								}
+							}
+						}else{
+							for(var j=0;j<imgfile2.length;j++){
+								if(imgfile2[j].lastModified == index){
+									imgfile2.splice(j,1);
+									break;
+								}
+							}
+						}
+						var div = obj.parentNode;
+						div.remove();
+					}
+					
+					document.getElementById('Submit').addEventListener('tap',function(){
+						var length1 = imgfile1.length;
+						var length2 = imgfile2.length;
+						var length = new Array;
+						length[0] = length1;
+						length[1] = length2;
+						imgFile = imgfile1.concat(imgfile2);
+						HuaXia.img_compression(imgFile,length);
+					});
+					
+					//压缩返回参数，这里进入上传人口
+					function callback(data){
+						var imgdata = data;
+						var data = {
+							          
+				       		 "type": '1',                       
+				        	"content": "曝光内容",                 
+				        	"images": imgdata,       
+				       		  
+						}
+           				console.log(imgdata);
+						/*$.ajax({
+								type:"POST",
+								url:'http://192.168.6.218:8881/mweb/v3.0b/supervise/exposures/',
+								async:true,
+								data:data,
+								success:function(data){
+									console.log(data);
+								},
+								error:function(error){
+									console.log(error);
+								}
+						});*/
+					}
+			  </script>
+	</body>
+</html>
